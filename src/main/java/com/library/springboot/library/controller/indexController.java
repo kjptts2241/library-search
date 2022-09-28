@@ -33,4 +33,9 @@ public class indexController {
     public String register() {
         return "register";
     }
+
+    @GetMapping("/search")
+    public String search() {
+        return "search";
+    }
 }

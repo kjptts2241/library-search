@@ -1,5 +1,10 @@
-{{>layout/header}}
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ include file="./layout/header.jsp" %>
+
+
+
+<!-- main 2 페이지 -->
 
 <!-- Product Section Begin -->
 <section class="product spad">
@@ -17,7 +22,7 @@
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/1.jpg"></div>
+                    <div class="product__item__pic set-bg" data-setbg="images/1.jpg"></div>
                     <div class="product__item__text">
                         <h6>작가</h6>
                         <div class="rating">별점
@@ -31,7 +36,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -47,7 +51,7 @@
             <div class="card">
                 <div class="row no-gutters">
                     <div class="col-md-3">
-                        <img src="img/1.jpg" class="rounded" alt="...">
+                        <img src="images/1.jpg" class="rounded" alt="...">
                     </div>
                     <div class="col-md-9">
                         <div class="card-body">
@@ -64,7 +68,7 @@
             <div class="card">
                 <div class="row no-gutters">
                     <div class="col-md-3">
-                        <img src="img/1.jpg" class="rounded" alt="...">
+                        <img src="images/1.jpg" class="rounded" alt="...">
                     </div>
                     <div class="col-md-9">
                         <div class="card-body">
@@ -81,7 +85,7 @@
             <div class="card">
                 <div class="row no-gutters">
                     <div class="col-md-3">
-                        <img src="img/1.jpg" class="rounded" alt="...">
+                        <img src="images/1.jpg" class="rounded" alt="...">
                     </div>
                     <div class="col-md-9">
                         <div class="card-body">
@@ -98,7 +102,7 @@
             <div class="card">
                 <div class="row no-gutters">
                     <div class="col-md-3">
-                        <img src="img/1.jpg" class="rounded" alt="...">
+                        <img src="images/1.jpg" class="rounded" alt="...">
                     </div>
                     <div class="col-md-9">
                         <div class="card-body">
@@ -115,7 +119,7 @@
             <div class="card">
                 <div class="row no-gutters">
                     <div class="col-md-3">
-                        <img src="img/1.jpg" class="rounded" alt="...">
+                        <img src="images/1.jpg" class="rounded" alt="...">
                     </div>
                     <div class="col-md-9">
                         <div class="card-body">
@@ -131,4 +135,6 @@
     </div>
 </div>
 
-{{>layout/footer}}
+
+
+<%@ include file="./layout/footer.jsp" %>

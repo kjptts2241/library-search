@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!-- 구글 지도 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -89,12 +92,6 @@
 
       .neighborhood-discovery .star-icon:last-child {
         margin-right: 0.2em;
-      }
-
-      .neighborhood-discovery .travel-icon {
-        height: 1.2em;
-        margin-top: -0.08em;
-        vertical-align: top;
       }
 
       .neighborhood-discovery .map {
@@ -451,8 +448,6 @@
         // Initialize additional capabilities ----------------------------------
 
         initializeSearchInput();
-        initializeDistanceMatrix();
-        initializeDirections();
 
         // Initializer function definitions ------------------------------------
 
@@ -506,12 +501,6 @@
               },
             });
           };
-
-          // Add marker at the center location (if specified).
-          if (configuration.centerMarker && configuration.centerMarker.icon) {
-            drawMarker('Home', widget.center,
-                       '#1A73E8', '#185ABC', configuration.centerMarker.icon);
-          }
 
           // Add marker for the specified Place object.
           widget.addPlaceMarker = function(place) {
@@ -690,7 +679,6 @@
               backButtonEl.addEventListener('click', () => {
                 hideElement(detailsPanelEl, prevFocusEl);
                 selectedPlaceId = undefined;
-                widget.updateDirections();
                 widget.selectedPlaceMarker.setMap(null);
               });
               detailsPanelEl.querySelectorAll('.photo').forEach((photoEl, i) => {
@@ -713,8 +701,6 @@
                 widget.map.panTo(place.coords);
               }
               showDetailsPanel(place);
-              widget.fetchDuration(place, showDetailsPanel);
-              widget.updateDirections(place);
             };
 
             widget.fetchPlaceDetails(placeId, [
@@ -815,76 +801,16 @@
             searchInputEl.value = '';
           });
         }
-
-        /** Initializes Distance Matrix service for the widget. */
-        function initializeDistanceMatrix() {
-          const distanceMatrixService = new google.maps.DistanceMatrixService();
-
-          // Annotate travel times from the centered location to the specified place.
-          widget.fetchDuration = function(place, callback) {
-            if (!widget.center || !place || !place.coords || place.duration) return;
-            const request = {
-              origins: [widget.center],
-              destinations: [place.coords],
-              travelMode: google.maps.TravelMode.DRIVING,
-            };
-            distanceMatrixService.getDistanceMatrix(request, function(result, status) {
-              if (status === google.maps.DistanceMatrixStatus.OK) {
-                const trip = result.rows[0].elements[0];
-                if (trip.status === google.maps.DistanceMatrixElementStatus.OK) {
-                  place.duration = trip.duration;
-                  callback(place);
-                }
-              }
-            });
-          };
-        }
-
-        /** Initializes Directions service for the widget. */
-        function initializeDirections() {
-          const directionsService = new google.maps.DirectionsService();
-          const directionsRenderer = new google.maps.DirectionsRenderer({
-            suppressMarkers: true,
-            preserveViewport: true,
-          });
-
-          // Update directions from the centered location to specified place.
-          widget.updateDirections = function(place) {
-            if (!widget.center || !place || !place.coords) {
-              directionsRenderer.setMap(null);
-              return;
-            }
-            // Use existing results if available.
-            if (place.directions) {
-              directionsRenderer.setMap(widget.map);
-              directionsRenderer.setDirections(place.directions);
-              return;
-            }
-            const request = {
-              origin: widget.center,
-              destination: place.coords,
-              travelMode: google.maps.TravelMode.DRIVING,
-            };
-            directionsService.route(request, function(result, status) {
-              if (status === google.maps.DirectionsStatus.OK) {
-                place.directions = result;
-                directionsRenderer.setMap(widget.map);
-                directionsRenderer.setDirections(result);
-              }
-            });
-          };
-        }
       }
     </script>
     <script>
       const CONFIGURATION = {
-        "capabilities": {"search":true,"distances":true,"directions":true,"contacts":true,"atmospheres":true,"thumbnails":true},
+        "capabilities": {"search":true,"distances":false,"directions":false,"contacts":true,"atmospheres":true,"thumbnails":true},
         "pois": [
-          {"placeId": "ChIJqdf_hzXraDURUdXxEGNSK0s"}
+          {"placeId": "ChIJxynRPgeJbzURxKtzhMfVpNQ"}
         ],
-        "centerMarker": {"icon":"circle"},
-        "mapRadius": 1000,
-        "mapOptions": {"center":{"lat":35.1832775,"lng":129.0500255},"fullscreenControl":true,"mapTypeControl":true,"streetViewControl":false,"zoom":16,"zoomControl":true,"maxZoom":20,"mapId":""},
+        "mapRadius": 5000,
+        "mapOptions": {"center":{"lat":35.907757,"lng":127.766922},"fullscreenControl":true,"mapTypeControl":true,"streetViewControl":false,"zoom":16,"zoomControl":true,"maxZoom":20,"mapId":""},
         "mapsApiKey": "AIzaSyBlicM3V_f4XSO1pigZn06BArR8RJCEv7U"
       };
 
@@ -906,7 +832,7 @@
                 <span>&nbsp;({{numReviews}})</span>
               {{/if}}
               {{#if priceLevel}}
-                &#183;&nbsp;<span>{{#each dollarSigns}}${{/each}}&nbsp;</span>
+                &#183;&nbsp;<span>{{#each dollarSigns}}{{/each}}&nbsp;</span>
               {{/if}}
             </div>
             <div class="info">{{type}}</div>
@@ -947,18 +873,12 @@
           {{#if priceLevel}}
             &#183;
             <span class="price-dollars">
-              {{#each dollarSigns}}${{/each}}
+              {{#each dollarSigns}}{{/each}}
             </span>
           {{/if}}
         </div>
         {{#if type}}
           <div class="info">{{type}}</div>
-        {{/if}}
-        {{#if duration}}
-          <div class="info">
-            <img src="https://fonts.gstatic.com/s/i/googlematerialicons/directions_car/v11/24px.svg" alt="car travel" class="travel-icon"/>
-            <span>&nbsp;{{duration.text}}</span>
-          </div>
         {{/if}}
       </header>
       <div class="section">
@@ -1081,6 +1001,6 @@
         <path d="M13 0C5.817 0 0 5.93 0 13.267c0 7.862 5.59 10.81 9.555 17.624C12.09 35.248 11.342 38 13 38c1.723 0 .975-2.817 3.445-7.043C20.085 24.503 26 21.162 26 13.267 26 5.93 20.183 0 13 0Z"/>
       </svg>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlicM3V_f4XSO1pigZn06BArR8RJCEv7U&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v2_cABCDEF" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlicM3V_f4XSO1pigZn06BArR8RJCEv7U&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_neighborhooddiscovery_v2_cADEF" async defer></script>
   </body>
 </html>

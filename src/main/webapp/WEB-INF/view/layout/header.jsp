@@ -1,18 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
+
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="description" content="Male_Fashion Template">
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Library</title>
 
-    <!-- Google Font -->
+    <!-- 구글 폰트 -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
+    <!-- css -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
@@ -31,6 +35,7 @@
 </div>
 
 
+<!-- 상단 메뉴바 -->
 <div class="container">
     <div class="row">
         <div class="col-lg-3 col-md-3">
@@ -42,7 +47,7 @@
         <div class="col-lg-6 col-md-6">
             <nav class="header__menu mobile-menu">
                 <ul>
-                    <li><a href="#" class="search-switch">검색</a></li>
+                    <li><a href="/search">검색</a></li> <!-- class="search-switch 원래 있던 검색 페이지 코드 -->
                     <li><a href="/map">지도</a></li>
                     <li><a href="/mybook">내 서제</a></li>
                 </ul>
