@@ -13,42 +13,200 @@ import java.io.IOException;
 @RestController
 public class SearchController {
     
-    @GetMapping("/api") // http://localhost:8080/api
-    public void api() throws IOException{
+    @GetMapping("/api") // 도서 키워드 목록 조회
+    public String api(String keyword) throws IOException{
         
-        StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/srchBooks"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
-        urlBuilder.append("&" + URLEncoder.encode("keyword","UTF-8") + "=" + URLEncoder.encode("역사", "UTF-8")); /*키워드*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+        StringBuilder result = new StringBuilder();
 
-        URL url = new URL(urlBuilder.toString());
+        try {
+            StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/srchBooks"); /*URL*/
+            urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
+            urlBuilder.append("&" + URLEncoder.encode("keyword","UTF-8") + "=" + URLEncoder.encode(keyword, "UTF-8")); /*키워드*/
+            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 수*/
+            urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*한 페이지 결과 수*/
+            
+            URL url = new URL(urlBuilder.toString());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
 
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Content-type", "application/json");
+            
+            System.out.println("Response code: " + conn.getResponseCode());
+            
+            BufferedReader rd;
+            
+            if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            } else {
+                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
 
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
-        
-        System.out.println("Response code: " + conn.getResponseCode());
-        
-        BufferedReader rd;
-        
-        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            String line;
+
+            while ((line = rd.readLine()) != null) {
+                result.append(line + "\n");
+            }
+
+            rd.close();
+            conn.disconnect();
+
+            System.out.println(result.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        StringBuilder sb = new StringBuilder();
-        String line;
-
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
+        return result + "";
         
-        rd.close();
-        conn.disconnect();
+    }
 
-        System.out.println(sb.toString());
+    @GetMapping("/apiDetails") // isbn을 직접 넣어서 도서 상세 검색
+    public String apiDetails(String isbn13) throws IOException{
+        StringBuilder result = new StringBuilder();
+
+        try {
+            StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/srchDtlList"); /*URL*/
+            urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
+            urlBuilder.append("&" + URLEncoder.encode("isbn13","UTF-8") + "=" + isbn13); /*isbn 13자리*/
+            urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
+            System.out.println(urlBuilder);
+           
+            
+            URL url = new URL(urlBuilder.toString());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            conn.setRequestProperty("Content-type", "application/json");
+            
+            System.out.println("Response code: " + conn.getResponseCode());
+            
+            BufferedReader rd;
+            
+            if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            } else {
+                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
+
+            String line;
+
+            while ((line = rd.readLine()) != null) {
+                result.append(line + "\n");
+            }
+
+            rd.close();
+            conn.disconnect();
+
+            System.out.println(result.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result + "";
+        
+    }
+
+    @GetMapping("/apibooksch") // 도서관별 장서/대출 데이터 조회
+    public String apibooksch(String libCode) throws IOException{
+        StringBuilder result = new StringBuilder();
+
+        try {
+            StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/itemSrch"); /*URL*/
+            urlBuilder.append("?" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("ALL", "UTF-8")); /*페이지 수*/
+            urlBuilder.append("&" + URLEncoder.encode("libCode","UTF-8") + "=" + libCode); /*도서관 코드*/
+            urlBuilder.append("&" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
+            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 수*/
+            urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
+            System.out.println(urlBuilder);
+           
+            
+            URL url = new URL(urlBuilder.toString());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            conn.setRequestProperty("Content-type", "application/json");
+            
+            System.out.println("Response code: " + conn.getResponseCode());
+            
+            BufferedReader rd;
+            
+            if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            } else {
+                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
+
+            String line;
+
+            while ((line = rd.readLine()) != null) {
+                result.append(line + "\n");
+            }
+
+            rd.close();
+            conn.disconnect();
+
+            System.out.println(result.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result + "";
+        
+    }
+
+        @GetMapping("/apiPopularBook") // 인기대출 도서 조회
+        public String apiPopularBook(String startYYYY, String startMM, String startDD, String endYYYY, String endMM, String endDD, String gender) throws IOException{
+
+        StringBuilder result = new StringBuilder();
+
+        try {
+            StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/loanItemSrch"); /*URL*/
+            urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
+            urlBuilder.append("&" + URLEncoder.encode("startDt","UTF-8") + "=" + startYYYY + "-" +  startMM + "-" + startDD); /*페이지 수*/
+            urlBuilder.append("&" + URLEncoder.encode("endDt","UTF-8") + "=" + endYYYY + "-" + endMM + "-" + endDD); /*페이지 수*/
+            urlBuilder.append("&" + URLEncoder.encode("gender","UTF-8") + "=" + gender); /*성별*/
+            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 수*/
+            urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
+            System.out.println(urlBuilder);
+           
+            
+            URL url = new URL(urlBuilder.toString());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            conn.setRequestProperty("Content-type", "application/json");
+            
+            System.out.println("Response code: " + conn.getResponseCode());
+            
+            BufferedReader rd;
+            
+            if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            } else {
+                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
+
+            String line;
+
+            while ((line = rd.readLine()) != null) {
+                result.append(line + "\n");
+            }
+
+            rd.close();
+            conn.disconnect();
+
+            System.out.println(result.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result + "";
+        
     }
 }

@@ -2,16 +2,65 @@
 
 <th:block layout:fragment="content">
 
-    <!-- <div class="container">
+    <div class="container">
+
         <h2>도서 검색</h2>
-        <form action="/booksearch">
+        <form action="/api">
           <div class="form-group">
             <label for="keyword">키워드:</label>
-            <input type="keyword" class="form-control" id="keyword" placeholder="Enter keyword" name="keyword">
+            <input type="keyword" class="form-control" id="keyword" placeholder="도서명" name="keyword">
           </div>
           <button type="submit" class="btn btn-primary">도서 검색</button>
         </form>
-      </div> -->
+
+        <br><br>
+
+        <form action="/apiDetails">
+          <div class="form-group">
+            <label for="keyword">isbm13:</label>
+            <input type="isbn13" class="form-control" id="isbn13" placeholder="isbn13" name="isbn13">
+          </div>
+          <button type="submit" class="btn btn-primary">(isbn13)도서 상세 검색</button>
+        </form>
+
+        <br><br>
+
+        <form action="/apibooksch">
+          <div class="form-group">
+            <label for="keyword">해당 도서관 장서/대출:</label>
+            <input type="libCode" class="form-control" id="libCode" placeholder="도서관 코드" name="libCode">
+          </div>
+          <button type="submit" class="btn btn-primary">장서/대출 검색</button>
+        </form>
+
+        <br><br>
+
+        <form action="/apiPopularBook">
+          <div class="form-group">
+            <label for="keyword">인기대출 도서 조회:</label>
+            <label for="keyword">시작 년도:</label>
+            <input type="startYYYY" class="form-control" id="startYYYY" placeholder="시작 년도" name="startYYYY">
+            <label for="keyword">시작 월:</label>
+            <input type="startMM" class="form-control" id="startMM" placeholder="시작 월" name="startMM">
+            <label for="keyword">시작 일:</label>
+            <input type="startDD" class="form-control" id="startDD" placeholder="시작 일" name="startDD">
+            <br>
+            <label for="keyword">끝 년도:</label>
+            <input type="endYYYY" class="form-control" id="endYYYY" placeholder="끝 년도" name="endYYYY">
+            <label for="keyword">끝 월:</label>
+            <input type="endMM" class="form-control" id="endMM" placeholder="끝 월" name="endMM">
+            <label for="keyword">끝 일:</label>
+            <input type="endDD" class="form-control" id="endDD" placeholder="끝 일" name="endDD">
+            <br>
+            <label for="keyword">성별:</label>
+            <input type="gender" class="form-control" id="gender" placeholder="0 or 1" name="gender">
+          </div>
+          <button type="submit" class="btn btn-primary">인기대출 도서 조회</button>
+        </form>
+
+        <br><br>
+
+    </div>
 
 
 </th:block>
