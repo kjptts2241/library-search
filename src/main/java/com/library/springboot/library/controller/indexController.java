@@ -2,15 +2,13 @@ package com.library.springboot.library.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import groovyjarjarpicocli.CommandLine.Model;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-public class indexController {
-    
+public class IndexController {
+
     @GetMapping({"", "/"}) // http://localhost:8080, http://localhost:8080/
     public String indexView() {
         return "index";
@@ -39,5 +37,10 @@ public class indexController {
     @GetMapping("/search")
     public String searchView() {
         return "search";
+    }
+
+    @GetMapping("/subsearch")
+    public String subsearchView() {
+        return "subsearch";
     }
 }
