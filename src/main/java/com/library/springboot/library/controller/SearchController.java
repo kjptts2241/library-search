@@ -13,7 +13,7 @@ import java.io.IOException;
 @RestController
 public class SearchController {
     
-    @GetMapping("/api") // 도서 키워드 목록 조회
+    @GetMapping("/api") // 도서 키워드 목록 조회 // http://localhost:8080/api
     public String api(String keyword) throws IOException{
         
         StringBuilder result = new StringBuilder();
@@ -51,7 +51,7 @@ public class SearchController {
             rd.close();
             conn.disconnect();
 
-            System.out.println(result.toString());
+            //System.out.println(result.toString());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,4 +209,6 @@ public class SearchController {
         return result + "";
         
     }
+
+   
 }
