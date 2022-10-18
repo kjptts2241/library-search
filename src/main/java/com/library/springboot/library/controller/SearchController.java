@@ -77,7 +77,7 @@ public class SearchController {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
-            conn.setRequestProperty("Content-type", "application/json");
+            conn.setRequestProperty("Content-type", "application/json"); 
             
             System.out.println("Response code: " + conn.getResponseCode());
             
@@ -209,6 +209,5 @@ public class SearchController {
         return result + "";
         
     }
-
-   
+  
 }
