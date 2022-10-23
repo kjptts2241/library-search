@@ -13,18 +13,20 @@ import java.io.IOException;
 @RestController
 public class SearchController {
     
-    @GetMapping("/api") // 도서 키워드 목록 조회 // http://localhost:8080/api
+    @GetMapping("/api") // 국립중앙도서관 도서 검색 api // http://localhost:8080/api
     public String api(String keyword) throws IOException{
         
         StringBuilder result = new StringBuilder();
 
         try {
-            StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/srchBooks"); /*URL*/
-            urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
-            urlBuilder.append("&" + URLEncoder.encode("keyword","UTF-8") + "=" + URLEncoder.encode(keyword, "UTF-8")); /*키워드*/
-            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 수*/
-            urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
-            urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*한 페이지 결과 수*/
+            StringBuilder urlBuilder = new StringBuilder("https://www.nl.go.kr/NL/search/openApi/search.do"); /*URL*/
+            urlBuilder.append("?" + URLEncoder.encode("key","UTF-8") + "=a30deda2a59679f7c5a940cc19a2e53c141107d2d077f5157183dbe447c060ab"); /*인증키*/
+            urlBuilder.append("&" + URLEncoder.encode("srchTarget","UTF-8") + "=" + URLEncoder.encode("total", "UTF-8")); /*키워드*/
+            urlBuilder.append("&" + URLEncoder.encode("kwd","UTF-8") + "=" + URLEncoder.encode(keyword, "UTF-8")); /*페이지 수*/
+            urlBuilder.append("&" + URLEncoder.encode("pageNum","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("5", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("systemType","UTF-8") + "=" + URLEncoder.encode("오프라인자료", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("apiType","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*한 페이지 결과 수*/
             
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -62,13 +64,13 @@ public class SearchController {
     }
 
     @GetMapping("/apiDetails") // isbn을 직접 넣어서 도서 상세 검색
-    public String apiDetails(String isbn13) throws IOException{
+    public String apiDetails(String isbn) throws IOException{
         StringBuilder result = new StringBuilder();
 
         try {
             StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/srchDtlList"); /*URL*/
             urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
-            urlBuilder.append("&" + URLEncoder.encode("isbn13","UTF-8") + "=" + isbn13); /*isbn 13자리*/
+            urlBuilder.append("&" + URLEncoder.encode("isbn13","UTF-8") + "=" + isbn); /*isbn*/
             urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
             System.out.println(urlBuilder);
            
