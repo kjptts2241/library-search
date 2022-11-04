@@ -64,13 +64,13 @@ public class SearchController {
     }
 
     @GetMapping("/apiDetails") // isbn을 직접 넣어서 도서 상세 검색
-    public String apiDetails(String isbn) throws IOException{
+    public String apiDetails(String isbn13) throws IOException{
         StringBuilder result = new StringBuilder();
 
         try {
             StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/srchDtlList"); /*URL*/
             urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
-            urlBuilder.append("&" + URLEncoder.encode("isbn13","UTF-8") + "=" + isbn); /*isbn*/
+            urlBuilder.append("&" + URLEncoder.encode("isbn13","UTF-8") + "=" + isbn13); /*isbn*/
             urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
             System.out.println(urlBuilder);
            
