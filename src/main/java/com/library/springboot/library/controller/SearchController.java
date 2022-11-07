@@ -21,7 +21,7 @@ public class SearchController {
         try {
             StringBuilder urlBuilder = new StringBuilder("https://www.nl.go.kr/NL/search/openApi/search.do"); /*URL*/
             urlBuilder.append("?" + URLEncoder.encode("key","UTF-8") + "=a30deda2a59679f7c5a940cc19a2e53c141107d2d077f5157183dbe447c060ab"); /*인증키*/
-            urlBuilder.append("&" + URLEncoder.encode("srchTarget","UTF-8") + "=" + URLEncoder.encode("total", "UTF-8")); /*키워드*/
+            urlBuilder.append("&" + URLEncoder.encode("srchTarget","UTF-8") + "=" + URLEncoder.encode("title", "UTF-8")); /*키워드*/
             urlBuilder.append("&" + URLEncoder.encode("kwd","UTF-8") + "=" + URLEncoder.encode(keyword, "UTF-8")); /*페이지 수*/
             urlBuilder.append("&" + URLEncoder.encode("pageNum","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*한 페이지 결과 수*/
             urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("5", "UTF-8")); /*한 페이지 결과 수*/
@@ -30,7 +30,7 @@ public class SearchController {
             
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("GET"); 
 
             conn.setRequestProperty("Content-type", "application/json");
             
@@ -211,5 +211,4 @@ public class SearchController {
         return result + "";
         
     }
-  
 }
