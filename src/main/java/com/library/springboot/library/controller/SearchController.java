@@ -13,7 +13,7 @@ import java.io.IOException;
 @RestController
 public class SearchController {
     
-    @GetMapping("/api") // 국립중앙도서관 도서 검색 api // http://localhost:8080/api
+    @GetMapping("/api") // [국립 중앙도서관] 도서 검색 api // http://localhost:8080/api
     public String api(String keyword) throws IOException{
         
         StringBuilder result = new StringBuilder();
@@ -63,7 +63,7 @@ public class SearchController {
         
     }
 
-    @GetMapping("/apiDetails") // isbn을 직접 넣어서 도서 상세 검색
+    @GetMapping("/apiDetails") // [도서 정보 나루] isbn을 직접 넣어서 도서 상세 검색
     public String apiDetails(String isbn13) throws IOException{
         StringBuilder result = new StringBuilder();
 
@@ -110,20 +110,22 @@ public class SearchController {
         
     }
 
-    @GetMapping("/apibooksch") // 도서관별 장서/대출 데이터 조회
-    public String apibooksch(String libCode) throws IOException{
+    @GetMapping("/apiPopularBook") // [도서 정보 나루] 인기대출 도서 조회
+    public String apiPopularBook(String startYYYY, String startMM, String startDD, String endYYYY, String endMM, String endDD, String gender) throws IOException{
+
         StringBuilder result = new StringBuilder();
 
         try {
-            StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/itemSrch"); /*URL*/
-            urlBuilder.append("?" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("ALL", "UTF-8")); /*페이지 수*/
-            urlBuilder.append("&" + URLEncoder.encode("libCode","UTF-8") + "=" + libCode); /*도서관 코드*/
-            urlBuilder.append("&" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
+            StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/loanItemSrch"); /*URL*/
+            urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
+            urlBuilder.append("&" + URLEncoder.encode("startDt","UTF-8") + "=" + startYYYY + "-" +  startMM + "-" + startDD); /*페이지 수*/
+            urlBuilder.append("&" + URLEncoder.encode("endDt","UTF-8") + "=" + endYYYY + "-" + endMM + "-" + endDD); /*페이지 수*/
+            urlBuilder.append("&" + URLEncoder.encode("gender","UTF-8") + "=" + gender); /*성별*/
             urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 수*/
             urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
             urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
             System.out.println(urlBuilder);
-           
+        
             
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -160,19 +162,16 @@ public class SearchController {
         
     }
 
-        @GetMapping("/apiPopularBook") // 인기대출 도서 조회
-        public String apiPopularBook(String startYYYY, String startMM, String startDD, String endYYYY, String endMM, String endDD, String gender) throws IOException{
-
+    
+    @GetMapping("/apibookExist") // [도서 정보 나루] 도서관별 도서 소장여부 및 대출 가능여부 조회
+    public String apibookExist(String isbn13, String libCode) throws IOException{
         StringBuilder result = new StringBuilder();
 
         try {
-            StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/loanItemSrch"); /*URL*/
+            StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/bookExist"); /*URL*/
             urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
-            urlBuilder.append("&" + URLEncoder.encode("startDt","UTF-8") + "=" + startYYYY + "-" +  startMM + "-" + startDD); /*페이지 수*/
-            urlBuilder.append("&" + URLEncoder.encode("endDt","UTF-8") + "=" + endYYYY + "-" + endMM + "-" + endDD); /*페이지 수*/
-            urlBuilder.append("&" + URLEncoder.encode("gender","UTF-8") + "=" + gender); /*성별*/
-            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 수*/
-            urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("libCode","UTF-8") + "=" + libCode); /*libCode*/
+            urlBuilder.append("&" + URLEncoder.encode("isbn13","UTF-8") + "=" + isbn13); /*isbn*/
             urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
             System.out.println(urlBuilder);
            
@@ -181,7 +180,7 @@ public class SearchController {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
-            conn.setRequestProperty("Content-type", "application/json");
+            conn.setRequestProperty("Content-type", "application/json"); 
             
             System.out.println("Response code: " + conn.getResponseCode());
             

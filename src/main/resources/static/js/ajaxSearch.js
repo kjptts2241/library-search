@@ -16,70 +16,82 @@ function getJSON() {
             console.log("국립중앙 도서관 도서 데이터 받기 성공");
 
             var result = jsons.result; // 함수의 전체 데이터인 jsons에서 도서의 정보가 있는 result에 들어간 정보를 result 변수에 저장
-            console.log(result[0]);
-ㅇ
+
             for (i in result) // 5개의 도서 데이터를 가지고 있는 result를 하나씩 가져오게 for문으로 실행시키기
             {
-                console.log(i + '번째 도서')
-                html += '======================================================================'
-                html += '<div>' + i + ' 번째 도서</div><br>';
-                html += '<div> 제목 : ' + result[i].titleInfo + '</div><br>';
-                html += '<div> 표제 리스트 : ' + result[i].authorInfo + '</div><br>';
-                html += '<div> 자료 유형 : ' + result[i].typeName + '</div><br>';
-                html += '<div> 자료 있는 곳 명칭 : ' + result[i].placeInfo + '</div><br>';
-                html += '<div> 저작자 : ' + result[i].authorInfo + '</div><br>'; // 응애
-                html += '<div> 발행자 : ' + result[i].pubInfo + '</div><br>';
-                html += '<div> 메뉴명 : ' + result[i].menuName + '</div><br>';
-                html += '<div> 메체 구분 : ' + result[i].mediaName + '</div><br>';
-                html += '<div> 자료 있는 곳 명 : ' + result[i].manageName + '</div><br>';
-                html += '<div> 발행년도사항 : ' + result[i].docYn + '</div><br>';
-                html += '<div> 제어번호 : ' + result[i].orgLink + '</div><br>';
-                html += '<div> 종키 : ' + result[i].id + '</div><br>';
-                html += '<div> 자료유형코드 : ' + result[i].typeCode + '</div><br>';
-                html += '<div> 저작권유무 : ' + result[i].licYn + '</div><br>';
-                html += '<div> 저작권 설명 : ' + result[i].licText + '</div><br>';
-                html += '<div> 비치일 : ' + result[i].regDate + '</div><br>';
-                html += '<div> isbn : ' + result[i].isbn + '</div><br>';
-                html += '<div> 청구기호 : ' + result[i].callNo + '</div><br>';
-                html += '<div> 동양서분류기호 대분류 코드 : ' + result[i].kdcCode1s + '</div><br>';
-                html += '<div> 동양서분류기호 대분류 명칭 : ' + result[i].kdcName1s + '</div><br>';
-                if (result[i].isbn == '') // isbn이 null이면 임의의 이미지 파일 넣기
-                {
-                    html += '<div> 이미지 파일 : 임의의 이미지 파일</div><br>';
-                }
 
                 var isbnNum = result[i].isbn.split(' '); // isbn이 여러개거나 이상한 문자 포함일때 잘라주기
 
-                if (isbnNum[0] != '') // 가져온 도서 중 isbn안에 값이 null 아니라면 실행
+                console.log(i + '번째 도서')
+                html += '======================================================================'
+                html += '<div>' + i + ' 번째 도서</div><br>'; // 도서 순서 확인
+                html += '<div> 제목 : ' + result[i].titleInfo + '</div><br>'; // 도서명
+                html += '<div> 자료 유형 : ' + result[i].typeName + '</div><br>'; // 도서 자료 유형
+                html += '<div> 자료 있는 곳 명칭 : ' + result[i].placeInfo + '</div><br>'; // 자료 있는 곳 명칭
+                html += '<div> 자료 있는 곳 명 : ' + result[i].manageName + '</div><br>'; // 자료 있는 곳 명 (도서관명)
+                html += '<div> 저작자 : ' + result[i].authorInfo + '</div><br>'; // 저작자
+                html += '<div> 발행자 : ' + result[i].pubInfo + '</div><br>'; // 발행자
+                html += '<div> 온라인/오프라인 : ' + result[i].menuName + '</div><br>'; // 온라인/오프라인 자료 구분
+                html += '<div> 메체 구분 : ' + result[i].mediaName + '</div><br>'; // 매체 구분
+                //html += '<div> 원문유무 : ' + result[i].docYn + '</div><br>';
+                // html += '<div> 원문링크 : ' + result[i].orgLink + '</div><br>';
+                html += '<div> 종키 : ' + result[i].id + '</div><br>'; // 종키(?)
+                //html += '<div> 자료유형코드 : ' + result[i].typeCode + '</div><br>';
+                //html += '<div> 저작권유무 : ' + result[i].licYn + '</div><br>';
+                html += '<div> 저작권 이용 가능 유무 : ' + result[i].licText + '</div><br>'; // 저작권 이용 가능 유무
+                html += '<div> 비치일 : ' + result[i].regDate + '</div><br>'; // 비치일 
+                html += '<div> isbn : ' + isbnNum[isbnNum.length - 1] + '</div><br>'; // isbn 13의 끝자리의 값을 들고 온다.(최신 번호 유지가능)
+                html += '<div> 청구기호 : ' + result[i].callNo + '</div><br>'; // 청구기호
+                html += '<div> 동양서분류기호 대분류 코드 : ' + result[i].kdcCode1s + '</div><br>'; // 동양서분류기호 대분류 코드
+                html += '<div> 동양서분류기호 대분류 명칭 : ' + result[i].kdcName1s + '</div><br>'; // 동양서분류기호 대분류 명칭
+                if (result[i].isbn == '') // isbn안에 아무것도 없다면
                 {
-                    $.ajax({
+                    html += '<div> 이미지 파일 : 임의의 이미지 파일</div><br>'; // 임의의 이미지를 넣어준다
+                }
+                
+                if (isbnNum[0] != '') // 가져온 도서 중 isbn의 값이 있거나 여러개라면
+                {
+                    $.ajax({ // 도서 대출 여부 확인
+                        type: "get",
+                        url: "/apibookExist",
+                        data: { isbn13: isbnNum[isbnNum.length - 1], libCode: 127058}, // 도서 데이터가 담긴 result안에 isbn을 가져와서 파라미터를 넣어준다(isbn이 여러개라면 split로 잘라준 isbn 마지막 부분을 넣어준다.)
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: false,
+                        
+                        success: function (json) { // 도서정보나루 도서 상세 정보 함수의 전체 데이터 (json)
+                            console.log(json);
+                        }
+                    })
+
+                    $.ajax({ // 도서 정보 나루의 도서 상세 api를 사용하여 도서의 이미지 url를 가져와준다
                         type: "get",
                         url: "/apiDetails",
-                        data: { isbn13: isbnNum[0] }, // result에서 순서대로 0, 1, 2, 3, 4 번째에 있는 isbn을 빼서 도서정보나루의 도서 상세 정보 함수 실행
+                        data: { isbn13: isbnNum[isbnNum.length - 1] }, // 도서 데이터가 담긴 result안에 isbn을 가져와서 파라미터를 넣어준다(isbn이 여러개라면 split로 잘라준 isbn 마지막 부분을 넣어준다.)
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         async: false,
                         
                         success: function (json) { // 도서정보나루 도서 상세 정보 함수의 전체 데이터 (json)
                             console.log("isbn 가 있는 도서");
-    
+     
                             for (y in json) {
     
                                 var bookData = json[y].detail; // 도서 상세 정보인 json 에서 도서 상세 데이터를 가지고 있는 detail로 들어간 정보를 bookData에 저장
     
-                                for (z in bookData) { // html에 도서 정보들 저장
+                                for (z in bookData) {
                                     
-                                    if (bookData[z].book.bookImageURL != '') // 이미지 파일이 있으면 넣고
+                                    if (bookData[z].book.bookImageURL != ' ') // 가져온 이미지 url이 있다면
                                     {
-                                        html += '<div> 도서 이미지 URL : ' + bookData[z].book.bookImageURL + '</div><br>';
+                                        html += '<div> 도서 이미지 URL : ' + bookData[z].book.bookImageURL + '</div><br>'; // 해당 도서의 이미지 url을 넣어준다
                                     }
 
-                                    if (bookData[z].book.bookImageURL == '') // 없으면 임의의 파일 저장
+                                    if (bookData[z].book.bookImageURL == '') // 없다면
                                     {
-                                        html += '<div> 이미지 파일 : 임의의 이미지 파일2</div><br>';
+                                        html += '<div> 이미지 파일 : 임의의 이미지 파일2</div><br>'; // 임의의 이미지를 넣어준다
                                     }
 
-                                    $('.table_body').html(html);
+                                    $('.table_body').html(html); // html 변수에 넣어준 도서의 데이터들을 subsearch에 있는 table_body class에 붙여준다.
                                 }
                             }
                         }
