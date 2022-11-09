@@ -1,7 +1,10 @@
 package com.library.springboot.library.controller;
 
+import com.library.springboot.library.service.LibraryListService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -11,11 +14,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 @RestController
+@RequiredArgsConstructor
 public class SearchController {
+
+    private final LibraryListService libraryListService; // 도서관 서비스
     
     @GetMapping("/api") // [국립 중앙도서관] 도서 검색 api // http://localhost:8080/api
     public String api(String keyword) throws IOException{
         
+        libraryListService.LibraryListSearch();
+
         StringBuilder result = new StringBuilder();
 
         try {
@@ -208,6 +216,13 @@ public class SearchController {
         }
 
         return result + "";
-        
     }
+
+    // @GetMapping("/dto")
+    // public String dto(){ // 라이브러리 전부 들고오기
+        
+    //     // dto -> java (script) -> ajax
+    //     return libraryListService.LibraryListSearch();
+    // }
 }
+ 
