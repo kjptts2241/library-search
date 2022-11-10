@@ -1,11 +1,13 @@
 package com.library.springboot.library.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class LibraryListDto {
+@NoArgsConstructor
+public class LibraryListDto { // LibraryList DTO
     
     private Long id;
 
@@ -27,5 +29,6 @@ public class LibraryListDto {
 
     private String operatingtime;
     
-    private int libcode; 
+    private int libcode;
+    
 }

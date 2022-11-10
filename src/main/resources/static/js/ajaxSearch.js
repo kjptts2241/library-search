@@ -4,19 +4,24 @@ function getJSON() {
     console.log(keyword);
     var html = '';
     
-    // $.ajax({
-    //     type: "get",
-    //     url: "/libraryList",
-    //     contentType: "application/json; charset=utf-8",
-    //     dataType: "json",
-    //     async: false,
+    $.ajax({ // LibraryListDto를 가져온다
+        type: "get",
+        url: "/LibraryListDto",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
         
-    //     success: function (json) {
-    //         console.log('라이브러리 데이터 : ' + json);
+        success: function (json) {// LibraryListDto 의 전체 데이터 (json)
+            console.log('라이브러리 데이터 : ' + json);
+            
+            for (i in json)
+            {
+                console.log(json[i].libCode);
+            }
  
-    //     }
-    // })
-
+        }
+    })
+    
     $.ajax({ // 국립중앙도서관 검색 함수 실행
         type: "get",
         url: "/api",

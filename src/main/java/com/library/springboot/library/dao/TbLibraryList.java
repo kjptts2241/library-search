@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class TbLibraryList {
+public class TbLibraryList { // TbLibraryList Database
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
