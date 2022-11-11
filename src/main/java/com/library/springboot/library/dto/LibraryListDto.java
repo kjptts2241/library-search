@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LibraryListDto { // LibraryList DTO
+public class LibraryListDto {
     
     private Long id;
 
