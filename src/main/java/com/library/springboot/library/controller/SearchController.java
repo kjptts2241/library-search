@@ -34,7 +34,6 @@ public class SearchController { // 데이터 전달해주는 [ RestController ]
     
     @GetMapping("/api/v1/searchDetails") // (isbn을 받아서) 도서 상세 검색 결과를 불러오기
     public String SearchDetails(String isbn) throws IOException{
-        System.out.println("ㄹㅇ내ㅑ루내야" + isbn);
         String searcDetailsList = searchService.SearchDetailsList(isbn);
         return searcDetailsList;
     }
