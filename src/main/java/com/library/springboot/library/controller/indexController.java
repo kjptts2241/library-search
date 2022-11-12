@@ -8,39 +8,39 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-public class IndexController {
+public class IndexController { // 페이지 경로 지정 [ Controller ]
 
-    @GetMapping({"", "/"}) // http://localhost:8080, http://localhost:8080/
+    @GetMapping({"", "/"}) // 메인 페이지
     public String indexView() {
         return "index";
     }
 
-    @GetMapping("/mybook")   // http://localhost:8080/mybook
+    @GetMapping("/mybook") //내 서제 페이지
     public String mybookView() {
         return "mybook";
     }
 
-    @GetMapping("/map")  // @PostMapping 전달 
+    @GetMapping("/map") // 구글 맵 페이지
     public String mapView() {
         return "map";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login") // 로그인 페이지
     public String loginView() {
         return "login";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/register") // 회원가입 페이지
     public String registerView() {
         return "register";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search") // 검색 페이지
     public String searchView() {
         return "search";
     }
 
-    @GetMapping("/subsearch")
+    @GetMapping("/subsearch") // 서브 검색 페이지
     public String subsearchView() {
         return "subsearch";
     }

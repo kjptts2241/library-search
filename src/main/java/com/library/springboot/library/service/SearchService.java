@@ -8,33 +8,71 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.library.springboot.library.api.BookExistApi;
+import com.library.springboot.library.api.PopularBookApi;
 import com.library.springboot.library.api.SearchApi;
-import com.library.springboot.library.dto.SearchDto;
-import com.library.springboot.library.dto.SearchInfoDto;
+import com.library.springboot.library.api.SearchDetailsApi;
+import com.library.springboot.library.dao.repository.TbLibraryListRepository;
+import com.library.springboot.library.dto.LibraryListDto;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
+
 public class SearchService {
-    
+
+    private final TbLibraryListRepository tbLibraryListRepository; // 도서관 데이터 crud 기능
+
+    // 도서관 전체 리스트 가져오는 기능
     @Transactional
-    public List<SearchDto> SearchList(String keyword) throws IOException {
+    public List<LibraryListDto> LibraryList() throws IOException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        
-        String searchJson = new Gson().toJson(SearchApi.api(keyword));
-        System.out.println("11111111111111111111111111");
-            
-        SearchInfoDto searchInfoDto = mapper.readValue(searchJson, SearchInfoDto.class);
-        System.out.println("2222222222222222222222222");
+        ObjectMapper mapper = new ObjectMapper(); // 도서관 데이터를 자바 객체(LibraryListDto)에 mapping 해주기 위한 ObjectMapper 객체 생성
+                                                 // Mapping 파일에 기재된 SQL을 호출하기 위한 인터페이스
 
-        List<SearchDto> bookList = searchInfoDto.getResult();
-        System.out.println("33333333333333333333333");
+        String Librarylist = new Gson().toJson(tbLibraryListRepository.findAll()); // Gson기능으로 Librarylist를 json으로 변환 시켜서 변수에 저장
 
-        return bookList;
+        // Librarylist를 LibraryListDto타입, List형식으로 mapping
+        List<LibraryListDto> LibraryListDto = Arrays.asList(mapper.readValue(Librarylist, LibraryListDto[].class));
+
+        return LibraryListDto; // LibraryListDto 타입인 List를 Searchcontroller로 전달
+    }
+
+    // 도서 검색 결과 가져오는 기능
+    @Transactional
+    public String SearchList(String keyword) throws IOException { // SearchController에서 키워드를 받아서 api를 실행시킨다음 데이터를 return
+        String searchList = SearchApi.Search(keyword); // 키워드를 api로 넣어준 다음 받아온 데이터를
+        return searchList; // Searchcontroller로 전달
+    }
+
+    // 도서 상세 검색 결과 가져오는 기능
+    @Transactional
+    public String SearchDetailsList(String isbn) throws IOException {
+        String searcDetailsList = SearchDetailsApi.SearchDetails(isbn);
+        return searcDetailsList;
+    }
+
+    // 도서관별 도서 소장여부 및 대출 가능여부 가져오는 기능
+    @Transactional
+    public String BookExistList(String isbn, String libCode) throws IOException {
+        String bookExistList = BookExistApi.BookExist(isbn, libCode);
+        return bookExistList;
+    }
+
+    // 인기대출 도서 가져오는 기능
+    @Transactional
+    public String PopularBookList(String startYYYY, String startMM, String startDD, String endYYYY, String endMM, String endDD, String gender) throws IOException {
+        String popularBookList = PopularBookApi.PopularBook(startYYYY, startMM, startDD, endYYYY, endMM, endDD, gender);
+        return popularBookList;
     }
 }
+
+// 쿼리에 null값이 들어가서 생기는 오류 <sql문의 문제>
+// https://bsssss.tistory.com/795
+
+// 조회 시 char 타입의 칼럼이 공백 또는 null 값을 가지고 있어 발생된 에러 케이스다. 
+// update 쿼리를 통해 공백 또는 null 값을 다른 값으로 대체하여 해결했다.
+// https://walkerlab.tistory.com/17

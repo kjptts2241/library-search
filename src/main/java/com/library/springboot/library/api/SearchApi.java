@@ -9,7 +9,8 @@ import java.net.URLEncoder;
 
 public class SearchApi {
     
-    public static String api(String keyword) throws IOException{
+    // [국립 중앙도서관] 도서 검색 api
+    public static String Search(String keyword) throws IOException{
 
         StringBuilder result = new StringBuilder();
 

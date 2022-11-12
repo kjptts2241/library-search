@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class TbLibraryList { // TbLibraryList Database
+public class TbLibraryList { // TbLibraryList 테이블
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +36,5 @@ public class TbLibraryList { // TbLibraryList Database
     private String operatingtime;
     
     private int libcode;
+    // null값이 id or libcode로 입력이 되서 생기는 오류 확인
 }

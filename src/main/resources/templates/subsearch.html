@@ -1,5 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="layout/default_layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default_layout}">
 
 <th:block layout:fragment="content">
 
@@ -8,48 +7,24 @@
     <h2>도서 검색</h2>
     
     <div class="form-group">
-      <label for="keyword">키워드:</label> -->
+      <label for="keyword">키워드:</label>
       <input type="keyword" class="form-control" id="keyword" placeholder="도서명">
     </div>
     <button type="button" class="btn btn-primary" onclick="getJSON()">도서 검색</button>
 
-    <br><br>
 
-    <!-- <div>
-      <div class="table_body"></div>
+    <!-- 도서 및 도서관 데이터가 들어갈 곳 -->
+    <div>
+      <div class="search_body"></div>
     </div>
-
-    <table>
-      <tr>
-        <td>라이브이름</td>
-        <td>라이브코드</td>
-      </tr>
-      <tr th:each="libraryList : ${LibraryListDto}">
-        <td th:text="${libraryList.libname}"></td>
-        <td th:text="${libraryList.libcode}"></td>
-      </tr>
-    </table> -->
-
-
-    <!-- <table>
-      <tr>
-        <td>titleInfo</td>
-        <td>typeName</td>
-        <td>placeInfo</td>
-      </tr>
-      <tr th:each="l : ${bookList}">
-        <td th:text="${l.titleInfo}"></td>
-        <td th:text="${l.typeName}"></td>
-        <td th:text="${l.placeInfo}"></td>
-      </tr>
-    </table> -->
   
   </div>
 
-  <!-- ajax 키워드 검색 -->
-  <script th:src="@{js/ajax.js}">
-    
-  </script>
+
+
+
+  <!-- 검색 스크립트 -->
+  <script th:src="@{js/ajaxSearch.js}"></script>
   
 </th:block>
 </html>

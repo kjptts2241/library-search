@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LibraryListDto {
+public class LibraryListDto { // 도서관 전체 데이터 (자바 객체)
     
     private Long id;
 
@@ -30,5 +30,4 @@ public class LibraryListDto {
     private String operatingtime;
     
     private int libcode;
-    
 }
