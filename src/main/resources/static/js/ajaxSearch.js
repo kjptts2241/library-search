@@ -1,20 +1,12 @@
-function getJSON() {
+function search() {
 
     var keyword = $("#keyword").val(); // 사용자가 검색한 문자
     console.log("검색한 입력 키워드 : " + keyword);
     var html = ''; // view에 붙여줄 도서 및 도서관 정보 저장 변수
+
     
-    $.ajax({ // LibraryListDto를 가져온다
-        type: "get",
-        url: "/data/v1/librarylist",
-        
-        success: function (list) { // LibraryList 의 전체 데이터 (list)
-            console.log('도서관 전체 데이터 : ' + list);
- 
-        }
-    })
-    
-    $.ajax({ // 국립중앙도서관 검색 함수 실행
+    // 국립중앙도서관 검색 함수 실행
+    $.ajax({
         type: "get",
         url: "/api/v1/search",
         data: { keyword: keyword },
@@ -22,10 +14,10 @@ function getJSON() {
         dataType: "json",
         async: false,
         
-        success: function (jsons) { // 국립정보도서관 검색 함수의 전체 데이터 (jsons)
+        success: function (json) {
             console.log("국립중앙 도서관 도서 데이터 받기 성공");
 
-            var result = jsons.result; // 함수의 전체 데이터인 jsons에서 도서의 정보가 있는 result에 들어간 정보를 result 변수에 저장
+            var result = json.result; // 함수의 전체 데이터인 jsons에서 도서의 정보가 있는 result에 들어간 정보를 result 변수에 저장
 
             for (i in result) // 5개의 도서 데이터를 가지고 있는 result를 하나씩 가져오게 for문으로 실행시키기
             {
@@ -59,22 +51,14 @@ function getJSON() {
                     html += '<div> 이미지 파일 : 임의의 이미지 파일</div><br>'; // 임의의 이미지를 넣어준다
                 }
                 
+
+
                 if (isbnNum[0] != '') // 가져온 도서 중 isbn의 값이 있거나 여러개라면
                 {
-                    $.ajax({ // 도서 대출 여부 확인
-                        type: "get",
-                        url: "/api/v1/bookExist",
-                        data: { isbn: isbnNum[isbnNum.length - 1], libCode: 127058}, // 도서 데이터가 담긴 result안에 isbn을 가져와서 파라미터를 넣어준다(isbn이 여러개라면 split로 잘라준 isbn 마지막 부분을 넣어준다.)
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        async: false,
-                        
-                        success: function (json) { // 도서정보나루 도서 상세 정보 함수의 전체 데이터 (json)
-                            console.log(json);
-                        }
-                    })
 
-                    $.ajax({ // 도서 정보 나루의 도서 상세 api를 사용하여 도서의 이미지 url를 가져와준다
+
+                    // 가져온 도서의 이미지를 불러오기
+                    $.ajax({
                         type: "get",
                         url: "/api/v1/searchDetails",
                         data: { isbn: isbnNum[isbnNum.length - 1] }, // 도서 데이터가 담긴 result안에 isbn을 가져와서 파라미터를 넣어준다(isbn이 여러개라면 split로 잘라준 isbn 마지막 부분을 넣어준다.)
@@ -82,13 +66,14 @@ function getJSON() {
                         dataType: "json",
                         async: false,
                         
-                        success: function (json) { // 도서정보나루 도서 상세 정보 함수의 전체 데이터 (json)
+                        success: function (data1) {
                             console.log("isbn 가 있는 도서");
-     
-                            for (y in json) {
-    
-                                var bookData = json[y].detail; // 도서 상세 정보인 json 에서 도서 상세 데이터를 가지고 있는 detail로 들어간 정보를 bookData에 저장
-    
+
+                            for (y in data1)
+                            {
+
+                                var bookData = data1[y].detail; // 도서 상세 정보인 json 에서 도서 상세 데이터를 가지고 있는 detail로 들어간 정보를 bookData에 저장
+
                                 for (z in bookData) {
                                     
                                     if (bookData[z].book.bookImageURL != ' ') // 가져온 이미지 url이 있다면
@@ -104,15 +89,88 @@ function getJSON() {
                                     $('.search_body').html(html); // html 변수에 넣어준 도서의 데이터들을 subsearch에 있는 search_body class에 붙여준다.
                                 }
                             }
+                        },
+
+                        error: function () {
+                            console.log("도서 이미지 받기 실패");
+                        }
+
+                    })
+
+
+                    // 도서관 전체 데이터를 불러온다. 
+                    // $.ajax({
+                    //     type: "get",
+                    //     url: "/data/v1/librarylist",
+                        
+                    //     success: function (list) {
+
+                    //         for (l in list)
+                    //         {
+                    //             console.log("도서관 코드 데이터" + list[l].libcode);
+
+                    //         }
+                    //     },
+
+                    //     error: function () {
+                    //         console.log("도서관 전체 데이터 받기 실패");
+                    //     }
+                    // })
+
+
+                    // 도서관별 도서 소장여부 및 대출 가능여부 확인
+                    $.ajax({
+                        type: "get",
+                        url: "/api/v1/bookExist",
+                        data: { isbn: isbnNum[isbnNum.length - 1], libCode: 127058},
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: false,
+                    
+                        success: function (data2) { // 도서정보나루 도서 상세 정보 함수의 전체 데이터 (json)
+
+                            for (o in data2)
+                            {
+                                var osi = data2[o].result;
+
+                                if (osi.hasBook == "Y") // 해당 도서가 도서관에서 소장하고 있을 경우
+                                {
+                                    html += '<div> 도서 소장여부 : 도서 있음</div><br>';
+
+                                    if (osi.loanAvailable == "Y") // 해당 도서를 도서관에서 대출 가능 할 경우
+                                    {
+                                        html += '<div> 도서 대출 가능여부 : 대출 가능</div><br>';
+                                    }
+
+                                    if (osi.loanAvailable == "N") // 해당 도서를 도서관에서 대출 불가능 할 경우
+                                    {
+                                        html += '<div> 도서 대출 가능여부 : 대출 불가능</div><br>';
+                                    }
+                                }
+                                
+                                if (osi.hasBook == "N") // 해당 도서가 도서관에서 소장하고 있지 않을 경우
+                                {
+                                    html += '<div> 도서 소장여부 : 도서 없음</div><br>';
+                                }
+
+                                $('.search_body').html(html); // html에 넣은 변수를 /api/v1/bookExist를 hasBook, loanAvailable에 붙혀서 보여준다.
+                                                            // 도서관 소장 및 대출 여부를 추가로 보여준다.
+                            }
+                        },
+
+                        error: function () {
+                            console.log("도서 소장 및 대출 여부 받기 실패");
                         }
                     })
+
+
                 }  
 
             }
         },
 
         error: function () {
-            console.log("데이터 받기 실패");
+            console.log("검색 결과 받기 실패");
         }
     })
 }

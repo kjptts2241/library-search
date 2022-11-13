@@ -10,21 +10,20 @@
       <label for="keyword">키워드:</label>
       <input type="keyword" class="form-control" id="keyword" placeholder="도서명">
     </div>
-    <button type="button" class="btn btn-primary" onclick="getJSON()">도서 검색</button>
-
+    <button type="button" class="btn btn-primary" onclick="search()">도서 검색</button>
 
     <!-- 도서 및 도서관 데이터가 들어갈 곳 -->
     <div>
-      <div class="search_body"></div>
+      <div class="search_body">
+
+      </div>
     </div>
-  
+
   </div>
 
-
-
-
+    
   <!-- 검색 스크립트 -->
-  <script th:src="@{js/ajaxSearch.js}"></script>
+  <script th:src="@{js/exajax.js}"></script>
   
 </th:block>
 </html>
