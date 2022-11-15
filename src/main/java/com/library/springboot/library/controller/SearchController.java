@@ -44,6 +44,12 @@ public class SearchController { // 데이터 전달해주는 [ RestController ]
         return bookExistList;
     }
 
+    @GetMapping("/api/v1/bookCollection") // (isbn, region을 받아서) 도서 소장 도서관 조회
+    public String BookCollection(String isbn, String region) throws IOException{ // region=11;21;22 서울 부산 대구 순으로 정렬됨
+        String bookCollectionList = searchService.BookCollectionList(isbn, region);
+        return bookCollectionList;
+    }
+
     @PostMapping("/api/v1/popularBook") // (날짜, 시간, 성별을 받아서) 인기대출 도서 불러오기
     public String PopularBook(String startYYYY, String startMM, String startDD, String endYYYY, String endMM, String endDD, String gender) throws IOException{
         String popularBookList = searchService.PopularBookList(startYYYY, startMM, startDD, endYYYY, endMM, endDD, gender);

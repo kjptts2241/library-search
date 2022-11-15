@@ -1,12 +1,15 @@
 
 // view에 붙여줄 도서 및 도서관 정보 저장 변수
-var html = '';
+var bookList = '';
+
+var libraryList = '';
 
 // 도서 배열 변수
+var booksInt = []; // 불러온 도서의 수
 var titleInfo = []; // 책 제목
 var typeName = []; // 도서 자료 유형
 var placeInfo = []; // 자료 있는 곳 명칭
-var manageName = []; // 도서관명
+var manageName = []; // 자료 있는 곳 명
 var authorInfo = []; // 저작자
 var pubInfo = []; // 발행자
 var menuName = []; // 온라인/오프라인 자료 구분
@@ -40,6 +43,7 @@ function search() {
         
         success: function (data) {
             console.log("국립중앙 도서관 도서 데이터 받기 성공");
+            // 국립중앙 도서관의 var 태그 와 전혀 다른 데이터 태그들이 추출됨 도서 정보 나루의 도서 상세 조회로 출력
 
             var result = data.result; // 함수의 전체 데이터인 jsons에서 도서의 정보가 있는 result에 들어간 정보를 result 변수에 저장
 
@@ -48,10 +52,11 @@ function search() {
 
                 var isbnNum = result[i].isbn.split(' '); // isbn이 여러개거나 이상한 문자 포함일때 잘라주기
 
-                titleInfo.push(result[i].titleInfo); // 도서명
+                booksInt.push(i); // 불러온 도서의 수
+                titleInfo.push(result[i].titleInfo); // 도서명 titleInfo를  ( result[i]에 넣음 [i] 리스트 가져오는 값에 달라짐 push는 넣기 )
                 typeName.push(result[i].typeName); // 도서 자료 유형
                 placeInfo.push(result[i].placeInfo); // 자료 있는 곳 명칭
-                manageName.push(result[i].manageName); // 자료 있는 곳 명 (도서관명)
+                manageName.push(result[i].manageName); // 자료 있는 곳 명
                 authorInfo.push(result[i].authorInfo); // 저작자
                 pubInfo.push(result[i].pubInfo); // 발행자
                 menuName.push(result[i].menuName); // 온라인/오프라인 자료 구분
@@ -70,7 +75,7 @@ function search() {
                 if (result[i].isbn != '') // isbn안에 값이 있다면
                 {
                     imageUrl.push(searchDetails(isbnNum[isbnNum.length - 1])); // searchDetails()함수를 실행시켜서 ()안에 isbn을 넣어서 실행시킨 다음 return 값을 imageUrl 변수에 저장
-                }
+                } 
             }
         },
 
@@ -78,8 +83,40 @@ function search() {
             console.log("검색 결과 받기 실패");
         }
     })
+    
 
-    console.log(JSON.stringify(imageUrl));
+
+    // html에 분류하여 저장 및 subsearch에 업로드
+    for (var i = 0; i < booksInt.length; i++)
+    {
+        bookList += '========================================================';
+        bookList += '<div>';
+        bookList += '<div>' + booksInt[i] + ' 째 도서</div>';
+        bookList += '<div> 도서명 : ' + titleInfo[i] + '</div>';
+        bookList += '<div> 도서 자료 유형 : ' + typeName[i] + '</div>';
+        bookList += '<div> 자료 있는 곳 명칭 : ' + placeInfo[i] + '</div>';
+        bookList += '<div> 자료 있는 곳 명 : ' + manageName[i] + '</div>';
+        bookList += '<div> 저작자 : ' + authorInfo[i] + '</div>';
+        bookList += '<div> 발행자 : ' + pubInfo[i] + '</div>';
+        bookList += '<div> 온라인/오프라인 자료 구분 : ' + menuName[i] + '</div>';
+        bookList += '<div> 매체 구분 : ' + mediaName[i] + '</div>';
+        bookList += '<div> 종키(?) : ' + id[i] + '</div>';
+        bookList += '<div> 저작권 이용 유무 : ' + licText[i] + '</div>';
+        bookList += '<div> 비치일 : ' + regDate[i] + '</div>';
+        bookList += '<div id="isbn"> isbn : ' + isbn[i] + '</div>';
+        bookList += '<div> 청구기호 : ' + callNo[i] + '</div>';
+        bookList += '<div> 동양서분류기호 대분류 코드 : ' + kdcCode1s[i] + '</div>';
+        bookList += '<div> 동양서분류기호 대분류 명칭 : ' + kdcName1s[i] + '</div>';
+        bookList += '<div> 이미지 URL : ' + imageUrl[i] + '</div>';
+        bookList += '<button type="button" class="btn btn-primary" onclick="library(' + isbn[i] + ')">도서관 검색</button>'
+        bookList += '</div>';
+        bookList += '========================================================';
+        bookList += '<br><br><br>';
+    }
+
+    $('.search_body').empty(); // 붙여주기전 html에 있는 .search_body 비워주기
+    $('.search_body').html(bookList); // html에 붙여주기
+    
 }
 
 
@@ -87,6 +124,7 @@ function search() {
 // 도서 이미지를 가져오기 위한 함수
 function searchDetails(isbn) {
     
+    var ex_imageUrl = '';
 
     $.ajax({
         type: "get",
@@ -97,33 +135,84 @@ function searchDetails(isbn) {
         async: false,
         
         success: function (data) {
-            console.log("isbn 가 있는 도서");
-            console.log(data);
 
             for (y in data)
             {
-                var bookData = data[y].detail; // 도서 상세 정보인 json 에서 도서 상세 데이터를 가지고 있는 detail로 들어간 정보를 bookData에 저장
+                var detail = data[y].detail; // 도서 상세 정보인 json 에서 도서 상세 데이터를 가지고 있는 detail로 들어간 정보를 bookData에 저장
 
-                for (z in bookData) {
+
+                for (z in detail) { // z
                     
-                    if (bookData[z].book.bookImageURL != ' ') // 가져온 이미지 url이 있다면
+                    if (detail[z].book.bookImageURL != ' ') // 가져온 이미지 url이 있다면
                     {
-                        return bookData[z].book.bookImageURL; // url을 return
+                        ex_imageUrl = detail[z].book.bookImageURL;
+                        return;
                     }
 
-                    if (bookData[z].book.bookImageURL == '') // 없다면
+                    if (detail[z].book.bookImageURL == '') // 없다면
                     {
-                        return '<div> 이미지 파일 : 임의의 이미지 파일</div><br>'; // 임의의 이미지를 return
+                        ex_imageUrl = '<div> 이미지 파일 : 임의의 이미지 파일</div><br>';
+                        return;
                     }
+                    
                 }
             }
         },
+
         error: function () {
             console.log("도서 이미지 받기 실패");
         }
+    })
 
+    return ex_imageUrl;
+}   
+
+
+// 도서관 데이터 들고 오기
+// 해당 도서(isbn)를 가지고 있는 도서관 데이터들을 가져오기 위한 함수
+// 지역 코드 : region=00:11;21;22 서울 부산 대구 순으로 정렬됨
+function library(isbn) {
+
+    $.ajax({
+
+        type: "get",
+        url: "/api/v1/bookCollection",
+        data: { isbn: isbn, region: 21 },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        
+        success: function (data) {
+
+            var libs = data.response.libs; // 가져온 json에서 도서관 배열만 꺼내기
+
+            for (i in libs)
+            {
+                libraryList += '========================================================';
+                libraryList += '<div>';
+                libraryList += '<div>' + i + ' 째 도서관</div>'; // 불러온 도서관 수
+                libraryList += '<div> 도서관명 : ' + libs[i].lib.libName + '</div>'; // 도서관명
+                libraryList += '<div> 도서관 주소 : ' + libs[i].lib.address + '</div>'; // 도서관 주소
+                libraryList += '<div> 전화번호 : ' + libs[i].lib.tel + '</div>'; // 전화번호
+                libraryList += '<div> 팩스 : ' + libs[i].lib.fax + '</div>'; // 팩스
+                libraryList += '<div> 운영 시간 : ' + libs[i].lib.operatingTime + '</div>'; // 운영 시간
+                libraryList += '<div> 닫는 시간 : ' + libs[i].lib.closed + '</div>'; // 닫는 시간
+                libraryList += '<div> 홈페이지 : ' + libs[i].lib.homepage + '</div>'; // 홈페이지
+                libraryList += '<div> 위도 : ' + libs[i].lib.latitude + '</div>'; // 위도
+                libraryList += '<div> 경도 : ' + libs[i].lib.longitude + '</div>'; // 경도
+                libraryList += '<div> 도서관 코드 : ' + libs[i].lib.libCode + '</div>'; // 도서관 코드
+                libraryList += '</div>';
+                libraryList += '========================================================';
+                libraryList += '<br><br><br>';
+            }
+
+            $('.library_body').html(libraryList);
+
+        },
+
+        error: function () {
+            console.log("도서관 데이터 받기 실패");
+        }
     })
 }
 
-// html 클릭하면 실행시키게
-// function bookExist() {}

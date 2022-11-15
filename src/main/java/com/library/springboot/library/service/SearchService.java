@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.library.springboot.library.api.BookCollectionApi;
 import com.library.springboot.library.api.BookExistApi;
 import com.library.springboot.library.api.PopularBookApi;
 import com.library.springboot.library.api.SearchApi;
@@ -62,6 +63,13 @@ public class SearchService {
         return bookExistList;
     }
 
+    // 도서 소장 도서관 결과 가져오는 기능
+    @Transactional
+    public String BookCollectionList(String isbn, String region) throws IOException {
+        String bookCollectionList = BookCollectionApi.BookCollection(isbn, region);
+        return bookCollectionList;
+    }
+
     // 인기대출 도서 가져오는 기능
     @Transactional
     public String PopularBookList(String startYYYY, String startMM, String startDD, String endYYYY, String endMM, String endDD, String gender) throws IOException {
@@ -69,10 +77,3 @@ public class SearchService {
         return popularBookList;
     }
 }
-
-// 쿼리에 null값이 들어가서 생기는 오류 <sql문의 문제>
-// https://bsssss.tistory.com/795
-
-// 조회 시 char 타입의 칼럼이 공백 또는 null 값을 가지고 있어 발생된 에러 케이스다. 
-// update 쿼리를 통해 공백 또는 null 값을 다른 값으로 대체하여 해결했다.
-// https://walkerlab.tistory.com/17
