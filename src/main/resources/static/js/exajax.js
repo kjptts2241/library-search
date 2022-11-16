@@ -1,37 +1,35 @@
-
-// view에 붙여줄 도서 및 도서관 정보 저장 변수
-var bookList = '';
-
-var libraryList = '';
-
-// 도서 배열 변수
-var booksInt = []; // 불러온 도서의 수
-var titleInfo = []; // 책 제목
-var typeName = []; // 도서 자료 유형
-var placeInfo = []; // 자료 있는 곳 명칭
-var manageName = []; // 자료 있는 곳 명
-var authorInfo = []; // 저작자
-var pubInfo = []; // 발행자
-var menuName = []; // 온라인/오프라인 자료 구분
-var mediaName = []; // 매체 구분
-var id = []; // 종키(?)
-var licText = []; // 저작권 이용 가능 유무
-var regDate = []; // 비치일
-var isbn = []; // isbn 13의 끝자리의 값을 들고 온다.(최신 번호 유지가능)
-var callNo = []; // 청구기호
-var kdcCode1s = []; // 동양서분류기호 대분류 코드
-var kdcName1s = []; // 동양서분류기호 대분류 명칭
-var imageUrl = []; // 이미지 파일
-
-
 // [국립 중앙 도서관] 도서 검색
 // 도서 검색 결과를 가져오기 위한 함수
 function search() {
+
+
+    // view에 붙여줄 도서 데이터 저장 변수
+    var bookList = '';
+
+    // 도서 배열 변수
+    var booksInt = []; // 불러온 도서의 수
+    var titleInfo = []; // 책 제목
+    var typeName = []; // 도서 자료 유형
+    var placeInfo = []; // 자료 있는 곳 명칭
+    var manageName = []; // 자료 있는 곳 명
+    var authorInfo = []; // 저작자
+    var pubInfo = []; // 발행자
+    var menuName = []; // 온라인/오프라인 자료 구분
+    var mediaName = []; // 매체 구분
+    var id = []; // 종키(?)
+    var licText = []; // 저작권 이용 가능 유무
+    var regDate = []; // 비치일
+    var isbn = []; // isbn 13의 끝자리의 값을 들고 온다.(최신 번호 유지가능)
+    var callNo = []; // 청구기호
+    var kdcCode1s = []; // 동양서분류기호 대분류 코드
+    var kdcName1s = []; // 동양서분류기호 대분류 명칭
+    var imageUrl = []; // 이미지 파일
 
     var keyword = $("#keyword").val(); // 사용자가 검색한 문자
     console.log("검색한 입력 키워드 : " + keyword);
 
     
+
     // 국립중앙도서관 검색 함수 실행
     $.ajax({
         type: "get",
@@ -114,8 +112,7 @@ function search() {
         bookList += '<br><br><br>';
     }
 
-    $('.search_body').empty(); // 붙여주기전 html에 있는 .search_body 비워주기
-    $('.search_body').html(bookList); // html에 붙여주기
+    $('#search_body').html(bookList); // html에 붙여주기
     
 }
 
@@ -173,6 +170,10 @@ function searchDetails(isbn) {
 // 지역 코드 : region=00:11;21;22 서울 부산 대구 순으로 정렬됨
 function library(isbn) {
 
+    
+    // view에 붙여줄 도서관 데이터 변수
+    var libraryList = '';
+
     $.ajax({
 
         type: "get",
@@ -206,7 +207,7 @@ function library(isbn) {
                 libraryList += '<br><br><br>';
             }
 
-            $('.library_body').html(libraryList);
+            $('#library_body').html(libraryList);
 
         },
 
@@ -214,5 +215,12 @@ function library(isbn) {
             console.log("도서관 데이터 받기 실패");
         }
     })
+}
+
+function popup(){
+    var url = "subsearch.html";
+    var name = "popup test";
+    var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+    window.open(url, name, option);
 }
 
