@@ -17,6 +17,7 @@ public class SearchDetailsApi {
             StringBuilder urlBuilder = new StringBuilder("http://data4library.kr/api/srchDtlList"); /*URL*/
             urlBuilder.append("?" + URLEncoder.encode("authKey","UTF-8") + "=f0b5c758febbafb1bd55b1132b97d5be7857041599612d8633ec519072056bbc"); /*인증키*/
             urlBuilder.append("&" + URLEncoder.encode("isbn13","UTF-8") + "=" + isbn); /*isbn*/
+            // urlBuilder.append("&" + URLEncoder.encode("loaninfoYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*한 페이지 결과 수*/
             urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
             System.out.println(urlBuilder);
            

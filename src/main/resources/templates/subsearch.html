@@ -11,31 +11,36 @@
       <input type="keyword" class="form-control" id="keyword" placeholder="도서명">
     </div>
     <button type="button" class="btn btn-primary" onclick="search()">도서 검색</button>
-    <button id="button2" data-toggle="modal" data-target="#popup_box">팝업</button>
 
+
+    <!-- 팝업(model) -->
     <div class="modal fade" id="popup_box">
         <div class="modal-dialog">
             <div class="modal-content">
+                
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <p>헤더 부분</p>
+                    <p>요약한 도서의 정보 들어가는 부분</p>
+                    <div id="library_header"></div>
                 </div>
+                
                 <div class="modal-body">
-                    <p>바디 부분</p>
+                    <p>도서관 데이터 들어가는 부분</p>
+                    <!-- 도서관 데이터가 들어갈 곳 -->
+                    <div id="library_body"></div>
                 </div>
+                
                 <div class="modal-footer">
-                    <p>테일 부분</p>
                     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                 </div>
+
             </div>            
         </div>
     </div>
 
+
     <!-- 도서 데이터가 들어갈 곳 -->
     <div id="search_body"></div>
-
-    <!-- 도서관 데이터가 들어갈 곳 -->
-    <div id="library_body"></div>
 
   </div>
 
