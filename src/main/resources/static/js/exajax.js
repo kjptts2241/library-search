@@ -28,8 +28,6 @@ function search() {
     var keyword = $("#keyword").val(); // 사용자가 검색한 문자
     console.log("검색한 입력 키워드 : " + keyword);
 
-    
-
     // 국립중앙도서관 검색 함수 실행
     $.ajax({
         type: "get",
@@ -49,13 +47,13 @@ function search() {
             {
 
                 var isbnNum = result[i].isbn.split(' '); // isbn이 여러개거나 이상한 문자 포함일때 잘라주기
-
+        
                 booksInt.push(i); // 불러온 도서의 수
-                titleInfo.push(result[i].titleInfo); // 도서명 titleInfo를  ( result[i]에 넣음 [i] 리스트 가져오는 값에 달라짐 push는 넣기 )
+                titleInfo.push(result[i].titleInfo.replace(/(<([^>]+)>)|\'/ig,"")); // 도서명 titleInfo를  ( result[i]에 넣음 [i] 리스트 가져오는 값에 달라짐 push는 넣기 ) (replace로 문자열에 있는 태그및 따옴표 삭제)
                 typeName.push(result[i].typeName); // 도서 자료 유형
                 placeInfo.push(result[i].placeInfo); // 자료 있는 곳 명칭
                 manageName.push(result[i].manageName); // 자료 있는 곳 명
-                authorInfo.push(result[i].authorInfo); // 저작자
+                authorInfo.push(result[i].authorInfo.replace(/(<([^>]+)>)/ig,"")); // 저작자
                 pubInfo.push(result[i].pubInfo); // 발행자
                 menuName.push(result[i].menuName); // 온라인/오프라인 자료 구분
                 mediaName.push(result[i].mediaName); // 매체 구분
@@ -68,7 +66,7 @@ function search() {
                 kdcName1s.push(result[i].kdcName1s); // 동양서분류기호 대분류 명칭
                 if (result[i].isbn == '') // isbn안에 아무것도 없다면
                 {
-                    imageUrl.push('<div> 이미지 파일 : 임의의 이미지 파일</div><br>'); // 임의의 이미지를 넣어준다
+                    imageUrl.push('이미지 파일 : 임의의 이미지 파일'); // 임의의 이미지를 넣어준다
                 }
                 if (result[i].isbn != '') // isbn안에 값이 있다면
                 {
@@ -81,6 +79,7 @@ function search() {
             console.log("검색 결과 받기 실패");
         }
     })
+    
 
     // html에 분류하여 저장 및 subsearch에 업로드
     for (var i = 0; i < booksInt.length; i++)
@@ -89,22 +88,12 @@ function search() {
         bookList += '<div>';
         bookList += `<div>${booksInt[i]} 째 도서</div>`;
         bookList += `<div> 도서명 : ${titleInfo[i]}</div>`;
-        bookList += `<div> 도서 자료 유형 : ${typeName[i]}</div>`;
-        bookList += `<div> 자료 있는 곳 명칭 : ${placeInfo[i]}</div>`;
-        bookList += `<div> 자료 있는 곳 명 : ${manageName[i]}'</div>`;
         bookList += `<div> 저작자 : ${authorInfo[i]}</div>`;
-        bookList += `<div> 발행자 : ${pubInfo[i]}</div>`;
-        bookList += `<div> 온라인/오프라인 자료 구분 : ${menuName[i]}</div>`;
-        bookList += `<div> 매체 구분 : ${mediaName[i]}</div>`;
-        bookList += `<div> 종키(?) : ${id[i]}</div>`;
-        bookList += `<div> 저작권 이용 유무 : ${licText[i]}</div>`;
-        bookList += `<div> 비치일 : ${regDate[i]}</div>`;
+        bookList += `<div> 출판사 : ${pubInfo[i]}</div>`;
         bookList += `<div id="isbn"> isbn : ${isbn[i]}</div>`;
-        bookList += `<div> 청구기호 : ${callNo[i]}</div>`;
-        bookList += `<div> 동양서분류기호 대분류 코드 :${kdcCode1s[i]}</div>`;
-        bookList += `<div> 동양서분류기호 대분류 명칭 : ${kdcName1s[i]}</div>`; 
         bookList += `<div> 이미지 URL : ${imageUrl[i]}</div>`;
-        bookList += `<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup_box" onclick="library(${isbn[i]})">도서관 검색</button>`;
+        bookList += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup_box_library" onclick="library(' + isbn[i] + ')">도서관 목록</button>';
+        bookList += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup_box_book" onclick="book(\''+ titleInfo[i] + '\',\'' + typeName[i] + '\',\'' + placeInfo[i] + '\',\'' + manageName[i] + '\',\'' + authorInfo[i] + '\',\'' + pubInfo[i] + '\',\'' + menuName[i] + '\',\'' + mediaName[i] + '\',\'' + id[i] + '\',\'' + licText[i] + '\',\'' + regDate[i] + '\',\'' + isbn[i] + '\',\'' + callNo[i] + '\',\'' + kdcCode1s[i] + '\',\'' + kdcName1s[i] + '\',\'' + imageUrl[i] + '\');">도서 상세내용</button>'; 
         bookList += '</div>'; 
         bookList += '========================================================';
         bookList += '<br><br><br>';
@@ -147,7 +136,7 @@ function searchDetails(isbn) {
 
                     if (detail[z].book.bookImageURL == '') // 없다면
                     {
-                        ex_imageUrl = '<div> 이미지 파일 : 임의의 이미지 파일</div><br>';
+                        ex_imageUrl = '이미지 파일 : 임의의 이미지 파일';
                         return;
                     }
                 }
@@ -215,10 +204,31 @@ function library(isbn) {
         }
     })
 
+    
 }
 
+// [도서 상세내용] 버튼 클릭시 팝업에 출력
+function book(titleInfo, typeName, placeInfo, manageName, authorInfo, pubInfo, menuName, mediaName, id, licText, regDate, isbn, callNo, kdcCode1s, kdcName1s, imageUrl) {
 
-function libraryHeader(titleInfo) {
+    // view에 붙여줄 도서 데이터 변수
+    var bookData = '';
+
+    bookData += '<p> 도서명 : ' + titleInfo + '</p>'; // 도서명 홑따움표를 감싸주지 않았다.
+    bookData += '<div> 도서 자료 유형 : ' + typeName + '</div>'; // 도서 자료 유형
+    bookData += '<div> 자료 있는 곳 명칭 : ' + placeInfo + '</div>'; // 자료 있는 곳 명칭
+    bookData += '<div> 자료 있는 곳 명 : ' + manageName + '</div>'; // 자료 있는 곳 명
+    bookData += '<div> 저작자 : ' + authorInfo + '</div>'; // 저작자
+    bookData += '<div> 출판사: ' + pubInfo + '</div>'; // 출판사
+    bookData += '<div> 홈페이지 : ' + menuName + '</div>'; // 홈페이지
+    bookData += '<div> 온라인/오프라인 자료 구분 : ' + mediaName + '</div>'; // 온라인/오프라인 자료 구분
+    bookData += '<div> 종키(?) : ' + id + '</div>'; // 종키(?)
+    bookData += '<div> 저작권 이용 가능 유무 : ' + licText + '</div>'; // 저작권 이용 가능 유무
+    bookData += '<div> 비치일  : ' + regDate + '</div>'; // 비치일
+    bookData += '<div> isbn : ' + isbn + '</div>'; // isbn
+    bookData += '<div> 청구기호 : ' + callNo + '</div>'; // 청구기호
+    bookData += '<div> 동양서분류기호 대분류 코드 : ' + kdcCode1s + '</div>'; // 동양서분류기호 대분류 코드
+    bookData += '<div> 동양서분류기호 대분류 명칭 : ' + kdcName1s + '</div>'; // 동양서분류기호 대분류 명칭
+    bookData += '<div> 이미지 URL : ' + imageUrl + '</div>'; // 이미지 URL
     
-    console.log(titleInfo);
+    $('#book_body').html(bookData); // 팝업 바디에 도서 데이터 넣어주기
 }
