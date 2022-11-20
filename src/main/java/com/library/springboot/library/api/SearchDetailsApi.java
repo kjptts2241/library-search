@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -46,6 +47,9 @@ public class SearchDetailsApi {
 
             rd.close();
             conn.disconnect();
+
+            String asss = InetAddress.getLocalHost().getHostAddress();
+            System.out.println("아이ㅠ피피피피피피피 : " + asss);
 
             System.out.println(result.toString());
 

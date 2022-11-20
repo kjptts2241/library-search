@@ -1,3 +1,5 @@
+
+
 // [국립 중앙 도서관] 도서 검색
 // 도서 검색 결과를 가져오기 위한 함수
 function search() {
@@ -25,7 +27,8 @@ function search() {
     var kdcName1s = []; // 동양서분류기호 대분류 명칭
     var imageUrl = []; // 이미지 파일
 
-    var keyword = $("#keyword").val(); // 사용자가 검색한 문자
+    var keyword = $("#keyword").val(); // 검색 input 값
+
     console.log("검색한 입력 키워드 : " + keyword);
 
     // 국립중앙도서관 검색 함수 실행
@@ -157,52 +160,56 @@ function searchDetails(isbn) {
 // 지역 코드 : region=00:11;21;22 서울 부산 대구 순으로 정렬됨
 function library(isbn) {
 
+    // 지역 코드 변수
+    // var mapCode = [11, 21, 22, 23, 24, 25, 26, 29, 31, 32, 33, 34, 35, 36, 37, 38, 39];
+
     // view에 붙여줄 도서관 데이터 변수
     var libraryList = '';
 
-    $.ajax({
+    // for (var i = 0; i < mapCode.length; i++)
+    // {
+        $.ajax({
 
-        type: "get",
-        url: "/api/v1/bookCollection",
-        data: { isbn: isbn, region: 21 },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        async: false,
-        
-        success: function (data) {
-
-            var libs = data.response.libs; // 가져온 json에서 도서관 배열만 꺼내기
-
-            for (i in libs)
-            {
-                libraryList += '========================================================';
-                libraryList += '<div>';
-                libraryList += '<div>' + i + ' 째 도서관</div>'; // 불러온 도서관 수
-                libraryList += '<div> 도서관명 : ' + libs[i].lib.libName + '</div>'; // 도서관명
-                libraryList += '<div> 도서관 주소 : ' + libs[i].lib.address + '</div>'; // 도서관 주소
-                libraryList += '<div> 전화번호 : ' + libs[i].lib.tel + '</div>'; // 전화번호
-                libraryList += '<div> 팩스 : ' + libs[i].lib.fax + '</div>'; // 팩스
-                libraryList += '<div> 운영 시간 : ' + libs[i].lib.operatingTime + '</div>'; // 운영 시간
-                libraryList += '<div> 닫는 시간 : ' + libs[i].lib.closed + '</div>'; // 닫는 시간
-                libraryList += '<div> 홈페이지 : ' + libs[i].lib.homepage + '</div>'; // 홈페이지
-                libraryList += '<div> 위도 : ' + libs[i].lib.latitude + '</div>'; // 위도
-                libraryList += '<div> 경도 : ' + libs[i].lib.longitude + '</div>'; // 경도
-                libraryList += '<div> 도서관 코드 : ' + libs[i].lib.libCode + '</div>'; // 도서관 코드
-                libraryList += '</div>';
-                libraryList += '========================================================';
-                libraryList += '<br><br><br>';
-            }
+            type: "get",
+            url: "/api/v1/bookCollection",
+            data: { isbn: isbn, region: 21 },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
             
-            //$('#library_header').html(data); // 팝업 헤더에 요약한 해당 도서의 데이터 넣어주기
-            $('#library_body').html(libraryList); // 팝업 바디에 도서관 데이터 넣어주기
+            success: function (data) {
 
+                var libs = data.response.libs; // 가져온 json에서 도서관 배열만 꺼내기
 
-        },
+                for (j in libs)
+                {
+                    libraryList += '========================================================';
+                    libraryList += '<div>';
+                    libraryList += '<div> 도서관명 : ' + libs[j].lib.libName + '</div>'; // 도서관명
+                    libraryList += '<div> 도서관 주소 : ' + libs[j].lib.address + '</div>'; // 도서관 주소
+                    libraryList += '<div> 전화번호 : ' + libs[j].lib.tel + '</div>'; // 전화번호
+                    libraryList += '<div> 팩스 : ' + libs[j].lib.fax + '</div>'; // 팩스
+                    libraryList += '<div> 운영 시간 : ' + libs[j].lib.operatingTime + '</div>'; // 운영 시간
+                    libraryList += '<div> 닫는 시간 : ' + libs[j].lib.closed + '</div>'; // 닫는 시간
+                    libraryList += '<div> 홈페이지 : ' + libs[j].lib.homepage + '</div>'; // 홈페이지
+                    libraryList += '<div> 위도 : ' + libs[j].lib.latitude + '</div>'; // 위도
+                    libraryList += '<div> 경도 : ' + libs[j].lib.longitude + '</div>'; // 경도
+                    libraryList += '<div> 도서관 코드 : ' + libs[j].lib.libCode + '</div>'; // 도서관 코드
+                    libraryList += '</div>';
+                    libraryList += '========================================================';
+                    libraryList += '<br><br><br>';
+                }
+                
+                //$('#library_header').html(data); // 팝업 헤더에 요약한 해당 도서의 데이터 넣어주기
+                $('#library_body').html(libraryList); // 팝업 바디에 도서관 데이터 넣어주기
 
-        error: function () {
-            console.log("도서관 데이터 받기 실패");
-        }
-    })
+            },
+
+            error: function () {
+                console.log("도서관 데이터 받기 실패");
+            }
+        })
+    // }
 
     
 }
