@@ -39,6 +39,7 @@ window.initMap = function () {
     const bounds = new google.maps.LatLngBounds();
     const infowindow = new google.maps.InfoWindow();
 
+
     librarys.forEach(({ label, name, lat, lng }) => { // 마커 보여주기
       const marker = new google.maps.Marker({
         position: { lat, lng },
@@ -89,3 +90,43 @@ var geocoder;
   }
 }
 
+var paths;
+
+function drawRouteOnMap(routeStopArr) { // 경로 정보가 저장된 array
+  paths.setMap(null);  // 이전 경로를 삭제
+
+  routeStopArr = routeStopArr.reverse(); // 이전에 reverse 되어서 넘어온다.
+  
+    if(routeStopArr.length > 0){ // 위도 , 경도의 정보가 array로 넘오온다면 필요는 없다.
+      var pointList = []; // 경로저장 array
+      for(var i=0; i < routeStopArr.length; i++){
+        var stop = routeStopArr[i];
+      
+
+      var bb = top.KaTechoWgs84New(stop.COORD_KATEC_Y, stop.COORD_KATEC_X);
+      // 구글에서 사용하는 좌표가 아니므로 변경하는 부분(필요 X)
+
+      pointList.push({lat: bb.la, lng:bb.lo}); // 경로를 위한 정보
+    }
+      paths = new.google.maps.Polyline({
+          path: pointList,
+          geodesic: true,
+          strokeColor: 'red',
+          strokeOpacity: 1.0,
+          strokeWeight: 3.0,
+
+        icons : [{  //방향을 알기 위한 화살표 표시
+          icons : {path : google.maps.Symbolpath.BACKWARD_CLOSED_ARROW},
+          offset : "100%",
+          repeat : "100px"
+        }]
+      });
+    paths.setMap(map);// 경로를 그려야 하는 map object를 주면 된다.  
+  }
+  function removeRoute(){
+    if(typeof paths !== 'undefined'){
+      paths.setMap(null);
+    }
+  }
+}
+// 만약 위도경도가 들어있는 array가 있다면 10 ~ 20 번째 줄까지는 필요없는 부분이다.

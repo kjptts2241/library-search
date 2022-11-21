@@ -1,4 +1,23 @@
 
+var mainKeyword; // search에서 가져온 값
+
+$(document).ready(function (){ // 페이지 들어왔을 때 실행
+
+    if(localStorage.getItem('mainKeyword')){
+
+        mainKeyword = localStorage.getItem('mainKeyword'); // search 페이지에서 보낸 값을 받아오기
+
+        search(); // 들어갔을 때 함수 한번 실행
+        
+    }
+    else
+    {
+        console.log('search 페이지에서 받아온 값이 없습니다');
+    }
+
+})
+
+
 
 // [국립 중앙 도서관] 도서 검색
 // 도서 검색 결과를 가져오기 위한 함수
@@ -27,7 +46,21 @@ function search() {
     var kdcName1s = []; // 동양서분류기호 대분류 명칭
     var imageUrl = []; // 이미지 파일
 
-    var keyword = $("#keyword").val(); // 검색 input 값
+
+    var keyword; // ajax에 넣어줄 최종 검색 값
+
+    var subKeyword = $("#keyword").val(); // 검색 input 값
+
+    // search에서 가져온 값을 넣지만 subsearch에서 값이 있다면 바꿔서 넣어주기
+    if (mainKeyword != '') // search에서 가져온 값이 있다면 검색 keyword 넣기
+    {
+        keyword = mainKeyword;
+    }
+    if (subKeyword != '') // subsearch에서 값이 있다면 바꿔넣기
+    {
+        keyword = subKeyword; // search에서 가져와서 넣어준 값을 subsearch의 값으로 대체
+    }
+
 
     console.log("검색한 입력 키워드 : " + keyword);
 
@@ -239,3 +272,4 @@ function book(titleInfo, typeName, placeInfo, manageName, authorInfo, pubInfo, m
     
     $('#book_body').html(bookData); // 팝업 바디에 도서 데이터 넣어주기
 }
+
