@@ -44,5 +44,4 @@ public class IndexController { // 페이지 경로 지정 [ Controller ]
     public String subsearchView() {
         return "subsearch";
     }
-}   
-
+}

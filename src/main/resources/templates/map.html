@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="KO">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +8,26 @@
 
 
   
-  <script defer src="js/googleMaps.js"></script>
-  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlicM3V_f4XSO1pigZn06BArR8RJCEv7U&callback=initMap"></script>
-
+  <script defer src="js/Maps.js"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyBlicM3V_f4XSO1pigZn06BArR8RJCEv7U&callback=initMap"></script> 
+  <!-- 주마다 맵을 업데이트 시켜줌 -->
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlicM3V_f4XSO1pigZn06BArR8RJCEv7U&region=KO&callback=initMap"></script>
+  <!-- Map.js에 있는 맵을 넣고 지도를 현지화 시킴 -->
+  
 </head>
 <body>
 
   <div id="map" style="height: 950px;"></div> <!-- 구글 지도 받아올 곳 -->
   <div id="pano" style="height: 950px;"></div> <!-- 구글 지도 받아올 곳 -->
+  <div>
+    <strong>Mode of Travel: </strong>
+      <select id="mode" onchange="calcRoute();">
+        <option value="DRIVING">Driving</option>
+        <option value="WALKING">Walking</option>
+        <option value="BICYCLING">Bicycling</option>
+        <option value="TRANSIT">Transit</option>
+      </select>
+    </div>
   <input id="address" type="textbox" value="Sydney, NSW">
      <input type="button" value="Encode" onclick="codeAddress()">
   

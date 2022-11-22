@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.library.springboot.library.dto.LibraryListDto;
-
-import com.library.springboot.library.service.SearchService;
+import com.library.springboot.library.service.search.SearchService;
 
 import lombok.RequiredArgsConstructor;
 

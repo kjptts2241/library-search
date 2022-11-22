@@ -1,4 +1,4 @@
-package com.library.springboot.library.service;
+package com.library.springboot.library.service.search;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.library.springboot.library.api.BookCollectionApi;
-import com.library.springboot.library.api.BookExistApi;
-import com.library.springboot.library.api.PopularBookApi;
-import com.library.springboot.library.api.SearchApi;
-import com.library.springboot.library.api.SearchDetailsApi;
-import com.library.springboot.library.dao.repository.TbLibraryListRepository;
+import com.library.springboot.library.api.search.BookCollectionApi;
+import com.library.springboot.library.api.search.BookExistApi;
+import com.library.springboot.library.api.search.PopularBookApi;
+import com.library.springboot.library.api.search.SearchApi;
+import com.library.springboot.library.api.search.SearchDetailsApi;
+import com.library.springboot.library.dao.search.repository.TbLibraryListRepository;
 import com.library.springboot.library.dto.LibraryListDto;
 
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.library.springboot.library.api;
+package com.library.springboot.library.api.search;
 
 import java.io.BufferedReader;
 import java.io.IOException;
