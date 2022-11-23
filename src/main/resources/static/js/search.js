@@ -90,7 +90,7 @@ function search() {
                 placeInfo.push(result[i].placeInfo); // 자료 있는 곳 명칭
                 manageName.push(result[i].manageName); // 자료 있는 곳 명
                 authorInfo.push(result[i].authorInfo.replace(/(<([^>]+)>)/ig,"")); // 저작자
-                pubInfo.push(result[i].pubInfo); // 발행자
+                pubInfo.push(result[i].pubInfo.replace(/(<([^>]+)>)/ig,"")); // 발행자
                 menuName.push(result[i].menuName); // 온라인/오프라인 자료 구분
                 mediaName.push(result[i].mediaName); // 매체 구분
                 id.push(result[i].id); // 종키(?)

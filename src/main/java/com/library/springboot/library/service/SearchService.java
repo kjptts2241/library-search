@@ -1,4 +1,4 @@
-package com.library.springboot.library.service.search;
+package com.library.springboot.library.service;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -10,26 +10,25 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.library.springboot.library.api.search.BookCollectionApi;
-import com.library.springboot.library.api.search.BookExistApi;
-import com.library.springboot.library.api.search.PopularBookApi;
-import com.library.springboot.library.api.search.SearchApi;
-import com.library.springboot.library.api.search.SearchDetailsApi;
-import com.library.springboot.library.dao.search.repository.TbLibraryListRepository;
-import com.library.springboot.library.dto.LibraryListDto;
+import com.library.springboot.library.api.BookCollectionApi;
+import com.library.springboot.library.api.BookExistApi;
+import com.library.springboot.library.api.PopularBookApi;
+import com.library.springboot.library.api.SearchApi;
+import com.library.springboot.library.api.SearchDetailsApi;
+import com.library.springboot.library.dao.repository.TbLibraryListRepository;
+import com.library.springboot.library.vo.LibraryList;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-
 public class SearchService {
 
     private final TbLibraryListRepository tbLibraryListRepository; // 도서관 데이터 crud 기능
 
     // 도서관 전체 리스트 가져오는 기능
     @Transactional
-    public List<LibraryListDto> LibraryList() throws IOException {
+    public List<LibraryList> LibraryList() throws IOException {
 
         ObjectMapper mapper = new ObjectMapper(); // 도서관 데이터를 자바 객체(LibraryListDto)에 mapping 해주기 위한 ObjectMapper 객체 생성
                                                  // Mapping 파일에 기재된 SQL을 호출하기 위한 인터페이스
@@ -37,7 +36,7 @@ public class SearchService {
         String Librarylist = new Gson().toJson(tbLibraryListRepository.findAll()); // Gson기능으로 Librarylist를 json으로 변환 시켜서 변수에 저장
 
         // Librarylist를 LibraryListDto타입, List형식으로 mapping
-        List<LibraryListDto> LibraryListDto = Arrays.asList(mapper.readValue(Librarylist, LibraryListDto[].class));
+        List<LibraryList> LibraryListDto = Arrays.asList(mapper.readValue(Librarylist, LibraryList[].class));
 
         return LibraryListDto; // LibraryListDto 타입인 List를 Searchcontroller로 전달
     }

@@ -1,4 +1,4 @@
-package com.library.springboot.library.dao.search;
+package com.library.springboot.library.dao;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.library.springboot.library.dao.UserDaoInterface">
+
+    <!-- 회원가입 -->
+	<insert id="regUser" parameterType="com.library.springboot.library.vo.UserVO">
+		insert into userinfo (user_id, user_pw, user_name, user_phone, user_birth, user_email)
+		values (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email})
+	</insert>
+
+	<!-- 아이디 중복 검사 -->
+	<select id="checkOverId" parameterType="String" resultType="int">
+		select count(*) from userinfo where user_id = #{user_id}
+	</select>
+
+</mapper>

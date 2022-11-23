@@ -2,6 +2,12 @@ package com.library.springboot.library.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.library.springboot.library.service.UserRegService;
+import com.library.springboot.library.vo.UserVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class IndexController { // 페이지 경로 지정 [ Controller ]
+
+    private final UserRegService reg_service;
 
     @GetMapping({"", "/"}) // 메인 페이지
     public String indexView() {
@@ -43,5 +51,27 @@ public class IndexController { // 페이지 경로 지정 [ Controller ]
     @GetMapping("/subsearch") // 서브 검색 페이지
     public String subsearchView() {
         return "subsearch";
+    }
+
+    /*
+    회원가입
+     */
+    @PostMapping("/signUp")
+    public String userRegPass(UserVO userVO) {
+        
+        // 회원가입 메서드
+        reg_service.userReg_service(userVO);
+
+        return "login";
+    }
+
+    /*
+    아이디 중복 체크
+     */
+    @GetMapping("/idCheck")
+    @ResponseBody
+    public int idCheck(@RequestParam("userId") String user_id) {
+        
+        return reg_service.userIdCheck(user_id);
     }
 }
