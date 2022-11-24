@@ -62,7 +62,7 @@ public class IndexController { // 페이지 경로 지정 [ Controller ]
         // 회원가입 메서드
         reg_service.userReg_service(userVO);
 
-        return "login";
+        return "redirect:login";
     }
 
     /*
