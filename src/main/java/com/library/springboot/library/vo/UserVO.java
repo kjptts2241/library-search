@@ -1,7 +1,5 @@
 package com.library.springboot.library.vo;
 
-import org.apache.ibatis.type.Alias;
-
 import lombok.Data;
 
 @Data

@@ -183,7 +183,7 @@ $('#reg_submit').click(function(){
     }
     // 이름 정규식
     if (nameJ.test($('#user_name').val())) {
-        inval_Arr[1] = true;	
+        inval_Arr[1] = true;
     } else {
         inval_Arr[1] = false;
     }
@@ -206,11 +206,11 @@ $('#reg_submit').click(function(){
         inval_Arr[4] = false;
     }
     
-    var validAll = true;
+    var validAll = false;
     for(var i = 0; i < inval_Arr.length; i++){
         
-        if(inval_Arr[i] == false){
-            validAll = false;
+        if(inval_Arr[i] == true){
+            validAll = true;
         }
     }
     
