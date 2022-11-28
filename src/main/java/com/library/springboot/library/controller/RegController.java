@@ -52,4 +52,12 @@ public class RegController {
         
         return reg_service.userIdCheck(user_id);
     }
+
+    @GetMapping("/key_alter")
+    public String key_alterConfirm(@RequestParam("user_id") String user_id, @RequestParam("user_key") String key) {
+        
+        mailsender.alter_userKey_service(user_id, key);
+        
+        return "regSuccess";
+    }
 }

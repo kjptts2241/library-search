@@ -16,4 +16,13 @@
 		select count(*) from userinfo where user_id = #{user_id}
 	</select>
 
+	<!-- 회원 인증키 (난수 생성) -->
+	<update id="GetKey" parameterType="Map">
+		update userinfo set user_key ='Y' where user_id = #{param2} where user_id = #{param1}
+	</update>
+	<!-- 회원 인증키(난수) Y로 변경 -->
+	<update id="alter_userKey" parameterType="Map">
+		update userinfo set user_key = 'Y' where user_id = #{param1} and user_key = #{param2}
+	</update>
+
 </mapper>
