@@ -57,18 +57,21 @@ public class UserMailSendService {
 
 	// 회원가입 발송 이메일(인증키 발송)
 	public void mailSendWithUserKey(String e_mail, String user_id, HttpServletRequest request) {
-		
+
 		String key = getKey(false, 20);
 		userDao = sqlSession.getMapper(UserDaoInterface.class);
 		userDao.GetKey(user_id, key);
 		MimeMessage mail = mailSender.createMimeMessage();
         
-		String htmlStr = "<h2>안녕하세요 MS :p 민수르~ 입니다!</h2><br><br>" 
-				+ "<h3>" + user_id + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
-				+ "<a href='http://localhost:8080" + request.getContextPath() + "/key_alter?user_id="+ user_id +"&user_key="+key+"'>인증하기</a></p>"
-				+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+		String htmlStr = "";
+
+		htmlStr += "<h2>안녕하세요 MS :p 민수르~ 입니다!</h2><br><br>";
+		htmlStr	+= "<h3>" + user_id + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : ";
+		htmlStr += "<a href='http://localhost:8080" + request.getContextPath() + "/key_alter?user_id="+ user_id +"&user_key="+key+"'>인증하기</a></p>";
+		htmlStr += "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+
 		try {
-			mail.setSubject("[본인인증] MS :p 민수르님의 인증메일입니다", "utf-8");
+			mail.setSubject("[본인인증] 라이브러리 웹사이트 회원가입 인증메일입니다", "utf-8");
 			mail.setText(htmlStr, "utf-8", "html");
 			mail.addRecipient(RecipientType.TO, new InternetAddress(e_mail));
 			mailSender.send(mail);
