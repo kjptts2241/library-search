@@ -84,7 +84,7 @@ $('#user_pw2').blur(function() {
 });
 
 
-// 이름에 특수문자 들어가지 않도록 설정
+// 이름 유효성 검사
 $("#user_name").blur(function() {
     if (nameJ.test($(this).val())) {
             console.log('이름 유효성 체크 성공');
@@ -155,6 +155,18 @@ $('#user_birth').blur(function(){
             //1.입력된 생년월일이 8자 초과할때 :  auth:false
             $('#birth_check').text('생년월일을 확인해주세요 :)');
             $('#birth_check').css('color', 'red');  
+    }
+});
+
+
+// 이메일 유효성 검사
+$("#user_email").blur(function() {
+    if (mailJ.test($(this).val())) {
+            console.log('이메일 유효성 체크 성공');
+            $("#email_check").text('');
+    } else {
+        $('#email_check').text('이메일을 확인해주세요');
+        $('#email_check').css('color', 'red');
     }
 });
 

@@ -130,7 +130,7 @@ function search() {
         bookList += `<div> 이미지 URL : ${imageUrl[i]}</div>`;
         bookList += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup_box_library" onclick="library(' + isbn[i] + ')">도서관 목록</button>';
         bookList += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup_box_book" onclick="book(\''+ titleInfo[i] + '\',\'' + typeName[i] + '\',\'' + placeInfo[i] + '\',\'' + manageName[i] + '\',\'' + authorInfo[i] + '\',\'' + pubInfo[i] + '\',\'' + menuName[i] + '\',\'' + mediaName[i] + '\',\'' + id[i] + '\',\'' + licText[i] + '\',\'' + regDate[i] + '\',\'' + isbn[i] + '\',\'' + callNo[i] + '\',\'' + kdcCode1s[i] + '\',\'' + kdcName1s[i] + '\',\'' + imageUrl[i] + '\');">도서 상세내용</button>'; 
-        bookList += '</div>'; 
+        bookList += '</div>';
         bookList += '========================================================';
         bookList += '<br><br><br>';
     }

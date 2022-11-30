@@ -44,9 +44,4 @@ public class IndexController { // 페이지 경로 지정 [ Controller ]
     public String subsearchView() {
         return "subsearch";
     }
-
-    @GetMapping("/regSuccess") // 서브 검색 페이지
-    public String regSuccessView() {
-        return "regSuccess";
-    }
 }

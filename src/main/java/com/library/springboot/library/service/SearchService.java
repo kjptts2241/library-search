@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,13 +19,11 @@ import com.library.springboot.library.api.SearchDetailsApi;
 import com.library.springboot.library.dao.repository.TbLibraryListRepository;
 import com.library.springboot.library.vo.LibraryList;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 @Service
 public class SearchService {
 
-    private final TbLibraryListRepository tbLibraryListRepository; // 도서관 데이터 crud 기능
+    @Autowired
+    private TbLibraryListRepository tbLibraryListRepository; // 도서관 데이터 crud 기능
 
     // 도서관 전체 리스트 가져오는 기능
     @Transactional
