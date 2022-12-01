@@ -15,8 +15,8 @@
 	</select>
 	
 	<!-- 로그인 / 아이디로 찾음 -->
-	<!-- <select id="loginUser" resultType="userVO">
+	<select id="loginUser" resultType="com.library.springboot.library.vo.UserVO">
 		select * from userinfo where user_id = #{user_id}
-	</select> -->
+	</select>
 
 </mapper>
