@@ -7,24 +7,21 @@ $('#loginBtn').click(function() {
         type : 'post',
         url : '/userLogin',
         data : {
-            user_id : id,
-            user_pw : pw,
+            userId : id,
+            userPw : pw,
             remember_userId : remember_us
         },
         success : function(data) {
+
+            console.log("결과값 : " + data);
+
             if (data == 0) { //로그인 실패시
                 console.log(data);
                 $('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.');
-                $('#spanLoginCheck').css('color', 'red'); 
-            } else if (data == -2) { //인증하지 않았다면?
-                console.log(data);
-                $('#spanLoginCheck').text('이메일 인증을 해주셔야 합니다!');		
-                $('#spanLoginCheck').css('color', 'red'); 				
-            } else if (data == -3) { // 아이디가 사용중이라면?
-                console.log(data);
-                location.href = '/redundant?user_Id=' + id + '&user_Pw=' + pw + '&remember_userId=' + remember_us;						
+                $('#spanLoginCheck').css('color', 'red'); 			
             } else { //로그인 성공시
                 console.log(data);
+                alert('로그인에 성공하셨습니다');
                 location.href = '/search';
             }
         }

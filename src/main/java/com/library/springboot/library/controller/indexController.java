@@ -10,37 +10,58 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class IndexController { // 페이지 경로 지정 [ Controller ]
 
-    @GetMapping({"", "/"}) // 메인 페이지
+    /*
+     * 메인 페이지
+     */
+    @GetMapping({"", "/"})
     public String indexView() {
         return "index";
     }
 
-    @GetMapping("/mybook") //내 서제 페이지
+    /*
+     * 내서 서제 페이지
+     */
+    @GetMapping("/mybook")
     public String mybookView() {
         return "mybook";
     }
 
-    @GetMapping("/map") // 구글 맵 페이지
+    /*
+     * 구글 맵 페이지
+     */
+    @GetMapping("/map")
     public String mapView() {
         return "map";
     }
 
-    @GetMapping("/login") // 로그인 페이지
+    /*
+     * 로그인 페이지
+     */
+    @GetMapping("/login")
     public String loginView() {
         return "login";
     }
 
-    @GetMapping("/register") // 회원가입 페이지
+    /*
+     * 회원가입 페이지
+     */
+    @GetMapping("/register")
     public String registerView() {
         return "register";
     }
 
-    @GetMapping("/search") // 검색 페이지
+    /*
+     * 검색 페이지
+     */
+    @GetMapping("/search")
     public String searchView() {
         return "search";
     }
 
-    @GetMapping("/subsearch") // 서브 검색 페이지
+    /*
+     * 서브 검색 페이지
+     */
+    @GetMapping("/subsearch")
     public String subsearchView() {
         return "subsearch";
     }

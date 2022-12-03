@@ -1,52 +1,43 @@
 package com.library.springboot.library.controller;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-// import com.library.springboot.library.service.UserMailSendService;
+import com.library.springboot.library.dto.UserDto;
 import com.library.springboot.library.service.UserRegService;
-import com.library.springboot.library.service.UserSha256;
-import com.library.springboot.library.vo.UserVO;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
 public class RegController {
     
-    @Autowired
-    private UserRegService reg_service;
-
-    // @Autowired
-    // private UserMailSendService mailsender;
+    private final UserRegService reg_service;
 
     /*
-    회원가입
+     * 회원가입
      */
     @PostMapping("/signUp")
-    public String userRegPass(UserVO userVO, Model model, HttpServletRequest request) {
-        
-		// 비밀번호 암호화(sha256)
-		String encryPassword = UserSha256.encrypt(userVO.getUser_pw());
-		userVO.setUser_pw(encryPassword);
+    public String userRegPass(UserDto userDto) {
 
         // 회원가입 메서드
-        reg_service.userReg_service(userVO);
+        reg_service.userReg_service(userDto);
 
         return "redirect:login";
     }
 
     /*
-    아이디 중복 체크
+     * 아이디 중복 체크
      */
     @GetMapping("/idCheck")
     @ResponseBody
-    public int idCheck(@RequestParam("userId") String user_id) {
+    public int idCheck(@RequestParam("userId") String userId) {
         
-        return reg_service.userIdCheck(user_id);
+        return reg_service.userIdCheck(userId);
     }
 }

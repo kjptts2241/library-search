@@ -36,5 +36,4 @@ public class TbLibraryList { // TbLibraryList 테이블
     private String operatingtime;
     
     private int libcode;
-    // null값이 id or libcode로 입력이 되서 생기는 오류 확인
 }

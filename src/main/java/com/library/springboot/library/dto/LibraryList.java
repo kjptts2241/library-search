@@ -1,4 +1,4 @@
-package com.library.springboot.library.vo;
+package com.library.springboot.library.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

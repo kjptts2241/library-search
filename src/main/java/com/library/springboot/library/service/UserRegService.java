@@ -1,41 +1,38 @@
 package com.library.springboot.library.service;
 
+
 import java.sql.SQLException;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.library.springboot.library.dao.UserDaoInterface;
-import com.library.springboot.library.vo.UserVO;
+import com.library.springboot.library.dao.repository.UserRepository;
+import com.library.springboot.library.dto.UserDto;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class UserRegService {
 
-    @Autowired
-    private SqlSessionTemplate userSqlSessin;
-    private UserDaoInterface userDao;
+    private final UserRepository userRepository;
     
-    // 회원가입
-    public int userReg_service(UserVO userVO) {
-        
-        int resultCnt = 0;
+    /*
+    회원가입
+     */
+    public void userReg_service(UserDto userDto) {
 
-        userDao = userSqlSessin.getMapper(UserDaoInterface.class);
-        try{
-            resultCnt = userDao.regUser(userVO);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // 비밀번호 암호화(sha256)
+        String encryPassword = UserSha256.encrypt(userDto.getUserPw());
+        userDto.setUserPw(encryPassword);
 
-        return resultCnt;
+        userRepository.save(userDto.toEntity());
     }
 
-    // 중복 아이디 체크
-    public int userIdCheck(String user_id) {
+    /*
+    중복 아이디 체크
+     */
+    public int userIdCheck(String userId) {
 
-        userDao = userSqlSessin.getMapper(UserDaoInterface.class);
-
-        return userDao.checkOverId(user_id);
+        return userRepository.checkOverId(userId);
     }
 }
