@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="author" content="colorlib.com">
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,800" rel="stylesheet" />
-  <link href="css/search.css" rel="stylesheet" />
+  <link href="/css/search.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -35,7 +35,7 @@
     function keyMaster() {
       var mainKeyword = $("#mainKeyword").val(); // 메인 검색 페이지의 값
 
-      location.href="/subsearch"; // 페이지 이동
+      location.href="/auth/subsearch"; // 페이지 이동
       localStorage.setItem('mainKeyword', mainKeyword); // 값 전달
     }
 

@@ -67,7 +67,7 @@ function search() {
     // 국립중앙도서관 검색 함수 실행
     $.ajax({
         type: "get",
-        url: "/api/v1/search",
+        url: "/auth/api/v1/search",
         data: { keyword: keyword },
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -149,7 +149,7 @@ function searchDetails(isbn) {
 
     $.ajax({
         type: "get",
-        url: "/api/v1/searchDetails",
+        url: "/auth/api/v1/searchDetails",
         data: { isbn: isbn }, // 파라미터로 가져온 isbn을 넣어서 실행
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -204,7 +204,7 @@ function library(isbn) {
         $.ajax({
 
             type: "get",
-            url: "/api/v1/bookCollection",
+            url: "/auth/api/v1/bookCollection",
             data: { isbn: isbn, region: 21 },
             contentType: "application/json; charset=utf-8",
             dataType: "json",

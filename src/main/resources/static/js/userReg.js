@@ -20,7 +20,7 @@ $("#user_id").blur(function() {
     var user_id = $('#user_id').val();
 
     $.ajax({
-        url : '/idCheck?userId='+ user_id,
+        url : '/auth/idCheck?user_id='+ user_id,
         type : 'get',
         success : function(data) {
             console.log("1 = 중복o / 0 = 중복x : "+ data);

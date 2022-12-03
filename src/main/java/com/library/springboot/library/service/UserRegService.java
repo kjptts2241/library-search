@@ -3,8 +3,10 @@ package com.library.springboot.library.service;
 
 import java.sql.SQLException;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.library.springboot.library.dao.RoleType;
 import com.library.springboot.library.dao.repository.UserRepository;
 import com.library.springboot.library.dto.UserDto;
 
@@ -15,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class UserRegService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encode;
     
     /*
     회원가입
@@ -22,8 +25,11 @@ public class UserRegService {
     public void userReg_service(UserDto userDto) {
 
         // 비밀번호 암호화(sha256)
-        String encryPassword = UserSha256.encrypt(userDto.getUserPw());
-        userDto.setUserPw(encryPassword);
+        String encPassword = encode.encode(userDto.getUser_pw());
+        userDto.setUser_pw(encPassword);
+        
+        // 권한 추가
+        userDto.setRole(RoleType.USER);
 
         userRepository.save(userDto.toEntity());
     }
@@ -31,8 +37,8 @@ public class UserRegService {
     /*
     중복 아이디 체크
      */
-    public int userIdCheck(String userId) {
+    public int userIdCheck(String user_id) {
 
-        return userRepository.checkOverId(userId);
+        return userRepository.checkOverId(user_id);
     }
 }

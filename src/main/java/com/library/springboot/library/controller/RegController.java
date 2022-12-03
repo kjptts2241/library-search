@@ -1,6 +1,8 @@
 package com.library.springboot.library.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,7 @@ public class RegController {
     /*
      * 회원가입
      */
-    @PostMapping("/signUp")
+    @PostMapping("/auth/signUp")
     public String userRegPass(UserDto userDto) {
 
         // 회원가입 메서드
@@ -34,10 +36,21 @@ public class RegController {
     /*
      * 아이디 중복 체크
      */
-    @GetMapping("/idCheck")
+    @GetMapping("/auth/idCheck")
     @ResponseBody
-    public int idCheck(@RequestParam("userId") String userId) {
-        
-        return reg_service.userIdCheck(userId);
+    public int idCheck(@RequestParam("user_id") String user_id) {
+        return reg_service.userIdCheck(user_id);
     }
+
+    /*
+     * 로그아웃
+     */
+    // @GetMapping("/auth/lougut")
+    // public String logout(HttpSession session) {
+        
+    //     // 세션 만료
+    //     session.invalidate();
+
+    //     return "redirect:/";
+    // }
 }

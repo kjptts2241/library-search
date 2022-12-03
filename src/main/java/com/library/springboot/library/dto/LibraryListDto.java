@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LibraryList { // 도서관 전체 데이터 (자바 객체)
+public class LibraryListDto { // 도서관 전체 데이터 (자바 객체)
     
     private Long id;
 

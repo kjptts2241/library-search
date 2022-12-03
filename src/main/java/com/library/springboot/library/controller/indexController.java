@@ -11,33 +11,25 @@ import lombok.RequiredArgsConstructor;
 public class IndexController { // 페이지 경로 지정 [ Controller ]
 
     /*
-     * 메인 페이지
+     * 메인 검색 페이지
      */
     @GetMapping({"", "/"})
     public String indexView() {
-        return "index";
+        return "search";
     }
 
     /*
-     * 내서 서제 페이지
+     * 서브 검색 페이지
      */
-    @GetMapping("/mybook")
-    public String mybookView() {
-        return "mybook";
-    }
-
-    /*
-     * 구글 맵 페이지
-     */
-    @GetMapping("/map")
-    public String mapView() {
-        return "map";
+    @GetMapping("/auth/subsearch")
+    public String subsearchView() {
+        return "subsearch";
     }
 
     /*
      * 로그인 페이지
      */
-    @GetMapping("/login")
+    @GetMapping("/auth/login")
     public String loginView() {
         return "login";
     }
@@ -45,24 +37,24 @@ public class IndexController { // 페이지 경로 지정 [ Controller ]
     /*
      * 회원가입 페이지
      */
-    @GetMapping("/register")
+    @GetMapping("/auth/register")
     public String registerView() {
         return "register";
     }
 
     /*
-     * 검색 페이지
+     * 구글 맵 페이지
      */
-    @GetMapping("/search")
-    public String searchView() {
-        return "search";
+    @GetMapping("/auth/map")
+    public String mapView() {
+        return "map";
     }
 
     /*
-     * 서브 검색 페이지
+     * 내서 서제 페이지
      */
-    @GetMapping("/subsearch")
-    public String subsearchView() {
-        return "subsearch";
+    @GetMapping("/user/mybook")
+    public String mybookView() {
+        return "mybook";
     }
 }
