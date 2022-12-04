@@ -35,8 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
+        http.csrf().disable() // csrf 토큰 비활성화
                 .authorizeRequests()
                     .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/images/**") // /auth/** 는
                     .permitAll() // 누구나 들어올 수 있다
@@ -47,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/auth/login") // 로그인 페이지 지정
                     .loginProcessingUrl("/auth/login") // 로그인 요청을 해당 url로 대체한다
                     .defaultSuccessUrl("/") // 로그인을 하면 / 로 간다.
-                    .failureUrl("/auth/login"); // 로그인을 실패하면 로그인 페이지로 간다
-        }
+                    // .failureUrl("/auth/login") // 로그인을 실패하면 로그인 페이지로 간다
+                    .usernameParameter("user_id"); // 아이디 변수 default 값 username -> user_id 로 변경
+                    
+    }
 }

@@ -24,13 +24,13 @@ public class User {
     private Long id;
     
     @Column(nullable = false, length = 100)
-    private String user_id; // 회원 아이디
+    private String user_id; // 아이디
 
-    @Column(nullable = false, length = 200)
-    private String user_pw; // 회원 이름
+    @Column(nullable = false, length = 300)
+    private String user_pw; // 비밀번호
 
     @Column(nullable = false, length = 100)
-    private String user_name; // 비밀번호
+    private String user_name; // 이름
 
     @Column(nullable = false, length = 50)
     private String user_phone; // 폰번호

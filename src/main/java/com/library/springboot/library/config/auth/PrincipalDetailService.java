@@ -21,13 +21,11 @@ public class PrincipalDetailService implements UserDetailsService{
     // username이 DB에 있는지를 확인 해준다
     @Override
     public UserDetails loadUserByUsername(String user_id) throws UsernameNotFoundException {
-        System.out.println("ㄹㅇㄴ매ㅑㅜ");
         
         User principal = userRepository.loginUser(user_id)
              .orElseThrow(()->{
                 return new UsernameNotFoundException(user_id + " 사용자를 찾을 수 없습니다");
              });
-        System.out.println("ㄹㅇㄴ매ㅑㅜ" + principal.getUser_name());
         return new PrincipalDetail(principal); // 시큐리티의 세션에 유저 정보가 저장 된다
     }
     

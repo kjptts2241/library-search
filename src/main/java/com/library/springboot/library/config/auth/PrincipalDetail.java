@@ -67,7 +67,7 @@ public class PrincipalDetail implements UserDetails {
 
         Collection<GrantedAuthority> collectors = new ArrayList<>();
         
-        collectors.add(()->{return "ROLE_"+user.getRole();}); // 람다식 (밑의 것에서 람다식으로)
+        collectors.add(()->{ return "ROLE_"+user.getRole();}); // 람다식 (밑의 것에서 람다식으로)
         
         // collectors.add(new GrantedAuthority() {
             

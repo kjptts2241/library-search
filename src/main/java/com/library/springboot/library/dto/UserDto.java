@@ -13,9 +13,9 @@ import lombok.*;
 public class UserDto {
     
     private int id; // 아이디
-    private String user_id; // 회원 아이디
-    private String user_pw; // 회원 이름
-    private String user_name; // 비밀번호
+    private String user_id; // 아이디
+    private String user_pw; // 비밀번호
+    private String user_name; // 이름
     private String user_phone; // 폰번호
     private int user_birth; // 생년월일
     private String user_email; // 이메일
