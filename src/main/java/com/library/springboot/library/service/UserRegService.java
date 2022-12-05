@@ -25,8 +25,8 @@ public class UserRegService {
     public void userReg_service(UserDto userDto) {
 
         // 비밀번호 암호화(sha256)
-        String encPassword = encode.encode(userDto.getUser_pw());
-        userDto.setUser_pw(encPassword);
+        String encPassword = encode.encode(userDto.getPassword());
+        userDto.setPassword(encPassword);
         
         // 권한 추가
         userDto.setRole(RoleType.USER);
@@ -37,8 +37,8 @@ public class UserRegService {
     /*
     중복 아이디 체크
      */
-    public int userIdCheck(String user_id) {
+    public int userIdCheck(String username) {
 
-        return userRepository.checkOverId(user_id);
+        return userRepository.checkOverId(username);
     }
 }

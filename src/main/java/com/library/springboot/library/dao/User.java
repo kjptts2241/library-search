@@ -27,7 +27,7 @@ public class User {
     private String user_id; // 아이디
 
     @Column(nullable = false, length = 300)
-    private String user_pw; // 비밀번호
+    private String password; // 비밀번호
 
     @Column(nullable = false, length = 100)
     private String user_name; // 이름
@@ -48,9 +48,9 @@ public class User {
     private Timestamp create_date; // 생성 날짜
 
     @Builder
-    public User(String user_id, String user_pw, String user_name, String user_phone, int user_birth, String user_email, RoleType role) {
+    public User(String user_id, String password, String user_name, String user_phone, int user_birth, String user_email, RoleType role) {
         this.user_id = user_id;
-        this.user_pw = user_pw;
+        this.password = password;
         this.user_name = user_name;
         this.user_phone = user_phone;
         this.user_birth = user_birth;

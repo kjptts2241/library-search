@@ -62,8 +62,8 @@ $("#user_id").blur(function() {
 
 // 비밀번호 유효성 검사
 // 정규식 체크
-$('#user_pw').blur(function() {
-   if (pwJ.test($('#user_pw').val())) {
+$('#password').blur(function() {
+   if (pwJ.test($('#password').val())) {
     console.log('비밀번호 유효성 체크 성공');
     $('#pw_check').text('');
    } else {
@@ -73,8 +73,8 @@ $('#user_pw').blur(function() {
 });
 
 // 패스워드 일치 확인
-$('#user_pw2').blur(function() {
-    if ($('#user_pw').val() != $(this).val()) {
+$('#password2').blur(function() {
+    if ($('#password').val() != $(this).val()) {
         $('#pw2_check').text('비밀번호가 일치하지 않습니다 :(');
         $('#pw2_check').css('color', 'red');
     } else {
@@ -187,8 +187,8 @@ $('#user_phone').blur(function(){
 var inval_Arr = new Array(5).fill(false);
 $('#reg_submit').click(function(){
     // 비밀번호가 같은 경우 && 비밀번호 정규식
-    if (($('#user_pw').val() == ($('#user_pw2').val()))
-            && pwJ.test($('#user_pw').val())) {
+    if (($('#password').val() == ($('#password2').val()))
+            && pwJ.test($('#password').val())) {
         inval_Arr[0] = true;
     } else {
         inval_Arr[0] = false;

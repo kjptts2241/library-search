@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin()
                     .loginPage("/auth/login") // 로그인 페이지 지정
                     .loginProcessingUrl("/auth/login") // 로그인 요청을 해당 url로 대체한다
-                    .defaultSuccessUrl("/") // 로그인을 하면 / 로 간다.
-                    // .failureUrl("/auth/login") // 로그인을 실패하면 로그인 페이지로 간다
+                    .defaultSuccessUrl("/") // 로그인을 하면 메인으로 간다
+                    .failureUrl("/auth/login") // 로그인을 실패하면 로그인 페이지로 간다
                     .usernameParameter("user_id"); // 아이디 변수 default 값 username -> user_id 로 변경
                     
     }
