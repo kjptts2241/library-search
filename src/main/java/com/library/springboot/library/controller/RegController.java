@@ -41,16 +41,4 @@ public class RegController {
     public int idCheck(@RequestParam("user_id") String user_id) {
         return reg_service.userIdCheck(user_id);
     }
-
-    /*
-     * 로그아웃
-     */
-    // @GetMapping("/auth/lougut")
-    // public String logout(HttpSession session) {
-        
-    //     // 세션 만료
-    //     session.invalidate();
-
-    //     return "redirect:/";
-    // }
 }

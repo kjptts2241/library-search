@@ -1,0 +1,146 @@
+
+*{
+    margin: 0; 
+    padding: 0;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+.wrapper{
+    width: 90%; 
+    margin: 0 auto;
+}
+.clearfix{
+    content: ''; 
+    display: block; 
+    clear: both;
+}
+
+header{
+    height: 55px;
+    background-color: none;
+    position: fixed; 
+    width: 100%; 
+    z-index: 9999; 
+    top: 0; 
+    left: 0;
+}
+
+.menu{
+    float: right;
+}
+
+.menu li{
+    float: left;
+    width: 100px;
+}
+
+.menu a{line-height: 55px; color: #fff; padding: 0 15px; display: block;}
+
+nav{
+    margin: 0 auto;
+}
+
+nav ul{
+    text-align: center;
+}
+
+nav ul li{
+    display: inline-block;
+}
+
+nav ul li a{
+    padding: 18px;
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+    text-decoration: none;
+    display: block;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    background-image: url('/images/image.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.search-box{
+    padding: 10px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-left: -400px;
+    height: 150px;
+    border: 1px;
+    border-radius: 5px;
+    width: 800px;
+}
+
+.search-txt{
+    position: absolute;
+    left: 280px;
+    top: 50%;
+    margin-top: -25px;
+    display: flex;
+    padding: 6px;
+    width: 500px;
+    height: 50px;
+    border: solid 2px #2693F1;
+    background-color: #fff;
+    float: right;
+    font-size: 1rem;
+    border-radius: 7px;
+    outline: none;
+}
+
+.search-title{
+    display: flex;
+    padding: 6px;
+    border: none;
+    background: none;
+    float: left;
+    color: #fff;
+    font-size: 5rem;
+    font-family: 'Passion One', cursive; 
+}
+
+.drop-in-underline {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+  .drop-in-underline:before{
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0; right: 0;
+    height: 2px;
+    background-color: #2693F1;
+}
+
+  .drop-in-underline:before{
+    opacity: 0;
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+    -webkit-transition: opacity 0s, -webkit-transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: opacity 0s, -webkit-transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s;
+      transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s, -webkit-transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+  
+  .drop-in-underline:hover:before{
+    opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    -webkit-transition: opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
