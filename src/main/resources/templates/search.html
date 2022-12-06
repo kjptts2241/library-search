@@ -11,7 +11,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Passion+One&display=swap" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="/images/Logo.png">
-        <!-- <script type="text/javascript" src="https://example.com/fontawesome/v6.2.0/js/conflict-detection.js"></script> -->
 
   </head>
 
@@ -24,7 +23,7 @@
                 <li><a class="drop-in-underline" href="/auth/subsearch">검색</a></li>
                 <li><a class="drop-in-underline" href="/auth/map">지도</a></li>
                 <li sec:authorize="isAnonymous()"><a class="drop-in-underline" href="/auth/login">로그인</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/user/mybook">내 서제</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/user/mybook">내 서재</a></li>
                 <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/logout">로그아웃</a></li>
             </ul>
         </nav>
@@ -35,7 +34,7 @@
   <body>
 
     <div class="search-box">
-      <button class="search-title" href="/" onclick="mainSearch()">LIVRO<span style="color: #2693F1;">'</span>S</button>
+      <button class="search-title" href="/" onclick="mainSearch()">Mouseion<span style="color: #2693F1;">'</span>S</button>
       <div class="fontsearch">
           <input type="text" class="search-txt" name="mainKeyword" id="mainKeyword" placeholder="  찾고 싶은 도서를 검색해보세요!" onkeyup="enterkey()">
           <h1><i class="fa-solid fa-magnifying-glass"></i></h1>

@@ -76,16 +76,16 @@ body{
     position: absolute;
     top: 40%;
     left: 50%;
-    margin-left: -400px;
+    margin-left: -450px;
     height: 150px;
     border: 1px;
     border-radius: 5px;
-    width: 800px;
+    width: 900px;
 }
 
 .search-txt{
     position: absolute;
-    left: 280px;
+    left: 370px;
     top: 50%;
     margin-top: -25px;
     display: flex;

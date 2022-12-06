@@ -234,6 +234,7 @@ function library(isbn) {
                     libraryList += '<p> 위도 : ' + libs[j].lib.latitude + '</p>'; // 위도
                     libraryList += '<p> 경도 : ' + libs[j].lib.longitude + '</p>'; // 경도
                     libraryList += '<p> 도서관 코드 : ' + libs[j].lib.libCode + '</p>'; // 도서관 코드
+                    libraryList += '<p> 대출 여부 : 미정</p>'; // 해당 도서의 대출 여부
                     libraryList += '<a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-bs-content="Popover body content is set in this attribute.">도서관 검색</a>';
                     libraryList += '<hr>';
                 }
@@ -262,8 +263,8 @@ function book(titleInfo, typeName, placeInfo, manageName, authorInfo, pubInfo, m
     bookData += '<h5>' + titleInfo + '</h5>'; // 도서명
     bookData += '<br>';
     bookData += '<p> 도서 자료 유형 : ' + typeName + '</p>'; // 도서 자료 유형
-    bookData += '<p> 자료 있는 곳 명칭 : ' + placeInfo + '</p>'; // 자료 있는 곳 명칭
-    bookData += '<p> 자료 있는 곳 명 : ' + manageName + '</p>'; // 자료 있는 곳 명
+    // bookData += '<p> 자료 있는 곳 명칭 : ' + placeInfo + '</p>'; // 자료 있는 곳 명칭
+    // bookData += '<p> 자료 있는 곳 명 : ' + manageName + '</p>'; // 자료 있는 곳 명
     bookData += '<p> 저작자 : ' + authorInfo + '</p>'; // 저작자
     bookData += '<p> 출판사: ' + pubInfo + '</p>'; // 출판사
     bookData += '<p> 홈페이지 : ' + menuName + '</p>'; // 홈페이지
