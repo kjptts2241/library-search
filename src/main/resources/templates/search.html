@@ -1,7 +1,8 @@
 <!-- main page  -->
-<html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
   <head>
+
     <meta charset="utf-8">
         <title>도서 검색</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -11,19 +12,24 @@
         <link href="https://fonts.googleapis.com/css2?family=Passion+One&display=swap" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="/images/Logo.png">
         <!-- <script type="text/javascript" src="https://example.com/fontawesome/v6.2.0/js/conflict-detection.js"></script> -->
+
   </head>
 
   <header>
+
     <div class="wrapper">
         <nav>
             <ul class="menu">
                 <li><a class="drop-in-underline" href="/" >홈</a></li>
                 <li><a class="drop-in-underline" href="/auth/subsearch">검색</a></li>
                 <li><a class="drop-in-underline" href="/auth/map">지도</a></li>
-                <li><a class="drop-in-underline" href="/user/mybook">내 서제</a></li>
+                <li sec:authorize="isAnonymous()"><a class="drop-in-underline" href="/auth/login">로그인</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/user/mybook">내 서제</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/logout">로그아웃</a></li>
             </ul>
         </nav>
     </div>
+
   </header>
 
   <body>

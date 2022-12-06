@@ -2,41 +2,27 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="headerFragment">
 
+
         <!-- 페이지 로더 -->
         <div id="preloder">
             <div class="loader"></div>
         </div>
-        
-        
-        <!-- 상단 메뉴바 -->
-        <!-- <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-md-3">
-                    <div class="header__logo">
-                        <a href="/"><h4>Library</h4></a>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-6">
-                    <nav class="header__menu mobile-menu">
-                        <ul>
-                            <li><a href="/">홈</a></li>
-                            <li><a href="/auth/subsearch">검색</a></li>
-                            <li><a href="/auth/map">지도</a></li>
-                            <li sec:authorize="isAuthenticated()"><a href="/user/mybook">내 서제</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="header__nav__option">
-                        <a sec:authorize="isAnonymous()" href="/auth/login">로그인</a>
-                        <a sec:authorize="isAuthenticated()" href="/logout">로그아웃</a>
-                    </div>
-                </div>
+
+        <header>
+            <div class="wrapper">
+                <nav>
+                <ul class="menu">
+                    <li><a class="drop-in-underline" href="/">홈</a></li>
+                    <li><a class="drop-in-underline" href="/auth/subsearch">검색</a></li>
+                    <li><a class="drop-in-underline" href="/auth/map">지도</a></li>
+                    <li sec:authorize="isAnonymous()"><a class="drop-in-underline" href="/auth/login">로그인</a></li>
+                    <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/user/mybook">내 서제</a></li>
+                    <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/logout">로그아웃</a></li>
+                </ul>
+                </nav>
             </div>
-            <div class="canvas__open"><i class="fa fa-bars"></i></div>
-        </div>
+        </header>
 
-        <hr /> -->
-
+        
     </th:block>
 </html>

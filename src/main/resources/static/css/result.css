@@ -69,7 +69,7 @@ nav ul li a{
 body{
     width: 100%;
     height: 140vh;
-    background-image: url('../img/SearchBackground.png');
+    background-image: url('/images/SearchBackground.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

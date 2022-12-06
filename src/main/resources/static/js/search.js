@@ -18,6 +18,13 @@ $(document).ready(function (){ // 페이지 들어왔을 때 실행
 })
 
 
+// 엔터키 눌렀을 때
+function enterkey() {
+    if (window.event.keyCode == 13) {
+        search();
+      }
+}
+
 
 // [국립 중앙 도서관] 도서 검색
 // 도서 검색 결과를 가져오기 위한 함수
@@ -120,19 +127,19 @@ function search() {
     // html에 분류하여 저장 및 subsearch에 업로드
     for (var i = 0; i < booksInt.length; i++)
     {
-        bookList += '========================================================';
-        bookList += '<div>';
-        bookList += `<div>${booksInt[i]} 째 도서</div>`;
-        bookList += `<div> 도서명 : ${titleInfo[i]}</div>`;
-        bookList += `<div> 저작자 : ${authorInfo[i]}</div>`;
-        bookList += `<div> 출판사 : ${pubInfo[i]}</div>`;
-        bookList += `<div id="isbn"> isbn : ${isbn[i]}</div>`;
-        bookList += `<div> 이미지 URL : ${imageUrl[i]}</div>`;
-        bookList += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup_box_library" onclick="library(' + isbn[i] + ')">도서관 목록</button>';
-        bookList += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup_box_book" onclick="book(\''+ titleInfo[i] + '\',\'' + typeName[i] + '\',\'' + placeInfo[i] + '\',\'' + manageName[i] + '\',\'' + authorInfo[i] + '\',\'' + pubInfo[i] + '\',\'' + menuName[i] + '\',\'' + mediaName[i] + '\',\'' + id[i] + '\',\'' + licText[i] + '\',\'' + regDate[i] + '\',\'' + isbn[i] + '\',\'' + callNo[i] + '\',\'' + kdcCode1s[i] + '\',\'' + kdcName1s[i] + '\',\'' + imageUrl[i] + '\');">도서 상세내용</button>'; 
+        bookList += '<div class="box-container">';
+        bookList += '<div class="img-box">';
+        bookList += '<img src="' + imageUrl[i] +'" class="book-img">';
         bookList += '</div>';
-        bookList += '========================================================';
-        bookList += '<br><br><br>';
+        bookList += '<div class="info-box">';
+        bookList += '<p class="title">' + titleInfo[i] + '</p>';
+        bookList += '<p class="con">' + authorInfo[i] + '</p>';
+        bookList += '</div>';
+        bookList += '<div class="btn-box">';
+        bookList += '<a onclick="book(\''+ titleInfo[i] + '\',\'' + typeName[i] + '\',\'' + placeInfo[i] + '\',\'' + manageName[i] + '\',\'' + authorInfo[i] + '\',\'' + pubInfo[i] + '\',\'' + menuName[i] + '\',\'' + mediaName[i] + '\',\'' + id[i] + '\',\'' + licText[i] + '\',\'' + regDate[i] + '\',\'' + isbn[i] + '\',\'' + callNo[i] + '\',\'' + kdcCode1s[i] + '\',\'' + kdcName1s[i] + '\',\'' + imageUrl[i] + '\')" data-bs-toggle="modal" href="#popup_box_book" title="Button fade purple" class="button btnFade btnLightBlue">도서 정보</a>';
+        bookList += '<a onclick="library(' + isbn[i] + ')" data-bs-toggle="modal" href="#popup_box_library" title="Button fade lightblue" class="button btnFade btnPurple">도서관 위치</a>';
+        bookList += '</div>';
+        bookList += '</div>';
     }
 
     $('#search_body').html(bookList); // 도서 데이터들을 웹페이지에 넣어주기
@@ -172,7 +179,7 @@ function searchDetails(isbn) {
 
                     if (detail[z].book.bookImageURL == '') // 없다면
                     {
-                        ex_imageUrl = '이미지 파일 : 임의의 이미지 파일';
+                        ex_imageUrl = 'https://via.placeholder.com/500.jpg';
                         return;
                     }
                 }
@@ -216,21 +223,19 @@ function library(isbn) {
 
                 for (j in libs)
                 {
-                    libraryList += '========================================================';
-                    libraryList += '<div>';
-                    libraryList += '<div> 도서관명 : ' + libs[j].lib.libName + '</div>'; // 도서관명
-                    libraryList += '<div> 도서관 주소 : ' + libs[j].lib.address + '</div>'; // 도서관 주소
-                    libraryList += '<div> 전화번호 : ' + libs[j].lib.tel + '</div>'; // 전화번호
-                    libraryList += '<div> 팩스 : ' + libs[j].lib.fax + '</div>'; // 팩스
-                    libraryList += '<div> 운영 시간 : ' + libs[j].lib.operatingTime + '</div>'; // 운영 시간
-                    libraryList += '<div> 닫는 시간 : ' + libs[j].lib.closed + '</div>'; // 닫는 시간
-                    libraryList += '<div> 홈페이지 : ' + libs[j].lib.homepage + '</div>'; // 홈페이지
-                    libraryList += '<div> 위도 : ' + libs[j].lib.latitude + '</div>'; // 위도
-                    libraryList += '<div> 경도 : ' + libs[j].lib.longitude + '</div>'; // 경도
-                    libraryList += '<div> 도서관 코드 : ' + libs[j].lib.libCode + '</div>'; // 도서관 코드
-                    libraryList += '</div>';
-                    libraryList += '========================================================';
-                    libraryList += '<br><br><br>';
+                    libraryList += '<h5>' + libs[j].lib.libName + '</h5>'; // 도서관명
+                    libraryList += '<br>';
+                    libraryList += '<p> 도서관 주소 : ' + libs[j].lib.address + '</p>'; // 도서관 주소
+                    libraryList += '<p> 전화번호 : ' + libs[j].lib.tel + '</p>'; // 전화번호
+                    libraryList += '<p> 팩스 : ' + libs[j].lib.fax + '</p>'; // 팩스
+                    libraryList += '<p> 운영 시간 : ' + libs[j].lib.operatingTime + '</p>'; // 운영 시간
+                    libraryList += '<p> 닫는 시간 : ' + libs[j].lib.closed + '</p>'; // 닫는 시간
+                    libraryList += '<p> 홈페이지 : ' + libs[j].lib.homepage + '</p>'; // 홈페이지
+                    libraryList += '<p> 위도 : ' + libs[j].lib.latitude + '</p>'; // 위도
+                    libraryList += '<p> 경도 : ' + libs[j].lib.longitude + '</p>'; // 경도
+                    libraryList += '<p> 도서관 코드 : ' + libs[j].lib.libCode + '</p>'; // 도서관 코드
+                    libraryList += '<a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-bs-content="Popover body content is set in this attribute.">도서관 검색</a>';
+                    libraryList += '<hr>';
                 }
                 
                 //$('#library_header').html(data); // 팝업 헤더에 요약한 해당 도서의 데이터 넣어주기
@@ -253,22 +258,24 @@ function book(titleInfo, typeName, placeInfo, manageName, authorInfo, pubInfo, m
     // view에 붙여줄 도서 데이터 변수
     var bookData = '';
 
-    bookData += '<p> 도서명 : ' + titleInfo + '</p>'; // 도서명 홑따움표를 감싸주지 않았다.
-    bookData += '<div> 도서 자료 유형 : ' + typeName + '</div>'; // 도서 자료 유형
-    bookData += '<div> 자료 있는 곳 명칭 : ' + placeInfo + '</div>'; // 자료 있는 곳 명칭
-    bookData += '<div> 자료 있는 곳 명 : ' + manageName + '</div>'; // 자료 있는 곳 명
-    bookData += '<div> 저작자 : ' + authorInfo + '</div>'; // 저작자
-    bookData += '<div> 출판사: ' + pubInfo + '</div>'; // 출판사
-    bookData += '<div> 홈페이지 : ' + menuName + '</div>'; // 홈페이지
-    bookData += '<div> 온라인/오프라인 자료 구분 : ' + mediaName + '</div>'; // 온라인/오프라인 자료 구분
-    bookData += '<div> 종키(?) : ' + id + '</div>'; // 종키(?)
-    bookData += '<div> 저작권 이용 가능 유무 : ' + licText + '</div>'; // 저작권 이용 가능 유무
-    bookData += '<div> 비치일  : ' + regDate + '</div>'; // 비치일
-    bookData += '<div> isbn : ' + isbn + '</div>'; // isbn
-    bookData += '<div> 청구기호 : ' + callNo + '</div>'; // 청구기호
-    bookData += '<div> 동양서분류기호 대분류 코드 : ' + kdcCode1s + '</div>'; // 동양서분류기호 대분류 코드
-    bookData += '<div> 동양서분류기호 대분류 명칭 : ' + kdcName1s + '</div>'; // 동양서분류기호 대분류 명칭
-    bookData += '<div> 이미지 URL : ' + imageUrl + '</div>'; // 이미지 URL
+    bookData += '<img src="' + imageUrl +'" class="book-img">'; // 이미지 URL
+    bookData += '<h5>' + titleInfo + '</h5>'; // 도서명
+    bookData += '<br>';
+    bookData += '<p> 도서 자료 유형 : ' + typeName + '</p>'; // 도서 자료 유형
+    bookData += '<p> 자료 있는 곳 명칭 : ' + placeInfo + '</p>'; // 자료 있는 곳 명칭
+    bookData += '<p> 자료 있는 곳 명 : ' + manageName + '</p>'; // 자료 있는 곳 명
+    bookData += '<p> 저작자 : ' + authorInfo + '</p>'; // 저작자
+    bookData += '<p> 출판사: ' + pubInfo + '</p>'; // 출판사
+    bookData += '<p> 홈페이지 : ' + menuName + '</p>'; // 홈페이지
+    bookData += '<p> 온라인/오프라인 자료 구분 : ' + mediaName + '</p>'; // 온라인/오프라인 자료 구분
+    bookData += '<p> 종키(?) : ' + id + '</p>'; // 종키(?)
+    bookData += '<p> 저작권 이용 가능 유무 : ' + licText + '</p>'; // 저작권 이용 가능 유무
+    bookData += '<p> 비치일  : ' + regDate + '</p>'; // 비치일
+    bookData += '<p> isbn : ' + isbn + '</p>'; // isbn
+    bookData += '<p> 청구기호 : ' + callNo + '</p>'; // 청구기호
+    bookData += '<p> 동양서분류기호 대분류 코드 : ' + kdcCode1s + '</p>'; // 동양서분류기호 대분류 코드
+    bookData += '<p> 동양서분류기호 대분류 명칭 : ' + kdcName1s + '</p>'; // 동양서분류기호 대분류 명칭
+    bookData += '<hr>';
     
     $('#book_body').html(bookData); // 팝업 바디에 도서 데이터 넣어주기
 }

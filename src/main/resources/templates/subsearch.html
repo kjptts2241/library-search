@@ -2,73 +2,65 @@
 
 <th:block layout:fragment="content">
 
-    <div class="container">
+    <body>
 
-        <h2>도서 검색</h2>
-
-        <div class="form-group">
-            <label for="keyword">키워드:</label>
-            <input type="keyword" class="form-control" id="keyword" placeholder="도서명">
+        <!-- 검색 창 -->
+        <div class="search-box">
+          <input type="text" class="search-txt" name="keyword" id="keyword" placeholder="  찾고 싶은 도서를 검색해보세요!" onkeyup="enterkey()">
+          <!-- <button type="button" class="btn btn-primary" onclick="search()">도서 검색</button> -->
         </div>
-        <button type="button" class="btn btn-primary" onclick="search()">도서 검색</button>
 
 
         <!-- 도서 상세 팝업(model) -->
-        <div class="modal fade" id="popup_box_book">
+        <div class="modal fade" id="popup_box_book" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
-                    
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <p>도서 상세 정보</p>
-                        <div id="book_header"></div>
-                    </div>
-                    
-                    <div class="modal-body">
-                        <div id="book_body"></div> <!-- 도서 상세 데이터가 들어갈 곳 -->
-                    </div>
-                    
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                    </div>
-
-                </div>            
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">도서 상세 정보</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- 도서 상세 데이터가 들어갈 곳 -->
+                <div class="modal-body" id="book_body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary">도서 저장</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+              </div>
             </div>
         </div>
 
 
         <!-- 도서관 팝업(model) -->
-        <div class="modal fade" id="popup_box_library">
+        <div class="modal fade" id="popup_box_library" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
-                    
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <p>도서관 목록</p>
-                        <div id="library_header"></div>
-                    </div>
-                    
-                    <div class="modal-body">
-                        <div id="library_body"></div> <!-- 도서관 데이터가 들어갈 곳 -->
-                    </div>
-                    
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                    </div>
-
-                </div>            
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">도서관 목록</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- 도서관 데이터가 들어갈 곳 -->
+                <div class="modal-body" id="library_body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary">전체 도서관 검색</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+              </div>
             </div>
         </div>
 
 
         <!-- 도서 데이터가 들어갈 곳 -->
-        <div id="search_body"></div>
-
-    </div>
+        <div class="result-box" id="search_body"></div>
 
     
-    <!-- 검색 스크립트 -->
-    <script th:src="@{/js/search.js}"></script>
+        <!-- 검색 스크립트 -->
+        <script th:src="@{/js/search.js}"></script>
+
+    </body>
 
 </th:block>
 </html>
