@@ -44,7 +44,7 @@ function search() {
     var pubInfo = []; // 발행자
     var menuName = []; // 온라인/오프라인 자료 구분
     var mediaName = []; // 매체 구분
-    var id = []; // 종키(?)
+    var id = []; // 종키
     var licText = []; // 저작권 이용 가능 유무
     var regDate = []; // 비치일
     var isbn = []; // isbn 13의 끝자리의 값을 들고 온다.(최신 번호 유지가능)
@@ -100,7 +100,7 @@ function search() {
                 pubInfo.push(result[i].pubInfo.replace(/(<([^>]+)>)/ig,"")); // 발행자
                 menuName.push(result[i].menuName); // 온라인/오프라인 자료 구분
                 mediaName.push(result[i].mediaName); // 매체 구분
-                id.push(result[i].id); // 종키(?)
+                id.push(result[i].id); // 종키
                 licText.push(result[i].licText); // 저작권 이용 가능 유무
                 regDate.push(result[i].regDate); // 비치일 
                 isbn.push(isbnNum[isbnNum.length - 1]); // isbn 13의 끝자리의 값을 들고 온다.(최신 번호 유지가능)
@@ -109,7 +109,7 @@ function search() {
                 kdcName1s.push(result[i].kdcName1s); // 동양서분류기호 대분류 명칭
                 if (result[i].isbn == '') // isbn안에 아무것도 없다면
                 {
-                    imageUrl.push('이미지 파일 : 임의의 이미지 파일'); // 임의의 이미지를 넣어준다
+                    imageUrl.push('/images/book.png'); // 임의의 이미지를 넣어준다
                 }
                 if (result[i].isbn != '') // isbn안에 값이 있다면
                 {
@@ -179,7 +179,7 @@ function searchDetails(isbn) {
 
                     if (detail[z].book.bookImageURL == '') // 없다면
                     {
-                        ex_imageUrl = 'https://via.placeholder.com/500.jpg';
+                        ex_imageUrl = '/images/book.png';
                         return;
                     }
                 }
@@ -267,9 +267,9 @@ function book(titleInfo, typeName, placeInfo, manageName, authorInfo, pubInfo, m
     // bookData += '<p> 자료 있는 곳 명 : ' + manageName + '</p>'; // 자료 있는 곳 명
     bookData += '<p> 저작자 : ' + authorInfo + '</p>'; // 저작자
     bookData += '<p> 출판사: ' + pubInfo + '</p>'; // 출판사
-    bookData += '<p> 홈페이지 : ' + menuName + '</p>'; // 홈페이지
-    bookData += '<p> 온라인/오프라인 자료 구분 : ' + mediaName + '</p>'; // 온라인/오프라인 자료 구분
-    bookData += '<p> 종키(?) : ' + id + '</p>'; // 종키(?)
+    bookData += '<p> 온라인/오프라인 자료 구분 : ' + menuName + '</p>'; // 온라인/오프라인 자료 구분
+    bookData += '<p> 매체 구분 : ' + mediaName + '</p>'; // 매체 구분
+    // bookData += '<p> 종키 : ' + id + '</p>'; // 종키
     bookData += '<p> 저작권 이용 가능 유무 : ' + licText + '</p>'; // 저작권 이용 가능 유무
     bookData += '<p> 비치일  : ' + regDate + '</p>'; // 비치일
     bookData += '<p> isbn : ' + isbn + '</p>'; // isbn

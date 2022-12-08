@@ -14,9 +14,10 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.*;
 
-@Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class User {
     
     @Id
@@ -57,5 +58,4 @@ public class User {
         this.user_email = user_email;
         this.role = role;
     }
-
 }

@@ -1,12 +1,10 @@
 package com.library.springboot.library.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class LibraryListDto { // 도서관 전체 데이터 (자바 객체)
     
     private Long id;

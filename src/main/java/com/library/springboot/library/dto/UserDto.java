@@ -7,9 +7,9 @@ import com.library.springboot.library.dao.User;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
     
     private int id; // 아이디
