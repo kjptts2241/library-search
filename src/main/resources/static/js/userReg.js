@@ -12,6 +12,10 @@ var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a
 // 휴대폰 번호 정규식
 var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 
+// 회원가입 전체 ( 가입 버튼 ) 유효성 검사
+var inval_Arr = new Array(6).fill(false);
+
+// $("#reg_submit").removeAttr('href', true); // 처음 접속 시 가입하기 버튼 누르지 못하게 설정
 
 // 아이디 유효성 검사(1 = 중복 / 0 != 중복)
 $("#user_id").blur(function() {
@@ -29,32 +33,33 @@ $("#user_id").blur(function() {
                     // 1 : 아이디가 중복되는 문구
                     $("#id_check").text("사용중인 아이디입니다 :p");
                     $("#id_check").css("color", "red");
-                    $("#reg_submit").attr("disabled", true);
+                    // $("#reg_submit").removeAttr('href', true);
+                    inval_Arr[0] = false;
             } else {
                     
                 if(idJ.test(user_id)){
                     // 0 : 아이디 길이 / 문자열 검사
                     $("#id_check").text("");
-                    $("#reg_submit").attr("disabled", false);
+                    inval_Arr[0] = true;
         
                 } else if(user_id == ""){
                     
-                    $('#id_check').text('아이디를 입력해주세요 :)');
+                    $('#id_check').text('아이디를 입력해주세요');
                     $('#id_check').css('color', 'red');
-                    $("#reg_submit").attr("disabled", true);				
+                    inval_Arr[0] = false;		
                     
                 } else {
                     
-                    $('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다 :) :)");
+                    $('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다");
                     $('#id_check').css('color', 'red');
-                    $("#reg_submit").attr("disabled", true);
+                    inval_Arr[0] = false;
                 }
                     
             }
         },
         
         error : function() {
-                    console.log("아이디 중복 체크 실패");
+                    console.log("아이디 중복 체크 실패 했습니다");
         }
     });
 });
@@ -63,23 +68,36 @@ $("#user_id").blur(function() {
 // 비밀번호 유효성 검사
 // 정규식 체크
 $('#password').blur(function() {
-   if (pwJ.test($('#password').val())) {
-    console.log('비밀번호 유효성 체크 성공');
-    $('#pw_check').text('');
+   if (pwJ.test($(this).val())) {
+        console.log('비밀번호 유효성 체크 성공');
+        $('#pw_check').text('');
+        inval_Arr[1] = true;
+   } else if($(this).val() == "") {
+        $('#pw_check').text('비밀번호를 입력해주세요');
+        $('#pw_check').css('color', 'red');
+        inval_Arr[1] = false;
    } else {
-    $('#pw_check').text('숫자 or 문자로만 4~12자리 입력');
-    $('#pw_check').css('color', 'red');
+        $('#pw_check').text('숫자 or 문자로만 4~12자리 입력 해주세요');
+        $('#pw_check').css('color', 'red');
+        inval_Arr[1] = false;
    }
 });
 
 // 패스워드 일치 확인
 $('#password2').blur(function() {
     if ($('#password').val() != $(this).val()) {
-        $('#pw2_check').text('비밀번호가 일치하지 않습니다 :(');
+        $('#pw2_check').text('비밀번호가 일치하지 않습니다');
         $('#pw2_check').css('color', 'red');
-    } else {
-        console.log('비밀번호 일치');
+        inval_Arr[2] = false;
+    } else if ($(this).val() == "") {
+        $('#pw2_check').text('비밀번호를 입력해주세요');
+        $('#pw2_check').css('color', 'red');
+        inval_Arr[2] = false;
+    } 
+    else {
+        console.log('비밀번호가 일치 합니다');
         $('#pw2_check').text('');
+        inval_Arr[2] = true;
     }
 });
 
@@ -87,19 +105,23 @@ $('#password2').blur(function() {
 // 이름 유효성 검사
 $("#user_name").blur(function() {
     if (nameJ.test($(this).val())) {
-            console.log('이름 유효성 체크 성공');
-            $("#name_check").text('');
-    } else {
+        console.log('이름 유효성 체크 성공');
+        $("#name_check").text('');
+        inval_Arr[3] = true;
+    } else if ($(this).val() == "") {
+        $('#name_check').text('이름을 입력해주세요');
+        $('#name_check').css('color', 'red');
+        inval_Arr[3] = false;
+    } 
+    else {
         $('#name_check').text('이름을 확인해주세요');
         $('#name_check').css('color', 'red');
+        inval_Arr[3] = false;
     }
 });
 
-
-// 생일 유효성 검사
-var birthJ = false;
 	
-// 생년월일	birthJ 유효성 검사
+// 생년월일 유효성 검사
 $('#user_birth').blur(function(){
     var dateStr = $(this).val();		
     var year = Number(dateStr.substr(0,4)); // 입력한 값의 0~4자리까지 (연)
@@ -108,27 +130,31 @@ $('#user_birth').blur(function(){
     var today = new Date(); // 날짜 변수 선언
     var yearNow = today.getFullYear(); // 올해 연도 가져옴
     
-    if (dateStr.length <=8) {
+    if (dateStr.length <= 8) {
         // 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
         if (1900 > year || year > yearNow){
             
-            $('#birth_check').text('생년월일을 확인해주세요 :)');
+            $('#birth_check').text('생년월일을 확인해주세요');
             $('#birth_check').css('color', 'red');
+            inval_Arr[4] = false;
             
         } else if (month < 1 || month > 12) {
                 
-            $('#birth_check').text('생년월일을 확인해주세요 :)');
+            $('#birth_check').text('생년월일을 확인해주세요');
             $('#birth_check').css('color', 'red'); 
+            inval_Arr[4] = false;
         
         } else if (day < 1 || day > 31) {
             
-            $('#birth_check').text('생년월일을 확인해주세요 :)');
+            $('#birth_check').text('생년월일을 확인해주세요');
             $('#birth_check').css('color', 'red'); 
+            inval_Arr[4] = false;
             
         } else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
              
-            $('#birth_check').text('생년월일을 확인해주세요 :)');
+            $('#birth_check').text('생년월일을 확인해주세요');
             $('#birth_check').css('color', 'red'); 
+            inval_Arr[4] = false;
              
         } else if (month == 2) {
              
@@ -136,25 +162,31 @@ $('#user_birth').blur(function(){
                
              if (day>29 || (day==29 && !isleap)) {
                  
-                 $('#birth_check').text('생년월일을 확인해주세요 :)');
+                 $('#birth_check').text('생년월일을 확인해주세요');
                 $('#birth_check').css('color', 'red'); 
+                inval_Arr[4] = false;
             
             } else {
                 $('#birth_check').text('');
-                birthJ = true;
+                inval_Arr[4] = true;
             }//end of if (day>29 || (day==29 && !isleap))
              
         } else{
             
             console.log('생년월일 유효성 체크 성공');
             $('#birth_check').text(''); 
-            birthJ = true;
+            inval_Arr[4] = true;
         }//end of if
         
+    } else if ($(this).val() == "") {
+            $('#birth_check').text('생년월일을 입력해주세요');
+            $('#birth_check').css('color', 'red');
+            inval_Arr[4] = false; 
     } else {
             //1.입력된 생년월일이 8자 초과할때 :  auth:false
-            $('#birth_check').text('생년월일을 확인해주세요 :)');
-            $('#birth_check').css('color', 'red');  
+            $('#birth_check').text('생년월일을 확인해주세요');
+            $('#birth_check').css('color', 'red');
+            inval_Arr[4] = false;
     }
 });
 
@@ -162,11 +194,17 @@ $('#user_birth').blur(function(){
 // 이메일 유효성 검사
 $("#user_email").blur(function() {
     if (mailJ.test($(this).val())) {
-            console.log('이메일 유효성 체크 성공');
-            $("#email_check").text('');
+        console.log('이메일 유효성 체크 성공');
+        $("#email_check").text('');
+        inval_Arr[5] = true;
+    } else if ($(this).val() == "") {
+        $('#email_check').text('이메일을 입력해주세요');
+        $('#email_check').css('color', 'red');
+        inval_Arr[5] = false;
     } else {
         $('#email_check').text('이메일을 확인해주세요');
         $('#email_check').css('color', 'red');
+        inval_Arr[5] = false;
     }
 });
 
@@ -176,62 +214,26 @@ $('#user_phone').blur(function(){
     if(phoneJ.test($(this).val())){
         console.log('휴대폰 번호 유효성 체크 성공');
         $("#phone_check").text('');
-    } else {
-        $('#phone_check').text('휴대폰번호를 확인해주세요 :)');
+        inval_Arr[6] = true;
+    } else if ($(this).val() == "") {
+        $('#phone_check').text('휴대폰번호를 입력해주세요');
         $('#phone_check').css('color', 'red');
+        inval_Arr[6] = false;
+    } else {
+        $('#phone_check').text('휴대폰번호를 확인해주세요');
+        $('#phone_check').css('color', 'red');
+        inval_Arr[6] = false;
     }
 });
 
-
-// 가입하기 실행 버튼 유효성 검사
-var inval_Arr = new Array(5).fill(false);
 $('#reg_submit').click(function(){
-    // 비밀번호가 같은 경우 && 비밀번호 정규식
-    if (($('#password').val() == ($('#password2').val()))
-            && pwJ.test($('#password').val())) {
-        inval_Arr[0] = true;
-    } else {
-        inval_Arr[0] = false;
-    }
-    // 이름 정규식
-    if (nameJ.test($('#user_name').val())) {
-        inval_Arr[1] = true;
-    } else {
-        inval_Arr[1] = false;
-    }
-    // 이메일 정규식
-    if (mailJ.test($('#user_email').val())){
-        inval_Arr[2] = true;
-    } else {
-        inval_Arr[2] = false;
-    }
-    // 휴대폰번호 정규식
-    if (phoneJ.test($('#user_phone').val())) {
-        inval_Arr[3] = true;
-    } else {
-        inval_Arr[3] = false;
-    }
-    // 생년월일 정규식
-    if (birthJ) {
-        inval_Arr[4] = true;
-    } else {
-        inval_Arr[4] = false;
-    }
-    
-    var validAll = false;
-    for(var i = 0; i < inval_Arr.length; i++){
-        
-        if(inval_Arr[i] == true){
-            validAll = true;
-        }
-    }
-    
-    if(validAll){ // 유효성 모두 통과
-        alert('회원가입에 성공 하셨습니다!');
+
+    if(inval_Arr[0] == true && inval_Arr[1] == true && inval_Arr[2] == true && inval_Arr[3] == true && inval_Arr[4] == true && inval_Arr[5] == true && inval_Arr[6] == true){ // 유효성 모두 통과
+        alert($("#user_name").val() + ' 님 회원가입에 성공 하셨습니다!');
         
     } else{
         alert('입력한 정보들을 다시 한번 확인해주세요 :)')
-        
+        return false;
     }
 });
 

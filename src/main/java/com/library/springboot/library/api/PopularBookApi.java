@@ -23,7 +23,7 @@ public class PopularBookApi {
             urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 수*/
             urlBuilder.append("&" + URLEncoder.encode("pageSize","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
             urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
-            System.out.println(urlBuilder);
+            // System.out.println(urlBuilder);
         
             
             URL url = new URL(urlBuilder.toString());
@@ -32,7 +32,7 @@ public class PopularBookApi {
 
             conn.setRequestProperty("Content-type", "application/json");
             
-            System.out.println("Response code: " + conn.getResponseCode());
+            // System.out.println("Response code: " + conn.getResponseCode());
             
             BufferedReader rd;
             
@@ -51,7 +51,7 @@ public class PopularBookApi {
             rd.close();
             conn.disconnect();
 
-            System.out.println(result.toString());
+            // System.out.println(result.toString());
 
         } catch (Exception e) {
             e.printStackTrace();

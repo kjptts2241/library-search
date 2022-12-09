@@ -1,67 +1,76 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default_layout}">
 
-<th:block layout:fragment="content">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/register.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
 
-    <!-- 회원가입 -->
-    <form method="POST" action="/auth/signUp">
-        <div class="container">
-            <h1>회원가입</h1>
-            <!-- 아이디 -->
-            <div class="form-group">
-                <label for="user_id">아이디</label>
-                    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="아이디를 입력해주세요" required>
-                <div class="check_font" id="id_check"></div>
-            </div>
-            <!-- 비밀번호 -->
-            <div class="form-group">
-                <label for="user_pw">비밀번호</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력해주세요" required>
-                <div class="check_font" id="pw_check"></div>
-            </div>
-            <!-- 비밀번호 재확인 -->
-            <div class="form-group">
-                <label for="user_pw2">비밀번호 확인</label>
-                    <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인" required>
-                <div class="check_font" id="pw2_check"></div>
-            </div>
-            <!-- 이름 -->
-            <div class="form-group">
-                <label for="user_name">이름</label>
-                    <input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름을 입력해주세요" required>
-                <div class="check_font" id="name_check"></div>
-            </div>
-            <!-- 생년월일 -->
-            <div class="form-group required">
-                <label for="user_birth">생년월일</label>
-                    <input type="text" class="form-control" id="user_birth" name="user_birth" placeholder="생년월일을 입력해주세요 ex) 19990415" required>
-                <div class="check_font" id="birth_check"></div>
-            </div>
-            <!-- 본인확인 이메일 -->
-            <div class="form-group">
-                <label for="user_email">이메일</label>
-                    <input type="text" class="form-control" id="user_email" name="user_email" placeholder="이메일을 입력해주세요" required>
-                <div class="check_font" id="email_check"></div>
-            </div>
-            <!-- 휴대전화 -->
-            <div class="form-group">
-                <label for="user_phone">휴대전화 ('-' 없이 번호만 입력해주세요)</label>
-                    <input type="text" class="form-control" id="user_phone" name="user_phone" placeholder="휴대폰 번호를 입력해주세요" required>
-                <div class="check_font" id="phone_check"></div>
-            </div>
-            <div class="reg_button">
-                <a class="btn btn-danger px-3" href="/auth/login">
-                    <i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
-                </a>&emsp;&emsp;
-                <button class="btn btn-primary px-3" id="reg_submit">
-                    <i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
-                </button>
-            </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+
+  <!-- 회원가입 -->
+  <form method="POST" action="/auth/signUp" name="signUpForm">
+    <div id="container" class="container">
+      <div class="form sign-up">
+        <h1 class="register__title">회원가입</h1>
+        <!-- 아이디 -->
+        <div class="input-group">
+          <input type="text" class="form-control" id="user_id" name="user_id" placeholder="아이디" required>
+          <div class="check_font" id="id_check"></div>
         </div>
-    </form>
-    
+        <!-- 비밀번호 -->
+        <div class="input-group">
+          <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" required>
+          <div class="check_font" id="pw_check"></div>
+        </div>
+        <!-- 비밀번호 재확인 -->
+        <div class="input-group">
+          <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인" required>
+          <div class="check_font" id="pw2_check"></div>
+        </div>
+        <!-- 이름 -->
+        <div class="input-group">
+          <input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름" required>
+          <div class="check_font" id="name_check"></div>
+        </div>
+        <!-- 생년월일 -->
+        <div class="input-group">
+          <input type="text" class="form-control" id="user_birth" name="user_birth" placeholder="생년월일" required>
+          <div class="check_font" id="birth_check"></div>
+        </div>
+        <!-- 이메일 -->
+        <div class="input-group">
+          <input type="text" class="form-control" id="user_email" name="user_email" placeholder="E-mail" required>
+          <div class="check_font" id="email_check"></div>
+        </div>
+        <!-- 휴대전화 -->
+        <div class="input-group">
+          <input type="text" class="form-control" id="user_phone" name="user_phone" placeholder="휴대폰 번호를 입력해주세요 ('-' 없이 번호만 입력해주세요)" required>
+          <div class="check_font" id="phone_check"></div>
+        </div>
+        <a href="javascript:signUpForm.submit();" id="reg_submit" class="register__button">가입하기</a>
+        <p>
+          <span>
+            이미 계정이 있으신가요?
+          </span>
+          <a href="/login.html" class="pointer">
+            로그인하기
+          </a>
+        </p>
+      </div>
+    </div>
+  </form>
 
-    <!-- 유저 스크립트 -->
-    <script th:src="@{/js/userReg.js}"></script>
 
-</th:block>
+  <!-- UserReg Script -->
+  <script src="/js/userReg.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
 </html>

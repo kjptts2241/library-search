@@ -23,8 +23,8 @@
                 <div class="modal-body" id="book_body">
                   ...
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">도서 저장</button>
+                <div class="modal-footer" id="book_footer">
+                  <div sec:authorize="isAuthenticated()" id="book_save_button"></div> <!-- 로그인 시 도서 저장 버튼 생성 -->
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                 </div>
               </div>

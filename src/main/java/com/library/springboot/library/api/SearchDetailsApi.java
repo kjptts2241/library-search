@@ -20,7 +20,7 @@ public class SearchDetailsApi {
             urlBuilder.append("&" + URLEncoder.encode("isbn13","UTF-8") + "=" + isbn); /*isbn*/
             // urlBuilder.append("&" + URLEncoder.encode("loaninfoYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*한 페이지 결과 수*/
             urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
-            System.out.println(urlBuilder);
+            // System.out.println(urlBuilder);
            
             
             URL url = new URL(urlBuilder.toString());
@@ -29,7 +29,7 @@ public class SearchDetailsApi {
 
             conn.setRequestProperty("Content-type", "application/json"); 
             
-            System.out.println("Response code: " + conn.getResponseCode());
+            // System.out.println("Response code: " + conn.getResponseCode());
             
             BufferedReader rd;
             
@@ -48,10 +48,7 @@ public class SearchDetailsApi {
             rd.close();
             conn.disconnect();
 
-            String asss = InetAddress.getLocalHost().getHostAddress();
-            System.out.println("아이ㅠ피피피피피피피 : " + asss);
-
-            System.out.println(result.toString());
+            // System.out.println(result.toString());
 
         } catch (Exception e) {
             e.printStackTrace();

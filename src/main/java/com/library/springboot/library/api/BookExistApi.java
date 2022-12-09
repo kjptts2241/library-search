@@ -20,7 +20,7 @@ public class BookExistApi {
             urlBuilder.append("&" + URLEncoder.encode("libCode","UTF-8") + "=" + libCode); /*libCode*/
             urlBuilder.append("&" + URLEncoder.encode("isbn13","UTF-8") + "=" + isbn); /*isbn*/
             urlBuilder.append("&" + URLEncoder.encode("format","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*응답유형*/
-            System.out.println(urlBuilder);
+            // System.out.println(urlBuilder);
            
             
             URL url = new URL(urlBuilder.toString());
@@ -29,7 +29,7 @@ public class BookExistApi {
 
             conn.setRequestProperty("Content-type", "application/json"); 
             
-            System.out.println("Response code: " + conn.getResponseCode());
+            // System.out.println("Response code: " + conn.getResponseCode());
             
             BufferedReader rd;
             
@@ -48,7 +48,7 @@ public class BookExistApi {
             rd.close();
             conn.disconnect();
 
-            System.out.println(result.toString());
+            // System.out.println(result.toString());
 
         } catch (Exception e) {
             e.printStackTrace();

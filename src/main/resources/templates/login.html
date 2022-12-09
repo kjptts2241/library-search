@@ -1,77 +1,50 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default_layout}">
 
-<th:block layout:fragment="content">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>로그인</title>
+</head>
+<body>
 
+  <div class="login">
+    <div class="login__content">
 
-    <!-- 로그인 페이지 -->
+      <div class="login__img">
+        <img src="https://image.freepik.com/free-vector/code-typing-concept-illustration_114360-3581.jpg" alt="user login">
+      </div>
 
-    <!-- Cookie가 비어있지 않을 때 checked 속성을 줌 -->
-	<!-- <th:if test="${not empty cookie.user_check}">
-		<th:set value="checked" var="checked"/>
-	</th:if> -->
-    <form method="POST" action="/auth/login">
-        <div class="container">
-            <h2>로그인 페이지</h2>
-            <div class="area_inputs wow fadeIn">
-                <div class="form-group">
-                    <label class="font-weight-bold text-white" for="inputId">아이디</label>
-                    <div>
-                        <input type="text" class="form-control" id="inputId" name="user_id" placeholder="아이디">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
-                    <div>
-                        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="비밀번호">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <span class="font-weight-bold text-white bg-dark" id="spanLoginCheck"></span>
-                </div>
-                <div class="form-group">
-                    <div class="interval_height a_none">
-                        <a href="${pageContext.request.contextPath}/user/userSearch">&nbsp; 아이디 / 비밀번호 찾기</a>
-                    </div>
-                    <div>
-                        <button id="loginBtn" class="btn btn-primary btn-block">로그인</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <a class="btn btn-deep-orange btn-block" href="/auth/register">회원가입</a>
-                </div>
-                <!-- 소셜 로그인 시작 -->
-                <!-- <div class="form-group socialimage" id="kakaoBtn">
-                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/MS/kakaologin&response_type=code">
-                        <img id="socialimage" src="${pageContext.request.contextPath}/images/logo-kakao.png" height="100%"/>
-                    </a>
-                </div>
-                <div class="form-group socialimage" id="naverBtn">
-                    <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=BLxuRdNAKQL9y0hx6ugp&redirect_uri=http://localhost:8080/MS/naverlogin&state=<%= state %>">
-                        <img src="${pageContext.request.contextPath}/images/logo-naver.png" height="100%"/>
-                    </a>
-                </div>
-                <div class="form-group socialimage" id="githubBtn">
-                    <a href="https://github.com/login/oauth/authorize?client_id=ca3c1f71782ed1d5d649&redirect_uri=http://localhost:8080/MS/githublogin">
-                        <img src="${pageContext.request.contextPath}/images/logo-github.png" height="100%"/>
-                    </a>
-                </div>
-                <div class="form-group socialimage" id="githubBtn">
-                    <a href="">
-                        <img src="${pageContext.request.contextPath}/images/logo-facebook.png" height="100%"/>
-                    </a>
-                </div>
-                <div class="form-group socialimage" id="githubBtn">
-                    <a href="">
-                        <img src="${pageContext.request.contextPath}/images/logo-google.png" height="100%"/>
-                    </a>
-                </div> -->
-            </div>
-        </div>
-    </form>
+      <div class="login__forms">
 
+      <!-- login form -->
+        <form method="POST" action="/auth/login" class="login__register" id="login-in" name="loginForm">
+          <h1 class="login__title">로그인</h1>
+          <!-- 아이디 -->
+          <div class="login__box">
+            <input type="text" class="login__input" id="inputId" name="user_id" placeholder="아이디">
+          </div>
+           <!-- 비밀번호 -->
+          <div class="login__box">
+            <input type="password" class="login__input" id="inputPassword" name="password" placeholder="비밀번호">
+          </div>
+          <a href="#" class="login__forgot">&nbsp;비밀번호를 잊으셨나요? </a>
+          <a href="javascript:loginForm.submit();" id="loginBtn" class="login__button--top">로그인</a>
+          <a href="/" id="loginBtn" class="login__button--bottom">돌아가기</a>
+          <div>
+            <span class="login__account login__account--account">계정이 없으신가요?</span>
+            <a href="/auth/register" class="login__signin login__signin--signup">가입하기</a>
+          </div>
+        </form>
 
-    <!-- 로그인 스크립트 -->
-    <!-- <script th:src="@{js/userLogin.js}"></script> -->
-    
-</th:block>
+      </div>
+
+    </div>
+  </div>
+
+</body>
 </html>

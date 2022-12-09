@@ -119,7 +119,7 @@ function search() {
         },
 
         error: function () {
-            console.log("검색 결과 받기 실패");
+            console.log("검색 결과 받기 실패 ㅠㅠ");
         }
     })
     
@@ -133,7 +133,8 @@ function search() {
         bookList += '</div>';
         bookList += '<div class="info-box">';
         bookList += '<p class="title">' + titleInfo[i] + '</p>';
-        bookList += '<p class="con">' + authorInfo[i] + '</p>';
+        bookList += '<p class="con"> 저작자 : ' + authorInfo[i] + '</p>';
+        bookList += '<p class="con"> 발행자 : ' + pubInfo[i] + '</p>';
         bookList += '</div>';
         bookList += '<div class="btn-box">';
         bookList += '<a onclick="book(\''+ titleInfo[i] + '\',\'' + typeName[i] + '\',\'' + placeInfo[i] + '\',\'' + manageName[i] + '\',\'' + authorInfo[i] + '\',\'' + pubInfo[i] + '\',\'' + menuName[i] + '\',\'' + mediaName[i] + '\',\'' + id[i] + '\',\'' + licText[i] + '\',\'' + regDate[i] + '\',\'' + isbn[i] + '\',\'' + callNo[i] + '\',\'' + kdcCode1s[i] + '\',\'' + kdcName1s[i] + '\',\'' + imageUrl[i] + '\')" data-bs-toggle="modal" href="#popup_box_book" title="Button fade purple" class="button btnFade btnLightBlue">도서 정보</a>';
@@ -151,7 +152,6 @@ function search() {
 // 도서 이미지를 가져오기 위한 함수
 function searchDetails(isbn) {
     
-    // var detailList = '';
     var ex_imageUrl = '';
 
     $.ajax({
@@ -187,7 +187,7 @@ function searchDetails(isbn) {
         },
         
         error: function () {
-            console.log("도서 이미지 받기 실패");
+            console.log("도서 이미지 받기 실패 ㅠㅠ");
         }
     })
 
@@ -203,7 +203,7 @@ function library(isbn) {
     // 지역 코드 변수
     // var mapCode = [11, 21, 22, 23, 24, 25, 26, 29, 31, 32, 33, 34, 35, 36, 37, 38, 39];
 
-    // view에 붙여줄 도서관 데이터 변수
+    // 팝업에 들어갈 도서관 데이터
     var libraryList = '';
 
     // for (var i = 0; i < mapCode.length; i++)
@@ -239,13 +239,12 @@ function library(isbn) {
                     libraryList += '<hr>';
                 }
                 
-                //$('#library_header').html(data); // 팝업 헤더에 요약한 해당 도서의 데이터 넣어주기
                 $('#library_body').html(libraryList); // 팝업 바디에 도서관 데이터 넣어주기
 
             },
 
             error: function () {
-                console.log("도서관 데이터 받기 실패");
+                console.log("도서관 데이터 받기 실패 ㅠㅠ");
             }
         })
     // }
@@ -256,17 +255,17 @@ function library(isbn) {
 // [도서 상세내용] 버튼 클릭시 팝업에 출력
 function book(titleInfo, typeName, placeInfo, manageName, authorInfo, pubInfo, menuName, mediaName, id, licText, regDate, isbn, callNo, kdcCode1s, kdcName1s, imageUrl) {
 
-    // view에 붙여줄 도서 데이터 변수
+    // 팝업에 들어갈 도서 데이터
     var bookData = '';
+    // 팝업에 들어갈 도서 저장 버튼
+    var bookSave = '';
 
     bookData += '<img src="' + imageUrl +'" class="book-img">'; // 이미지 URL
     bookData += '<h5>' + titleInfo + '</h5>'; // 도서명
     bookData += '<br>';
     bookData += '<p> 도서 자료 유형 : ' + typeName + '</p>'; // 도서 자료 유형
-    // bookData += '<p> 자료 있는 곳 명칭 : ' + placeInfo + '</p>'; // 자료 있는 곳 명칭
-    // bookData += '<p> 자료 있는 곳 명 : ' + manageName + '</p>'; // 자료 있는 곳 명
     bookData += '<p> 저작자 : ' + authorInfo + '</p>'; // 저작자
-    bookData += '<p> 출판사: ' + pubInfo + '</p>'; // 출판사
+    bookData += '<p> 발행자 : ' + pubInfo + '</p>'; // 발행자
     bookData += '<p> 온라인/오프라인 자료 구분 : ' + menuName + '</p>'; // 온라인/오프라인 자료 구분
     bookData += '<p> 매체 구분 : ' + mediaName + '</p>'; // 매체 구분
     // bookData += '<p> 종키 : ' + id + '</p>'; // 종키
@@ -276,8 +275,46 @@ function book(titleInfo, typeName, placeInfo, manageName, authorInfo, pubInfo, m
     bookData += '<p> 청구기호 : ' + callNo + '</p>'; // 청구기호
     bookData += '<p> 동양서분류기호 대분류 코드 : ' + kdcCode1s + '</p>'; // 동양서분류기호 대분류 코드
     bookData += '<p> 동양서분류기호 대분류 명칭 : ' + kdcName1s + '</p>'; // 동양서분류기호 대분류 명칭
-    bookData += '<hr>';
+
+    bookSave += '<button onclick="bookSave(\''+ titleInfo + '\',\'' + typeName + '\',\'' + authorInfo + '\',\'' + pubInfo + '\',\'' + menuName + '\',\'' + mediaName + '\',\'' + licText + '\',\'' + regDate + '\',\'' + isbn + '\',\'' + callNo + '\',\'' + kdcCode1s + '\',\'' + kdcName1s + '\',\'' + imageUrl + '\')" type="button" class="btn btn-primary">도서 저장</button>';
     
     $('#book_body').html(bookData); // 팝업 바디에 도서 데이터 넣어주기
+    $('#book_save_button').html(bookSave); // 팝업 footer에 도서 저장 버튼 넣어주기
+}
+
+function bookSave(titleInfo, typeName, authorInfo, pubInfo, menuName, mediaName, licText, regDate, isbn, callNo, kdcCode1s, kdcName1s, imageUrl) {
+
+    var data = {
+        titleInfo: titleInfo,
+        typeName: typeName,
+        authorInfo: authorInfo,
+        pubInfo: pubInfo,
+        menuName: menuName,
+        mediaName: mediaName,
+        licText: licText,
+        regDate: int(regDate),
+        isbn: int(isbn),
+        callNo: callNo,
+        kdcCode1s: int(kdcCode1s),
+        kdcName1s: kdcName1s,
+        imageUrl: imageUrl
+    }
+
+    $.ajax({
+
+        type: "post",
+        url: "/user/bookSave",
+        data: data,
+        
+        success: function (data) {
+
+            console.log("도서 데이터 저장 성공!!")
+
+        },
+
+        error: function () {
+            console.log("도서 데이터 저장 실패 ㅠㅠ");
+        }
+    })
 }
 

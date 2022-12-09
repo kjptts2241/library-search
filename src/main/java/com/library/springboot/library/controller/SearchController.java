@@ -26,7 +26,7 @@ public class SearchController {
     public List<LibraryListDto> LibraryList() throws IOException {
          List<LibraryListDto> LibraryListDto = searchService.LibraryList(); // libraryListService에 있는 LibraryListSearch 함수를 실행시켜 LibraryListDto를 보내준다
          return LibraryListDto;
-     }
+    }
 
     /*
      * (제목을 받아서)
