@@ -196,6 +196,7 @@ function searchDetails(isbn) {
     
 }   
 
+
 // 도서관 데이터 들고 오기
 // 해당 도서(isbn)를 가지고 있는 도서관 데이터들을 가져오기 위한 함수
 // 지역 코드 : region=00:11;21;22 서울 부산 대구 순으로 정렬됨
@@ -235,7 +236,7 @@ function library(isbn) {
                     libraryList += '<p> 위도 : ' + libs[j].lib.latitude + '</p>'; // 위도
                     libraryList += '<p> 경도 : ' + libs[j].lib.longitude + '</p>'; // 경도
                     libraryList += '<p> 도서관 코드 : ' + libs[j].lib.libCode + '</p>'; // 도서관 코드
-                    libraryList += '<p> 대출 여부 : 미정</p>'; // 해당 도서의 대출 여부
+                    libraryList += '<p> 도서 소장 및 대출 여부 : ' + booksPossession(isbn, libs[j].lib.libCode) + '</p>'; // 해당 도서의 소장 및 대출 여부
                     libraryList += '<a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-bs-content="Popover body content is set in this attribute.">도서관 검색</a>';
                     libraryList += '<hr>';
                 }
@@ -249,9 +250,34 @@ function library(isbn) {
             }
         })
     // }
-
-    
 }
+
+// [도서 정보 나루] 도서관별 도서 소장여부 및 대출 가능여부 조회
+// 도서별 도서관 소장 및 대출 여부를 가져오기 위한 함수
+function booksPossession(isbn, libCode) {
+
+    $.ajax({
+
+        type: "get",
+        url: "/auth/api/v1/bookExist",
+        data: { isbn: isbn, libCode: libCode },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        
+        success: function (data) {
+
+            console.log(data);
+            console.log(data.result); // 여기서 부터 json에서 나눠서 // y면 가능 x면 불가  어쩌고 만들어놓기
+
+        },
+
+        error: function () {
+            console.log("도서 소장 및 대출 여부 받기 실패 ㅠㅠ");
+        }
+    })
+}
+
 
 // [도서 상세내용] 버튼 클릭시 팝업에 출력
 function book(titleInfo, typeName, placeInfo, manageName, authorInfo, pubInfo, menuName, mediaName, id, licText, regDate, isbn, callNo, kdcCode1s, kdcName1s, imageUrl) {
