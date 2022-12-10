@@ -19,21 +19,21 @@
 
 개발 환경
 
-◼ Framework<br/>
- ⚪ Spring-boot<br/>
-  ◼ Spring-boot 라이브러리<br/>
-   ⚪ thymeleaf<br/>
-   ⚪ jpa<br/>
-   ⚪ jdbc<br/>
-   ⚪ devtools<br/>
-   ⚪ lombok<br/>
-   ⚪ gson<br/>
-   ⚪ security<br/>
-◼ Database<br/>
-   ⚪ MariaDB<br/>
-◼ 언어<br/>
-   ⚪ JAVA<br/>
-   ⚪ html/css<br/>
+⚪ Framework<br/>
+ ◼ Spring-boot<br/>
+  ⚪ Spring-boot 라이브러리<br/>
+   ◼ thymeleaf<br/>
+   ◼ jpa<br/>
+   ◼ jdbc<br/>
+   ◼ devtools<br/>
+   ◼ lombok<br/>
+   ◼ gson<br/>
+   ◼ security<br/>
+⚪ Database<br/>
+   ◼ MariaDB<br/>
+⚪ 언어<br/>
+   ◼ JAVA<br/>
+   ◼ html/css<br/>
 
 주요 기능
 
