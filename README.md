@@ -1,11 +1,20 @@
 # 도서관 검색 웹사이트 프로젝트
 
-프로젝트 소개
+프로젝트 소개<br/><br/>
 
-개발 기간
+<br/><br/>
+
+
+
+개발 기간<br/>
+
 2022.09.28 ~ 2022.12.14
 
-멤버 구성
+<br/><br/>
+
+
+
+멤버 구성<br/>
 
 |이름|역할|기능|
 |:---:|:---:|:---|
@@ -14,7 +23,35 @@
 |서인범|프론트 엔드|메인 페이지, 검색 결과 페이지, 내 서재 페이지|
 |김종율|프론트 엔드|로그인 및 회원가입 페이지|
 
-개발 환경
-Spring-boot
+<br/><br/>
 
-주요 기능
+
+
+개발 환경<br/>
+
+⚪ Framework<br/>
+ ◼ Spring-boot<br/>
+  ⚪ Spring-boot 라이브러리<br/>
+   ◼ thymeleaf<br/>
+   ◼ jpa<br/>
+   ◼ jdbc<br/>
+   ◼ devtools<br/>
+   ◼ lombok<br/>
+   ◼ gson<br/>
+   ◼ security<br/>
+⚪ Database<br/>
+   ◼ MariaDB<br/>
+⚪ 언어<br/>
+   ◼ JAVA<br/>
+   ◼ html/css<br/>
+
+<br/><br/>
+
+주요 기능<br/><br/>
+
+<br/><br/>
+
+
+
+구조도<br/>
+![LibraryClassDiagram drawio](https://user-images.githubusercontent.com/55075836/206845084-2a164f4f-1298-4d99-86e1-796b76836a83.png)
