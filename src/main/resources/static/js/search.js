@@ -292,10 +292,10 @@ function bookSave(titleInfo, typeName, authorInfo, pubInfo, menuName, mediaName,
         menuName: menuName,
         mediaName: mediaName,
         licText: licText,
-        regDate: int(regDate),
-        isbn: int(isbn),
+        regDate: regDate,
+        isbn: isbn,
         callNo: callNo,
-        kdcCode1s: int(kdcCode1s),
+        kdcCode1s: kdcCode1s,
         kdcName1s: kdcName1s,
         imageUrl: imageUrl
     }
@@ -308,12 +308,16 @@ function bookSave(titleInfo, typeName, authorInfo, pubInfo, menuName, mediaName,
         
         success: function (data) {
 
-            console.log("도서 데이터 저장 성공!!")
+            console.log("도서 데이터 저장 성공!!");
+            alert('도서를 저장하였습니다!!');
+            alert('메인 페이지로 이동합니다!!');
+            location.href = "/"; // 메인 페이지로 이동
 
         },
 
         error: function () {
             console.log("도서 데이터 저장 실패 ㅠㅠ");
+            alert('알수 없는 이유로 저장에 실패하였습니다 ㅠㅠ');
         }
     })
 }

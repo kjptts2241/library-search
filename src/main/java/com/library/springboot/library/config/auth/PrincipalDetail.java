@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.library.springboot.library.dao.User;
 
+import lombok.*;
+
+@Getter
 public class PrincipalDetail implements UserDetails {
     
     private User user;

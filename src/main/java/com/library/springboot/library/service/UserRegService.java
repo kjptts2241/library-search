@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.library.springboot.library.dao.RoleType;
 import com.library.springboot.library.dao.repository.UserRepository;
@@ -22,6 +23,7 @@ public class UserRegService {
     /*
     회원가입
      */
+    @Transactional
     public void userReg_service(UserDto userDto) {
 
         // 비밀번호 암호화(sha256)
@@ -37,6 +39,7 @@ public class UserRegService {
     /*
     중복 아이디 체크
      */
+    @Transactional
     public int userIdCheck(String username) {
 
         return userRepository.checkOverId(username);

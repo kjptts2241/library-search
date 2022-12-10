@@ -22,15 +22,16 @@ public class UserBookDto {
     private String menuName; // 온라인/오프라인 자료 구분
     private String mediaName; // 매체 구분
     private String licText; // 저작권 이용 가능 유무
-    private int regDate; // 비치일
-    private int isbn; // isbn
+    private String regDate; // 비치일
+    private String isbn; // isbn
     private String callNo; // 청구기호
-    private int kdcCode1s; // 동양서분류기호 대분류 코드
+    private String kdcCode1s; // 동양서분류기호 대분류 코드
     private String kdcName1s; // 동양서분류기호 대분류 명칭
     private Timestamp create_date; // 생성 날짜
 
     @Builder
-    public UserBookDto(String imageUrl, String titleInfo, String typeName, String authorInfo, String pubInfo, String menuName, String mediaName, String licText, int regDate, int isbn, String callNo, int kdcCode1s, String kdcName1s) {
+    public UserBookDto(User user, String imageUrl, String titleInfo, String typeName, String authorInfo, String pubInfo, String menuName, String mediaName, String licText, String regDate, String isbn, String callNo, String kdcCode1s, String kdcName1s) {
+        this.user = user;
         this.imageUrl = imageUrl;
         this.titleInfo = titleInfo;
         this.typeName = typeName;
@@ -48,6 +49,7 @@ public class UserBookDto {
 
     public UserBook toEntity() {
         return UserBook.builder()
+                .user(user)
                 .imageUrl(imageUrl)
                 .titleInfo(titleInfo)
                 .typeName(typeName)

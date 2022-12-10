@@ -54,16 +54,16 @@ public class UserBook {
     private String licText; // 저작권 이용 가능 유무
     
     @Column(nullable = false, length = 50)
-    private int regDate; // 비치일
+    private String regDate; // 비치일
 
     @Column(nullable = true, length = 50)
-    private int isbn; // isbn
+    private String isbn; // isbn
 
     @Column(nullable = false, length = 50)
     private String callNo; // 청구기호
 
     @Column(nullable = false, length = 50)
-    private int kdcCode1s; // 동양서분류기호 대분류 코드
+    private String kdcCode1s; // 동양서분류기호 대분류 코드
 
     @Column(nullable = false, length = 50)
     private String kdcName1s; // 동양서분류기호 대분류 명칭
@@ -72,7 +72,8 @@ public class UserBook {
     private Timestamp create_date; // 생성 날짜
 
     @Builder
-    public UserBook(String imageUrl, String titleInfo, String typeName, String authorInfo, String pubInfo, String menuName, String mediaName, String licText, int regDate, int isbn, String callNo, int kdcCode1s, String kdcName1s) {
+    public UserBook(User user, String imageUrl, String titleInfo, String typeName, String authorInfo, String pubInfo, String menuName, String mediaName, String licText, String regDate, String isbn, String callNo, String kdcCode1s, String kdcName1s) {
+        this.user = user;
         this.imageUrl = imageUrl;
         this.titleInfo = titleInfo;
         this.typeName = typeName;

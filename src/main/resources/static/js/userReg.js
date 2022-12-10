@@ -229,7 +229,8 @@ $('#user_phone').blur(function(){
 $('#reg_submit').click(function(){
 
     if(inval_Arr[0] == true && inval_Arr[1] == true && inval_Arr[2] == true && inval_Arr[3] == true && inval_Arr[4] == true && inval_Arr[5] == true && inval_Arr[6] == true){ // 유효성 모두 통과
-        alert($("#user_name").val() + ' 님 회원가입에 성공 하셨습니다!');
+        alert($("#user_name").val() + ' 님 회원가입에 성공 하셨습니다!!');
+        alert('로그인 페이지로 이동합니다!!');
         
     } else{
         alert('입력한 정보들을 다시 한번 확인해주세요 :)')
