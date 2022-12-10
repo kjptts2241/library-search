@@ -19,21 +19,21 @@
 
 개발 환경
 
-◼ Framework&nbsp;
-   ⚪ Spring-boot
-      ◼ Spring-boot 라이브러리
-         ⚪ thymeleaf
-         ⚪ jpa
-         ⚪ jdbc
-         ⚪ devtools
-         ⚪ lombok
-         ⚪ gson
-         ⚪ security
+◼ Framework
+   &nbsp;⚪ Spring-boot
+      &nbsp;&nbsp;◼ Spring-boot 라이브러리
+         &nbsp;&nbsp;&nbsp;⚪ thymeleaf
+         &nbsp;&nbsp;&nbsp;⚪ jpa
+         &nbsp;&nbsp;&nbsp;⚪ jdbc
+         &nbsp;&nbsp;&nbsp;⚪ devtools
+         &nbsp;&nbsp;&nbsp;⚪ lombok
+         &nbsp;&nbsp;&nbsp;⚪ gson
+         &nbsp;&nbsp;&nbsp;⚪ security
 ◼ Database
-   ⚪ MariaDB
+   &nbsp;⚪ MariaDB
 ◼ 언어
-   ⚪ JAVA
-   ⚪ html/css
+   &nbsp;⚪ JAVA
+   &nbsp;⚪ html/css
 
 주요 기능
 
