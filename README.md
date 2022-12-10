@@ -18,3 +18,6 @@
 Spring-boot
 
 주요 기능
+
+구조도
+![LibraryClassDiagram drawio](https://user-images.githubusercontent.com/55075836/206845084-2a164f4f-1298-4d99-86e1-796b76836a83.png)
