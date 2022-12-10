@@ -2,7 +2,10 @@
 
 프로젝트 소개
 
+
+
 개발 기간
+
 2022.09.28 ~ 2022.12.14
 
 멤버 구성
@@ -15,9 +18,26 @@
 |김종율|프론트 엔드|로그인 및 회원가입 페이지|
 
 개발 환경
-Spring-boot
+
+◼ Framework
+   ⚪ Spring-boot
+      ◼ Spring-boot 라이브러리
+         ⚪ thymeleaf
+         ⚪ jpa
+         ⚪ jdbc
+         ⚪ devtools
+         ⚪ lombok
+         ⚪ gson
+         ⚪ security
+◼ Database
+   ⚪ MariaDB
+◼ 언어
+   ⚪ JAVA
+   ⚪ html/css
 
 주요 기능
+
+
 
 구조도
 ![LibraryClassDiagram drawio](https://user-images.githubusercontent.com/55075836/206845084-2a164f4f-1298-4d99-86e1-796b76836a83.png)
