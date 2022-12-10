@@ -1,36 +1,41 @@
-<!DOCTYPE html>
-<html lang="KO">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>구글 맵스</title>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default_layout}">
+
+<th:block layout:fragment="content">
 
 
-  
-  <script defer src="js/Maps.js"></script>
-  <script async src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyBlicM3V_f4XSO1pigZn06BArR8RJCEv7U&callback=initMap"></script> 
-  <!-- 주마다 맵을 업데이트 시켜줌 -->
-  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlicM3V_f4XSO1pigZn06BArR8RJCEv7U&region=KO&callback=initMap"></script>
-  <!-- Map.js에 있는 맵을 넣고 지도를 현지화 시킴 -->
-  
-</head>
-<body>
+    <!-- <base href="/" /> -->
+    <body>
+        <header>
+            <nav class="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3 navbar navbar-light">
+                <div class="container">
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <div class="map_wrap">
+                <div id="map" style="width:100%; height:950px;"></div>
+                <div id="menu_wrap" class="bg_white">
+                    <div class="option">
+                        <div>
+                            <form onsubmit="searchPlaces(); return false;">
+                                키워드 : <input type="text" value="부산 도서관" id="keyword" size="15">
+                                <button type="submit">검색하기</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
+                    <ul id="placesList"></ul>
+                    <div id="pagination"></div>
+                </div>
+            </div>
+        </div>
 
-  <div id="map" style="height: 950px;"></div> <!-- 구글 지도 받아올 곳 -->
-  <div id="pano" style="height: 950px;"></div> <!-- 구글 지도 받아올 곳 -->
-  <div>
-    <strong>Mode of Travel: </strong>
-      <select id="mode" onchange="calcRoute();">
-        <option value="DRIVING">Driving</option>
-        <option value="WALKING">Walking</option>
-        <option value="BICYCLING">Bicycling</option>
-        <option value="TRANSIT">Transit</option>
-      </select>
-    </div>
-  <input id="address" type="textbox" value="Sydney, NSW">
-     <input type="button" value="Encode" onclick="codeAddress()">
-  
-</body>
+        <script src="/js/kakaomap.js"></script>
+        <script>
+            hljs.initHighlightingOnLoad();
+        </script>
+    </body>
+
+
+</th:block>
 </html>
-
