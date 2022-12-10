@@ -20,7 +20,7 @@
 개발 환경
 
 ◼ Framework<br/>
-   &nbsp;⚪ Spring-boot<br/>
+     ⚪ Spring-boot<br/>
       &nbsp;&nbsp;◼ Spring-boot 라이브러리<br/>
          &nbsp;&nbsp;&nbsp;⚪ thymeleaf<br/>
          &nbsp;&nbsp;&nbsp;⚪ jpa<br/>
