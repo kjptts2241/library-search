@@ -2,9 +2,11 @@ package com.library.springboot.library.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.library.springboot.library.config.auth.PrincipalDetail;
+import com.library.springboot.library.service.UserBookService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -12,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class IndexController { // 페이지 경로 지정 [ Controller ]
+
+    private final UserBookService userBookService;
 
     /*
      * 메인 검색 페이지
@@ -57,8 +61,11 @@ public class IndexController { // 페이지 경로 지정 [ Controller ]
     /*
      * 내서 서제 페이지
      */
-    @GetMapping("/user/mybook")
-    public String mybookView() {
-        return "mybook";
+    @GetMapping("/user/userbook")
+    public String mybookView(Model model, @AuthenticationPrincipal PrincipalDetail principal) { // 세션의 저장된 유저 정보 토대로 도서 리스트를 찾기에 PrincipalDetail의 User정보를 들고온다
+        
+        model.addAttribute("userBookList", userBookService.UserBookList(principal.getUser()));
+        
+        return "userbook";
     }
 }

@@ -23,7 +23,7 @@
                 <li><a class="drop-in-underline" href="/auth/subsearch">검색</a></li>
                 <li><a class="drop-in-underline" href="/auth/map">지도</a></li>
                 <li sec:authorize="isAnonymous()"><a class="drop-in-underline" href="/auth/login">로그인</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/user/mybook">내 서재</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/user/userbook">내 서재</a></li>
                 <li sec:authorize="isAuthenticated()"><a class="drop-in-underline" href="/logout">로그아웃</a></li>
             </ul>
         </nav>
@@ -49,6 +49,7 @@
 
         location.href="/auth/subsearch"; // 페이지 이동
         localStorage.setItem('mainKeyword', mainKeyword); // 값 전달
+        $("#mainKeyword").val(''); // 검색 후 input창 초기화
       }
 
       // 클릭 하였을 때

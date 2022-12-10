@@ -25,7 +25,9 @@
 
 .bookimg{
     height: 100%;
+    width: 82%;
     border-radius: 4%;
+    object-fit: fill;
 }
 
 .my-book-img{
@@ -36,6 +38,8 @@
     flex: 1;
     padding-top: 7px;
     padding-left: 4px;
+    padding-right: 3.5%;
+    word-break: break-all;
 }
 
 .my-title{

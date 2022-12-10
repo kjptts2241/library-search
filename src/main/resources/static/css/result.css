@@ -111,8 +111,10 @@ body{
 }
 
 .book-img{
+    height: 95%;
     width: 97%;
     margin: 3%;
+    border-radius: 4%;
 }
 
 .box-container{
@@ -209,6 +211,12 @@ a.button {
   position: center;
   margin-top: 10px;
 }
+
+.btnRed {
+    background: #ff4848;
+    position: center;
+    margin-top: 10px;
+  }
 
 .btnFade.btnLightBlue:hover {
   background: #0D73CE;

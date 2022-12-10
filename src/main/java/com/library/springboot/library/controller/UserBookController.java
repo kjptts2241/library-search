@@ -20,10 +20,10 @@ public class UserBookController {
     private final UserBookService userBookService;
 
     /*
-     * 도서 저장
+     * 내 서재 저장
      */
     @PostMapping("/user/bookSave")
-    public void UserBookSave(UserBookDto userBookDto, @AuthenticationPrincipal PrincipalDetail principal) { // 추가로 세션의 유저 정보 가져오기
+    public void UserBookSave(UserBookDto userBookDto, @AuthenticationPrincipal PrincipalDetail principal) { // 세션에 저장된 유저 정보도 저장하기에 PrincipalDetail의 User정보를 들고온다
         
         userBookService.UserBookSave(userBookDto, principal.getUser());
     }

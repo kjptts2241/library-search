@@ -18,10 +18,11 @@ $(document).ready(function (){ // 페이지 들어왔을 때 실행
 })
 
 
-// 엔터키 눌렀을 때
+// 엔터키 눌렀을 때 search() 실행
 function enterkey() {
     if (window.event.keyCode == 13) {
         search();
+        $("#keyword").val(''); // 검색 후 input창 초기화
       }
 }
 
@@ -171,7 +172,7 @@ function searchDetails(isbn) {
 
                 for (z in detail) { // z
                     
-                    if (detail[z].book.bookImageURL != ' ') // 가져온 이미지 url이 있다면
+                    if (detail[z].book.bookImageURL != '') // 가져온 이미지 url이 있다면
                     {
                         ex_imageUrl = detail[z].book.bookImageURL;
                         return;
