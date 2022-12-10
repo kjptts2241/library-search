@@ -226,6 +226,7 @@ $('#user_phone').blur(function(){
     }
 });
 
+// 가입 버튼 클릭 시
 $('#reg_submit').click(function(){
 
     if(inval_Arr[0] == true && inval_Arr[1] == true && inval_Arr[2] == true && inval_Arr[3] == true && inval_Arr[4] == true && inval_Arr[5] == true && inval_Arr[6] == true){ // 유효성 모두 통과

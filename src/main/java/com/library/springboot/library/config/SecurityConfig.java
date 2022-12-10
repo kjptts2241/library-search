@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.library.springboot.library.config.auth.PrincipalDetailService;
 
@@ -21,6 +22,9 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     private final PrincipalDetailService principalDetailService;
+
+    /* 로그인 실패 핸들러 */
+    private final AuthenticationFailureHandler customFailureHandler;
 
     // 암호화 IOC 등록
     @Bean
@@ -44,9 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/auth/login") // 로그인 페이지 지정
-                    .loginProcessingUrl("/auth/login") // 로그인 요청을 해당 url로 대체한다
+                    .loginProcessingUrl("/auth/loginProc") // 로그인 요청을 해당 url로 대체한다
+                    .failureHandler(customFailureHandler) // 로그인 실패 핸들러
                     .defaultSuccessUrl("/") // 로그인을 하면 메인으로 간다
-                    .failureUrl("/auth/login") // 로그인을 실패하면 로그인 페이지로 간다
+                    // .failureUrl("/auth/login") // 로그인을 실패하면 로그인 페이지로 간다
                     .usernameParameter("user_id"); // 아이디 변수 default 값 username -> user_id 로 변경
                     
     }

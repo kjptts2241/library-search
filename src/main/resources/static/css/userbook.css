@@ -25,7 +25,7 @@
 
 .bookimg{
     height: 100%;
-    width: 82%;
+    width: 189px;
     border-radius: 4%;
     object-fit: fill;
 }
@@ -45,6 +45,7 @@
 .my-title{
     font-size: 1.7vh;
     margin: 0px;
+    font-weight: bold;
 }
 
 .ex{

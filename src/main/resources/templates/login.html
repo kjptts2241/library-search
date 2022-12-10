@@ -22,7 +22,7 @@
       <div class="login__forms">
 
       <!-- login form -->
-        <form method="POST" action="/auth/login" class="login__register" id="login-in" name="loginForm">
+        <form method="POST" action="/auth/loginProc" class="login__register" id="login-in" name="loginProc">
           <h1 class="login__title">로그인</h1>
           <!-- 아이디 -->
           <div class="login__box">
@@ -32,8 +32,12 @@
           <div class="login__box">
             <input type="password" class="login__input" id="inputPassword" name="password" placeholder="비밀번호">
           </div>
+          <!-- 로그인 실패 문구 -->
+          <div th:if="error">
+            <p id="valid" class="login__fail"><a th:text="${exception}"></a></p>
+         </div>
           <!-- <a href="#" class="login__forgot">&nbsp;비밀번호를 잊으셨나요? </a> -->
-          <a href="javascript:loginForm.submit();" id="loginBtn" class="login__button--top">로그인</a>
+          <a href="javascript:loginProc.submit();" id="loginBtn" class="login__button--top">로그인</a>
           <a href="/" id="loginBtn" class="login__button--bottom">돌아가기</a>
           <div>
             <span class="login__account login__account--account">계정이 없으신가요?</span>

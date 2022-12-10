@@ -110,6 +110,12 @@ img {
   width: 100%;
 }
 
+.login__fail {
+  margin-top: 0.6rem;
+  color: red;
+  font-size:0.938rem;
+}
+
 .login__input::placeholder {
   font-size: 0.938rem;
   font-family: "Open Sans", sans-serif;

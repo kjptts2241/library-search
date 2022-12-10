@@ -4,6 +4,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.springboot.library.config.auth.PrincipalDetail;
 import com.library.springboot.library.service.UserBookService;
@@ -38,7 +39,14 @@ public class IndexController { // 페이지 경로 지정 [ Controller ]
      * 로그인 페이지
      */
     @GetMapping("/auth/login")
-    public String loginView() {
+    public String loginView(@RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "exception", required = false) String exception,
+                            Model model) {
+        
+        /* 에러와 예외를 모델에 담아 view resolve */
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);
+
         return "login";
     }
 
