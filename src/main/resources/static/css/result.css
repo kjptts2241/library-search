@@ -102,6 +102,11 @@ body{
     outline: none;
 }
 
+.popup-title{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
 .result-box{
     position: absolute;
     top: 27%;
@@ -225,4 +230,12 @@ a.button {
 
 .btnFade.btnPurple:hover {
   background: #1A395E;
+}
+
+span.possible {
+    color: rgb(0, 255, 17);
+}
+
+span.impossible {
+    color: #f00;
 }

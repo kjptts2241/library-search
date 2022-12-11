@@ -153,6 +153,7 @@ function search() {
 // 도서 이미지를 가져오기 위한 함수
 function searchDetails(isbn) {
     
+    // 도서 이미지
     var ex_imageUrl = '';
 
     $.ajax({
@@ -172,16 +173,10 @@ function searchDetails(isbn) {
 
                 for (z in detail) { // z
                     
-                    if (detail[z].book.bookImageURL != '') // 가져온 이미지 url이 있다면
-                    {
+                    if (detail[z].book.bookImageURL != '') { // 가져온 이미지 url이 있다면
                         ex_imageUrl = detail[z].book.bookImageURL;
-                        return;
-                    }
-
-                    if (detail[z].book.bookImageURL == '') // 없다면
-                    {
+                    } else if (detail[z].book.bookImageURL == '') { // 없다면
                         ex_imageUrl = '/images/book.png';
-                        return;
                     }
                 }
             }
@@ -225,7 +220,7 @@ function library(isbn) {
 
                 for (j in libs)
                 {
-                    libraryList += '<h5>' + libs[j].lib.libName + '</h5>'; // 도서관명
+                    libraryList += '<div class="popup-title">' + libs[j].lib.libName + '</div>'; // 도서관명
                     libraryList += '<br>';
                     libraryList += '<p> 도서관 주소 : ' + libs[j].lib.address + '</p>'; // 도서관 주소
                     libraryList += '<p> 전화번호 : ' + libs[j].lib.tel + '</p>'; // 전화번호
@@ -236,8 +231,9 @@ function library(isbn) {
                     libraryList += '<p> 위도 : ' + libs[j].lib.latitude + '</p>'; // 위도
                     libraryList += '<p> 경도 : ' + libs[j].lib.longitude + '</p>'; // 경도
                     libraryList += '<p> 도서관 코드 : ' + libs[j].lib.libCode + '</p>'; // 도서관 코드
-                    libraryList += '<p> 도서 소장 및 대출 여부 : ' + booksPossession(isbn, libs[j].lib.libCode) + '</p>'; // 해당 도서의 소장 및 대출 여부
-                    libraryList += '<a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-bs-content="Popover body content is set in this attribute.">도서관 검색</a>';
+                    libraryList += '<p> 도서 소장 여부 : ' + booksHasBook(isbn, libs[j].lib.libCode) + '</p>'; // 해당 도서의 여부
+                    libraryList += '<p> 도서 대출 여부 : ' + booksLoanAvailable(isbn, libs[j].lib.libCode) + '</p>'; // 해당 도서의 여부
+                    libraryList += '<a href="/auth/map" role="button" class="btn btn-secondary popover-test" title="Popover title" data-bs-content="Popover body content is set in this attribute.">도서관 검색</a>';
                     libraryList += '<hr>';
                 }
                 
@@ -253,8 +249,11 @@ function library(isbn) {
 }
 
 // [도서 정보 나루] 도서관별 도서 소장여부 및 대출 가능여부 조회
-// 도서별 도서관 소장 및 대출 여부를 가져오기 위한 함수
-function booksPossession(isbn, libCode) {
+// 도서 소장 여부를 가져오긴 위한 함수
+function booksHasBook(isbn, libCode) {
+
+    // 도서 소장 여부
+    var ex_hasBook = '';
 
     $.ajax({
 
@@ -267,15 +266,61 @@ function booksPossession(isbn, libCode) {
         
         success: function (data) {
 
-            console.log(data);
-            console.log(data.result); // 여기서 부터 json에서 나눠서 // y면 가능 x면 불가  어쩌고 만들어놓기
+            for (i in data)
+            {
+                if (data[i].result.hasBook == "Y") { // 도서를 소장중이면 "소장중"
+                    ex_hasBook = '<span class="possible">소장중</span>';
+                } else if (data[i].result.hasBook == "N") { // 아니면 "없음"
+                    ex_hasBook = '<span class="impossible">없음</span>';
+                }
+            }       
 
         },
 
         error: function () {
-            console.log("도서 소장 및 대출 여부 받기 실패 ㅠㅠ");
+            console.log("도서 소장 여부 받기 실패 ㅠㅠ");
         }
     })
+
+    return ex_hasBook;
+}
+
+
+// [도서 정보 나루] 도서관별 도서 소장여부 및 대출 가능여부 조회
+// 도서 대출 여부를 가져오긴 위한 함수
+function booksLoanAvailable(isbn, libCode) {
+
+    // 도서 대출 여부
+    var ex_loanAvailable = '';
+
+    $.ajax({
+
+        type: "get",
+        url: "/auth/api/v1/bookExist",
+        data: { isbn: isbn, libCode: libCode },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        
+        success: function (data) {
+
+            for (i in data)
+            {
+                if (data[i].result.hasBook == "Y") { // 도서가 대출이 가능하면 "가능"
+                    ex_loanAvailable = '<span class="possible">대출 가능</span>';
+                } else if (data[i].result.hasBook == "N") { // 아니면 "불가"
+                    ex_loanAvailable = '<span class="impossible">대출 불가</span>';
+                }
+            }       
+
+        },
+
+        error: function () {
+            console.log("도서 대출 여부 받기 실패 ㅠㅠ");
+        }
+    })
+
+    return ex_loanAvailable;
 }
 
 
@@ -288,7 +333,7 @@ function book(titleInfo, typeName, placeInfo, manageName, authorInfo, pubInfo, m
     var bookSave = '';
 
     bookData += '<img src="' + imageUrl +'" class="book-img">'; // 이미지 URL
-    bookData += '<h5>' + titleInfo + '</h5>'; // 도서명
+    bookData += '<div class="popup-title">' + titleInfo + '</div>'; // 도서명
     bookData += '<br>';
     bookData += '<p> 도서 자료 유형 : ' + typeName + '</p>'; // 도서 자료 유형
     bookData += '<p> 저작자 : ' + authorInfo + '</p>'; // 저작자

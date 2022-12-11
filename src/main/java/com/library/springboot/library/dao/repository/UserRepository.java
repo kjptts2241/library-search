@@ -12,9 +12,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /*
      * 중복 아이디 체크
      */
-    @Query(value = "SELECT COUNT(*) FROM `user` WHERE user_id = ?", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM `User` WHERE user_id = ?", nativeQuery = true)
     public int checkOverId(String user_id);
 
-    @Query(value = "SELECT * FROM `user` WHERE user_id = ?", nativeQuery = true)
+    @Query(value = "SELECT * FROM `User` WHERE user_id = ?", nativeQuery = true)
     Optional<User> loginUser(String user_id);
 }

@@ -12,6 +12,6 @@ public interface UserBookRepository extends JpaRepository<UserBook, Long> {
     /*
      * 내 서재 리스트 조회
      */
-    @Query(value = "SELECT * FROM `userbook` WHERE user_id = ?", nativeQuery = true)
+    @Query(value = "SELECT * FROM `UserBook` WHERE user_id = ?", nativeQuery = true)
     public List<UserBook> UserBookSearch(Long user_id);
 }
