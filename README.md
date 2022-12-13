@@ -58,7 +58,7 @@ API를 활용하여 도서의 정보를 검색할 수 있으며 해당 도서를
 <br/>
 
 
-구조도<br/>
+프로젝트 구조도<br/>
 
 ![LibraryClassDiagram drawio](https://user-images.githubusercontent.com/55075836/207318247-dc9f0e3e-323d-46b9-9a15-6757cfc95519.png)
 
