@@ -1,14 +1,16 @@
+    /* 맵 전체 */
     .map_wrap * {
         margin: 0;
         padding: 0;
-        font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+        font-family: 'PuradakGentleGothicR';
         font-size: 10px;
+        color: #000;
     }
 
+    /* map a태그및 기타 */
     .map_wrap a,
     .map_wrap a:hover,
     .map_wrap a:active {
-        color: #000;
         text-decoration: none;
     }
 
@@ -18,6 +20,7 @@
         height: 350px;
     }
 
+    /* 맵안에 검색창 */
     #menu_wrap {
         position: absolute;
         top: 0;
@@ -25,12 +28,13 @@
         bottom: 0;
         width: 300px;
         margin: 10px 0 30px 10px;
-        padding: 5px;
-        overflow-y: auto;
-        background: rgba(255, 255, 255, 0.7);
+        padding: 15px;
+        overflow-y: scroll;
+        background: #cae1f2;
+        opacity: 0.8;
         z-index: 1;
         font-size: 10px;
-        border-radius: 10px;
+        border-radius: 15px;
     }
 
     .bg_white {
@@ -41,7 +45,7 @@
         display: block;
         height: 1px;
         border: 0;
-        border-top: 2px solid #5F5F5F;
+        border-top: 2px solid #000();
         margin: 3px 0;
     }
 
@@ -55,23 +59,30 @@
 
     #menu_wrap .option button {
         margin-left: 5px;
+        padding: 0.3em 0.85em;
+        margin: 0.5em;
+        border: 3px solid #2a242f;
+        border-radius: 2em;
+        transition: transform 0.2s;
+        transition-timing-function: cubic-bezier(0.45, -0.85, 0.55, 0.45);
     }
 
+    /* 검색 결과 목록 */
     #placesList li {
         list-style: none;
     }
 
     #placesList .item {
         position: relative;
-        border-bottom: 1px solid #888;
+        border-bottom: 1px solid #fff;
         overflow: hidden;
         cursor: pointer;
-        min-height: 65px;
+        min-height: 80px;
     }
 
     #placesList .item span {
         display: block;
-        margin-top: 4px;
+        margin-top: 3px;
     }
 
     #placesList .item h5,
@@ -82,7 +93,8 @@
     }
 
     #placesList .item .info {
-        padding: 10px 0 10px 55px;
+        padding: 10px 0 10px 30px;
+        
     }
 
     #placesList .info .gray {
@@ -92,31 +104,34 @@
     #placesList .info .jibun {
         padding-left: 26px;
         background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;
+        color: #000;
     }
 
     #placesList .info .tel {
-        color: #009900;
+        color: #000;
     }
 
     #placesList .item .markerbg {
         float: left;
-        position: absolute;
-        width: 36px;
-        height: 37px;
+        position: relative;
+        width: 48px;
+        height: 48px;
         margin: 10px 0 0 10px;
-        background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;
+        background: url(/images/book_icon.png);
+        /* background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat; */
     }
 
+    /* 검색 목록에서 나오는 마커 */
     #placesList .item .marker_1 {
-        background-position: 0 -10px;
+        background-position: 0 -3px;
     }
 
     #placesList .item .marker_2 {
-        background-position: 0 -56px;
+        background-position: 0 -48px;
     }
 
     #placesList .item .marker_3 {
-        background-position: 0 -102px
+        background-position: 0 -90px
     }
 
     #placesList .item .marker_4 {
@@ -144,29 +159,30 @@
     }
 
     #placesList .item .marker_10 {
-        background-position: 0 -423px;
+        background-position: 0 -426px;
     }
 
     #placesList .item .marker_11 {
-        background-position: 0 -470px;
+        background-position: 0 -475px;
     }
 
     #placesList .item .marker_12 {
-        background-position: 0 -516px;
+        background-position: 0 -522px;
     }
 
     #placesList .item .marker_13 {
-        background-position: 0 -562px;
+        background-position: 0 -570px;
     }
 
     #placesList .item .marker_14 {
-        background-position: 0 -608px;
+        background-position: 0 -620px;
     }
 
     #placesList .item .marker_15 {
-        background-position: 0 -654px;
+        background-position: 0 -670px;
     }
-
+    
+    /* 페이지 번호 */
     #pagination {
         margin: 10px auto;
         text-align: center;
@@ -180,5 +196,12 @@
     #pagination .on {
         font-weight: bold;
         cursor: default;
-        color: #777;
+        color: #000;
+    }
+
+    @font-face {
+        font-family: 'PuradakGentleGothicR';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
     }

@@ -110,7 +110,7 @@ function search() {
                 kdcName1s.push(result[i].kdcName1s); // 동양서분류기호 대분류 명칭
                 if (result[i].isbn == '') // isbn안에 아무것도 없다면
                 {
-                    imageUrl.push('/images/book.png'); // 임의의 이미지를 넣어준다
+                    imageUrl.push('/images/Logo.png'); // 임의의 이미지를 넣어준다
                 }
                 if (result[i].isbn != '') // isbn안에 값이 있다면
                 {
@@ -176,7 +176,7 @@ function searchDetails(isbn) {
                     if (detail[z].book.bookImageURL != '') { // 가져온 이미지 url이 있다면
                         ex_imageUrl = detail[z].book.bookImageURL;
                     } else if (detail[z].book.bookImageURL == '') { // 없다면
-                        ex_imageUrl = '/images/book.png';
+                        ex_imageUrl = '/images/Logo.png';
                     }
                 }
             }
@@ -233,7 +233,6 @@ function library(isbn) {
                     libraryList += '<p> 도서관 코드 : ' + libs[j].lib.libCode + '</p>'; // 도서관 코드
                     libraryList += '<p> 도서 소장 여부 : ' + booksHasBook(isbn, libs[j].lib.libCode) + '</p>'; // 해당 도서의 여부
                     libraryList += '<p> 도서 대출 여부 : ' + booksLoanAvailable(isbn, libs[j].lib.libCode) + '</p>'; // 해당 도서의 여부
-                    libraryList += '<a href="/auth/map" role="button" class="btn btn-secondary popover-test" title="Popover title" data-bs-content="Popover body content is set in this attribute.">도서관 검색</a>';
                     libraryList += '<hr>';
                 }
                 
