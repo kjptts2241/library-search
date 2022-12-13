@@ -40,10 +40,10 @@ API를 활용하여 도서의 정보를 검색할 수 있으며 해당 도서를
    - gson<br/>
    - security<br/>
 ⚪ Database<br/>
-  - MariaDB<br/>
+ - MariaDB<br/>
 ⚪ 언어<br/>
-  - JAVA<br/>
-  - html/css<br/>
+ - JAVA<br/>
+ - html/css<br/>
 
 <br/>
 
