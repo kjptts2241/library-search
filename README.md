@@ -1,6 +1,6 @@
 # 도서관 검색 웹사이트 프로젝트
 
-프로젝트 소개<br/><br/>
+프로젝트 소개<br/>
 
 
 
@@ -49,7 +49,7 @@
 
 <br/><br/>
 
-주요 기능<br/><br/>
+주요 기능<br/>
 
 API를 활용한 도서 및 도서관 기능, 도서관 카카오 지도, 로그인과 회원가입, 내 서재
 
@@ -57,7 +57,7 @@ API를 활용한 도서 및 도서관 기능, 도서관 카카오 지도, 로그
 
 
 
-구조도<br/><br/>
+구조도<br/>
 
 ![LibraryClassDiagram drawio](https://user-images.githubusercontent.com/55075836/207318247-dc9f0e3e-323d-46b9-9a15-6757cfc95519.png)
 
