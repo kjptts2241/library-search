@@ -26,28 +26,6 @@ API를 활용하여 도서의 정보를 검색할 수 있으며 해당 도서를
 
 <br/>
 
-
-개발 환경<br/>
-
-⚪ Framework<br/>
- - Spring-boot<br/>
-  ⚪ Spring-boot 라이브러리<br/>
-   - thymeleaf<br/>
-   - jpa<br/>
-   - jdbc<br/>
-   - devtools<br/>
-   - lombok<br/>
-   - gson<br/>
-   - security<br/>
-⚪ Database<br/>
- - MariaDB<br/>
-⚪ 언어<br/>
- - JAVA<br/>
- - html/css<br/>
-
-<br/>
-
-
 주요 기능<br/>
 
 - API를 활용한 도서 및 도서관 기능
