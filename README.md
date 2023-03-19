@@ -34,5 +34,5 @@
 
 <br>
 
-## 프로젝트 화면
+## 프로젝트
 ![도서관 검색 이미지](https://user-images.githubusercontent.com/55075836/226169084-f2d67aba-76e6-4d93-a0f4-68fb5a857a0c.PNG)
